@@ -1,0 +1,102 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8">
+		<h4 class="productTitle"> Store: <span style="font-weight:300;margin-right:15px;"><%= @log.register.store.name %></span> Register: <span style="font-weight:300;"><%= @log.register.name %></span></h4>
+	</div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/edit_register/<%= @log.register.id %>" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Register</a>
+		</div>
+	</div>
+</div>
+
+
+<table class="table top-buffer" cellspacing="1" cellpadding="0">
+	<tr>
+		<th>Type</th>
+		<th>Amount (cash)</th>
+		<th>Amount (non cash)</th>
+		<th>Employee</th>
+		<th>Order ID</th>
+		<th>Date/Time ( <%= (Time.now.in_time_zone(Time.zone)).strftime("%Z") %> )</th>
+		<th>Till</th>
+	</tr>
+	<tr>
+		<td colspan="7" class="opening-till text-center">
+			This register was opened with a starting till of: <%= number_to_currency @log.opening_amount %> on <%= @log.opened_at.strftime('%b %d, %Y %I:%M %P') %> by <%= @log.opening_employee %>
+		</td>
+	</tr>
+	<% @log.register_log_transactions.group_by(&:parent_id).each do |parent_id, trans| %>
+		<!-- Standard Sale -->
+		<% if [0,1].include?(trans[0].transaction_type) %>
+			<tr id="transaction-<%= parent_id %>" onclick="showentries('<%= parent_id %>')" class="register-log-trans-wrapper">
+				<td><%= trans[0].transaction_type_human %></td>
+				<td><%= number_to_currency trans.select{|t| t.payment_type == 'cash'}.to_a.sum(&:amount) %></td>
+				<td><%= number_to_currency trans.select{|t| t.payment_type != 'cash' && t.payment_type != 'change'}.to_a.sum(&:amount) %></td>
+				<td><%= trans[0].employee_name %></td>
+				<td><a href="/admin/<%= ['sale','return'][trans[0].transaction_type] %>/<%= parent_id %>"><%= parent_id %></td>
+				<td><%= trans[0].created_at.strftime("%b %d, %Y  %I:%M %p") unless !trans[0].created_at %></td>
+				<td><%= number_to_currency trans.last.new_till %></td>
+			</tr>
+			<!-- Hidden Transaction Detail -->
+			<tr class="till-expand" id="entries-<%= parent_id %>">
+				<td colspan="7">
+					<table class="table" style="font-size:12px;">
+						<tr>
+							<th>Amount</th>
+							<th>Payment Type</th>
+							<th>Payment ID</th>
+							<th>Till</th>
+						</tr>
+						<% for t in trans %>
+						<tr>
+							<td><%= number_to_currency t.amount %></td>
+							<td><%= t.payment_type %></td>
+							<td><%= t.payment_id %></td>
+							<td><%= number_to_currency t.new_till %></td>
+						</tr>
+						<% end %>
+					</table>
+				</td>
+			</tr>
+		<% else %>
+			<!-- Standard Sale -->
+			<tr style="background-color:#<%= ['','','dffede','fee5e5','fdfde1','','',''][trans[0].transaction_type] %>;color:#000;" id="<%= parent_id %>" onclick="showLogEntries('#entry_<%= parent_id %>')">
+				<td colspan="6">
+					<%= trans[0].employee_name %> has
+					<%= ['','','added','removed','verified a till of','','',''][trans[0].transaction_type] %>
+					<%= number_to_currency trans[0].amount %>
+				</td>
+				<td><%= number_to_currency trans.last.new_till %></td>
+			</tr>
+		<% end %>
+	<% end %>
+	<!-- Closed Till -->
+	<% if @log.status == 0 %>
+		<tr>
+			<td colspan="7" class="text-center">
+				This register was closed with an ending till of: <%= number_to_currency @log.closing_amount %> on <%= @log.closed_at.strftime('%b %d, %Y %I:%M %P') %> by <%= @log.closing_employee %>
+			</td>
+		</tr>
+	<% end %>
+	
+	
+</table>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+	
+	function showentries(id){
+		if( $('#entries-'+id).is(":visible") ){
+			$('#transaction-'+id).removeClass('active');
+			$('#entries-'+id).removeClass('active');
+		}else{
+			$('.register-log-trans-wrapper').removeClass('active');
+			$('.till-expand').removeClass('active');
+			$('#transaction-'+id).addClass('active');
+			$('#entries-'+id).addClass('active');
+		}
+	}
+	
+</script>

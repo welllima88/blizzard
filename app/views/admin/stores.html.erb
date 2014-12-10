@@ -1,0 +1,33 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Stores</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/add_store/" class="btn btn-primary">Add Store</a>
+		</div>
+	</div>
+</div>
+<table class="table">
+	<tr>
+		<th>Name</td>
+		<th class="text-center hidden-xs">Address</td>
+		<th class="text-center hidden-xs">City</td>
+		<th class="text-center">State</td>
+		<th class="text-center hidden-xs">Zip</td>
+		<th class="text-center">Phone</td>
+		<th></td>
+	</tr>
+	<% for s in @stores %>
+		<tr class="<%= cycle('oddrow', 'evenrow') %>">
+			<td class="row"><%= s.name %></td>
+			<td width="150" class="text-center hidden-xs"><%= s.address %></td>
+			<td width="150" class="text-center hidden-xs"><%= s.city %></td>
+			<td width="150" class="text-center"><%= s.state %></td>
+			<td class="text-center hidden-xs"><%= s.zip %></td>
+			<td class="text-center"><%= number_to_phone s.phone -%></td>
+			<td width="120" class="text-center"><a href="/admin/store/<%= s.id %>" class="btn">Details</a></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td colspan="7" class="paginate"><%= will_paginate @stores %></td>
+	</tr>
+</table>

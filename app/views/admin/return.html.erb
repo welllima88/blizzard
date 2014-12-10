@@ -1,0 +1,90 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Return Information</h4></div>
+</div>
+<div class="row">
+	<!-- Left -->
+	<div class="col-xs-12 col-sm-12 col-md-8">
+		<table class="table" cellspacing="0" cellpadding="0">
+			<tr>
+				<td colspan="5">
+					<b>Returned Items</b>
+				</td>
+			</tr>
+			<tr>
+				<th class="redBg">Product Name</th>
+				<th class="redBg">Price</th>
+			</tr>
+			<% for i in @return.order_return_line_items %>
+				<tr class="<%= cycle('oddrow', 'evenrow') %>">
+					<td class="row">
+						<a href="/admin/product/<%= i.product_id %>"><%= i.name %></a>
+					</td>
+					<td class="row"><%= number_to_currency i.price %></td>
+				</tr>
+			<% end %>
+		</table>
+		<table class="table" cellspacing="0" cellpadding="0">
+			<tr>
+				<th class="blueBg">Payment Type</th>
+				<th class="blueBg">Amount</th>
+				<th class="blueBg">Status</th>
+				<th class="blueBg">Transaction ID</th>
+			</tr>
+			<% for p in @return.order_return_payments %>
+			<tr>
+				<td class="row"><%= p.formatted_payment_type %></td>
+				<td class="row" style="<% if p.amount < 0%>color:#900000;<% end %>"><%= number_to_currency p.amount %></td>
+				<td class="row"><%= p.status.capitalize %></td>
+				<td class="row"><%= p.transaction_id %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+	<!-- Right -->
+	<div class="col-xs-12 col-sm-12 col-md-4">
+		<table class="table" cellspacing="0" cellpadding="2">
+			<tr class="noborder">
+				<td colspan="2" class="greenHeading"><h3 >Return Data</h3></td>
+			</tr>
+			<tr>
+				<td><strong>Time Of Return:</strong></td>
+				<td><%= @return.created_at.in_time_zone(Store.find(@return.store_id).time_zone).strftime("%b %d, %Y %I:%M %p %Z") %></td>
+			</tr>
+			<tr>
+				<td><strong>Original Sale:</strong></td>
+				<td><a href="/admin/sale/<%= @return.order_id %>"><%= @return.order_id %></a></td>
+			</tr>
+			<tr>
+				<td><strong>Store:</strong></td>
+				<td><a href="/admin/store/<%= @return.store_id%>"><%= @return.store_name %></td>
+			</tr>
+			<tr>
+				<td><strong>Register:</strong></td>
+				<td><%= @return.register_id %></td>
+			</tr>
+			<tr>
+				<td><strong>Employee:</strong></td>
+				<td><a href="/admin/employee/<%= @return.employee_id%>"><%= @return.employee_name %></a></td>
+			</tr>
+			<% if @return.customer_id != nil %>
+			<tr>
+				<td><strong>Customer:</strong></td>
+				<td><a href="/admin/customer/<%= @return.customer_id%>"><%= @return.customer_name %></a></td>
+			</tr>
+			<% end %>
+			<tr><td colspan="2">&nbsp;</td></tr>
+			<tr>
+				<td><strong>Subtotal:</strong></td>
+				<td><%= number_to_currency @return.order_return_line_items.to_a.sum(&:price) %></td>
+			</tr>
+			<tr>
+				<td><strong>Tax:</strong></td>
+				<td><%= number_to_currency (@return.order_return_line_items.to_a.sum(&:price)*(@return.store.tax_rate*0.01)) %></td>
+			</tr>
+			<tr>
+				<td><strong>Refunded:</strong></td>
+				<td><%= number_to_currency @return.order_return_payments.to_a.sum(&:amount) %></td>
+			</tr>
+		</table>
+	</div>
+</div>

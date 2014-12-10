@@ -1,0 +1,123 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">
+		<%= @employee.full_name.titleize %> (<% if @employee.status == true %>Active<% else %>In-Active<% end %>)
+	</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/edit_employee/<%= params[:id] %>" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Employee</a>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+		<h2 class="bg_heading">Employee Information</h2>
+		<table class="table" cellspacing="2" cellpadding="4">
+			<tr>
+				<td><strong>First Name</strong><br><%= @employee.first_name.titleize %></td>
+				<td><strong>Last Name</strong><br><%= @employee.last_name.titleize %></td>
+			</tr>
+			<tr>
+				<td><strong>Phone Number</strong><br><%= number_to_phone @employee.phone %></td>
+				<td><strong>Email</strong><br><%= @employee.email %></td>
+			</tr>
+			<tr>
+				<td><strong>Address</strong><br><%= @employee.address %></td>
+				<td><strong>City</strong><br><%= @employee.city %></td>
+			</tr>
+			<tr>
+				<td><strong>State</strong><br><%= @employee.state %></td>
+				<td><strong>Zipcode</strong><br><%= @employee.zip %></td>
+			</tr>
+			<tr>
+				<td><strong>Start Date</strong><br><%= @employee.start_date.strftime("%B %d, %Y") unless @employee.start_date == nil %></td>
+				<td><strong>End Date</strong><br><%= @employee.end_date.strftime("%B %d, %Y") unless @employee.end_date == nil %></td>
+			</tr>
+			<tr><td colspan="2"><h2 class="bg_heading">Personal Information</h2></td></tr>
+			<tr>
+				<td><strong>SSN</strong><br>
+				<% if @employee.ssn != nil %>
+					<% if params[:view_ssn] == 'yes' %>
+						<%= @employee.ssn %>
+					<% else %>
+						<%= @employee.ssn.to_s.gsub(/^....../, 'XXX-XX') %> (<a href="/admin/employee/<%= params[:id]%>?view_ssn=yes">View SSN</a>)
+					<% end %>
+				<% end %>
+					</td>
+				<td><strong>Date of Birth</strong><br></td>
+			</tr>
+			<tr><td colspan="2"><h2 class="bg_heading">Employee Compensation</h2></td></tr>
+			<tr>
+				<td><strong>Compensation</strong><br><%= number_to_currency @employee.compensation %></td>
+				<td><strong>Compensation Type</strong><br><%= @employee.compensation_type %></td>
+			</tr>
+			<tr>
+				<td><strong>Username</strong><br><%= @employee.username %></td>
+				<td><strong>Password</strong><br>********</td>
+			</tr>
+
+		</table>
+	</div>
+	<div class="col-sm-12 col-md-6">
+		<h2 class="bg_heading">Employee Access</h2>
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.super_admin == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Super Admin</strong><br>Admin access allows the employee to access the administration panel and make changes, update, and delete records.</div>
+		</div>
+		
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.sales == true || @employee.sales == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Admin Sales</strong><br>Admin sales allows the employee access to the admin sales tab of the administration panel.</div>
+		</div>
+		
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.inventory == true || @employee.inventory == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Admin Inventory</strong><br>Admin inventory allows the employee access to the admin inventory tab of the administration panel.</div>
+		</div>
+		
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.customers == true || @employee.customers == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Admin Customers</strong><br>Admin customers allows the employee access to the admin customers tab of the administration panel.</div>
+		</div>
+		
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.customers == true || @employee.customers == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Admin Gift Cards</strong><br>Admin gift cards allows the employee access to the admin gift cards tab of the administration panel.</div>
+		</div>
+		
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.customers == true || @employee.customers == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Admin Employees</strong><br>Admin employees allows the employee access to the admin employees tab of the administration panel.</div>
+		</div>
+		
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.customers == true || @employee.customers == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Admin Stores</strong><br>Admin stores allows the employee access to the admin stores tab of the administration panel.</div>
+		</div>
+		
+		<div class="row row-buffer">
+			<div class="col-xs-2 col-sm-1 text-center green"><% if @employee.customers == true || @employee.customers == true %><b>&#8730;</b><% end %></div>
+			<div class="col-xs-9 col-sm-11"><strong>Admin Reports</strong><br>Admin reports allows the employee access to the admin reports tab of the administration panel.</div>
+		</div>
+	</div>
+</div>
+
+<!-- Hours Worked -->
+<table class="table">
+	<tr>
+		<th>Date</th>
+		<th>Store</th>
+		<th>Hours Worked</th>
+		<th>Compensation</th>
+		<th>Paid</th>
+	</tr>
+	<% for t in @employee_timesheets %>
+		<tr>
+			<td><%= t.date.to_date.strftime("%B %d, %Y") %></td>
+			<td><%= t.store_name %></td>
+			<td><%= t.hours_worked %></td>
+			<td><%= number_to_currency t.earned %></td>
+			<td><%= number_to_currency t.paid %></td>
+		</tr>
+	<% end %>
+</table>

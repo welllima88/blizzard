@@ -1,0 +1,109 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Purchase Order</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<% if @po.status != 'complete' %>
+				<a href="/admin/edit_purchase_order/<%= params[:id] %>" class="buttons icon edit">Edit</a> 
+				<% if @po.status == 1 ||  @po.status == 1 %>
+					<a href="/admin/receive_purchase_order/<%= params[:id] %>" class="buttons icon log">Receive</a>
+				<% end %>
+				<% if @po.status == 0 %>
+					<a href="/admin/submit_po_to_vendor/<%= params[:id] %>" class="buttons icon loop">Submit To Vendor</a>
+				<% end %>
+			<% end %>
+			<a href="/admin/purchase_orders" class="buttons icon arrowleft">Back to All</a>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-8">
+
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Purchase Order ID</strong><br><%= @po.id %></div>
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Vendor</strong><br><%= @po.vendor.name %></div>
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Status</strong><br><%= @po.status_human %></div>
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Vendor Account Number</strong><br><%= @po.vendor_account_number %></div>
+
+		<% if @po.status != 'complete' %>
+			<%= form_tag(:action => 'record_po_payment', :id => params[:id]) do %>
+				<div class="col-sm-12 top-buffer blueBg center-element">
+					<div class="col-sm-12 text-center"><h3>Record Payment</h3></div>
+					<div class="col-sm-4 row-buffer">
+						<b>Payment Type:</b> <%= select(:payment, :payment_type, options_for_select([["Cash", "cash"],["Credit Card", "credit_card"],["Check", "check"],["Net Terms", "net_terms"],["Other", "other"]]))%>
+					</div>
+					<div class="col-sm-4 row-buffer"><strong>Amount</strong> <%= text_field(:payment, :amount, :style => 'width:100px;')%></div>
+					<div class="col-sm-4 row-buffer"><strong>Transaction ID</strong> <%= text_field(:payment, :transaction_id, :style => 'width:100px;')%></div>
+				</div>
+			<% end %>
+		<% end %>
+		<div class="inline-block"></div>
+		<table class="table top-buffer">
+			<tr>
+				<th colspan="2">&nbsp;Product Name</th>
+				<th>Manufacturer</th>
+				<th>Product Cost</th>
+				<th>Product UPC</th>
+				<th>QTY</th>
+				<th>Received</th/.>
+			</tr>
+			<% for p in @po.po_items %>
+			<tr class="<%= cycle('oddrow', 'evenrow') %>">
+				<% if p.all_received == 'no' %><td width="6" style="background:#900000;"><% else %><td width="6" style="background:#639e23;"><% end %></td>
+				<td class="row"><a href="/admin/view_inventory/<%= p.product_id %>"><%= p.name %></a></td>
+				<td class="row"><%= p.manufacturer_name %></td>
+				<td width="120" class="row"><%= number_to_currency p.cost %></td>
+				<td class="row"><%= p.upc %></td>
+				<td class="row" width="100"><%= p.qty %></td>
+				<td class="row" width="100"><strong><%= p.received %></strong></td>
+			</tr>
+			<% end %>
+		</table>
+		
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<table class="table" >
+			<tr><th class="blueBg" colspan="2"><h3 class="text-center">Shipping Information</h3></td></tr>
+			<tr>
+				<td>Address</td>
+				<td><%= @po.shipping_address %></td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td><%= @po.shipping_city %></td>
+			</tr>
+			<tr>
+				<td>State</td>
+				<td>
+					<%= @po.shipping_state %>
+				</td>
+			</tr>
+			<tr>
+				<td>Zip</td>
+				<td><%= @po.shipping_zip %></td>
+			</tr>
+			<tr><th class="blueBg" colspan="2"><h3 class="text-center">Monetary Information</h3></td></tr>
+			<tr>
+				<td>Sub-Total:</td>
+				<td><%= number_to_currency @po.cost %></td>
+			</tr>
+			<tr>
+				<td>Shipping:</td>
+				<td><%= number_to_currency @po.shipping_cost %></td>
+			</tr>
+			<tr>
+				<td>Discount:</td>
+				<td style="font-weight:normal;">
+				<%= @po.total_discount %>
+				</td>
+			</tr>
+			<tr>
+				<td>Total:</td>
+				<td><%= number_to_currency @po.total %></td>
+			</tr>
+			<tr>
+				<td>Amount Paid:</td>
+				<td><%= number_to_currency @po.amount_paid %></td>
+			</tr>
+		</table>
+	</div>
+</div>

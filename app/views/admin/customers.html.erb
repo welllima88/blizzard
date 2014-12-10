@@ -1,0 +1,31 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Customers</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			
+		</div>
+	</div>
+</div>
+<table class="table" cellspacing="1" cellpadding="0">
+	<tr>
+		<th>Customer Name</td>
+		<th style="text-align: center;">Email</th>
+		<th style="text-align: center;">Phone</th>
+		<th style="text-align: center;">Spend</th>
+		<th style="text-align: center;">Points</th>
+		<th></td>
+	</tr>
+	<% for c in @customers %>
+		<tr class="<%= cycle('oddrow', 'evenrow') %>">
+			<td><%= c.first_name %> <%= c.last_name %></td>
+			<td width="120" class="text-center"><%= c.email %></td>
+			<td width="120" class="text-center"><%= number_to_phone c.phone %></td>
+			<td class="text-center"><%= number_to_currency c.spent %></td>
+			<td class="text-center"><%= c.points %></td>
+			<td width="120" class="text-center"><a href="/admin/customer/<%= c.id %>" class="btn btn-sm">View Customer</a></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td colspan="6" class="paginate"><%= will_paginate @customers %></td>
+	</tr>
+</table>

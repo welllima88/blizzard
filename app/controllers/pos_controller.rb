@@ -1,0 +1,2 @@
+class PosController < ApplicationController
+end

@@ -1,0 +1,33 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle"><%= @timesheet.store.name %></h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="btn-group">
+			
+		</div>
+	</div>
+</div>
+<div class="row">
+	<table class="table">
+		<% if flash[:notice] != nil %><tr><td colspan="3"><div class="greenNotice"><%= flash[:notice] %></div></td></tr><% end %>
+		<tr>
+			<td colspan="4">
+				Date: <%= @timesheet.date.to_date.strftime("%B %e, %Y") %><br>
+				Employees: <%= @timesheet.employee_timesheets.count %>
+			</td>
+		</tr>
+		<tr>
+			<th>Employee Name</th>
+			<th>Status</th>
+			<th>Hours Worked</th>
+			<th></th>
+		</tr>
+		<% for t in @timesheet.employee_timesheets %>
+			<tr>
+				<td><%= t.employee_name %></td>
+				<td><%= t.status_human %></td>
+				<td><%= t.hours_worked %></td>
+				<td class="text-right"><a href="/admin/employee_timesheet/<%= t.id %>" class="btn btn-sm">View Timesheet</a></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

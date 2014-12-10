@@ -1,0 +1,140 @@
+.cancel_sale{
+	width: 93px;
+}
+
+#store_box{
+	float: left;
+	width: 214px;
+	padding: 15px;
+	background-color: #f1f1f1;
+	color: #000;
+	text-align: center;
+	border: 1px solid #ccc;
+	margin: 10px;
+	.button{
+		width: 100%;
+		padding: 10px 0;
+		border: 0;
+		background-color: green;
+		color: #ffffff;
+	}
+}
+
+#login_wrapper_wide{
+	
+	h1, h2{
+		color:#000000;
+	}
+}
+
+.register_box{
+	float: left;
+	width: 214px;
+	padding: 15px;
+	background-color: #f1f1f1;
+	color: #000;
+	text-align: center;
+	border: 1px solid #ccc;
+	margin: 10px;
+	.button{
+		width: 100%;
+		padding: 10px 0;
+		border: 0;
+		background-color: green;
+		color: #ffffff;
+	}
+}
+
+.till_table {
+	margin: 10px auto 20px auto;
+	max-width: 785px;
+	width: 100%;
+	border: 10px solid #eeeeee;
+	background-color: #ffffff;
+	.till_heading {
+		background-color: #2d4250;
+		color: #ffffff;
+	}
+}
+
+.returnCreditPaymentCard{
+	width: 300px;
+	margin: 10px;
+	background-color: #eeeeee;
+	padding: 20px;
+	border: 1px solid #dddddd;
+	h3 {
+		font-size: 17px;
+		margin: 0 0 10px 0;
+	}
+	input[type="button"]{
+		margin: 10px 0 0 0;
+		display: inline-block;
+		padding: 10px;
+		width: 100%;
+	}
+}
+		 
+
+
+// Receipt/Barcode
+
+@media print{
+	table{width:100%;}
+	.hideOnReceipt{display:none;}
+	#top_bar{display:none;}
+	#mainHeader{display:none;}
+	#subHeader{display:none;}
+	.layoutRight{display:none;}
+	#paymentArea{display:none;}
+	#paymentAreaRight{display:none;}
+	#cashRegisterSection{display:none;}
+	#posArea{display:none;}
+	#posAreaRight{display:none;}
+	#returnArea{display:none;}
+	#returnAreaRight{display:none;}
+	#itemSearch{display:none;}
+	#timesheetSection{display:none;}
+	#register_info{display:none;}
+	#barcode{display: block;}
+	/* CSS Barcode Generator */
+	#receiptWrapper{
+		margin:0 auto;
+		width:100%;
+		text-align:center;
+	}
+	.receiptProductList{
+			margin:0 auto;
+			width:100%;
+			text-align: center;
+		}	
+	.barcode128h  {
+	    clear: both;
+	    padding: 0 30px /*quiet zone*/;
+	    overflow: auto;
+	    height: 100px   /*size*/;
+	}
+	.barcode128h div {
+	    /*float: left;*/
+	    height: 100px  /*size*/;
+	    display: inline-block;
+	}
+	.barcode128h .bar1 { border-left: 1px solid black }
+	.barcode128h .bar2 { border-left: 2px solid black }
+	.barcode128h .bar3 { border-left: 3px solid black }
+	.barcode128h .bar4 { border-left: 4px solid black }
+	.barcode128h .space0 { margin-right: 0px }
+	.barcode128h .space1 { margin-right: 1px }
+	.barcode128h .space2 { margin-right: 2px }
+	.barcode128h .space3 { margin-right: 3px }
+	.barcode128h .space4 { margin-right: 4px }
+}
+#my_header {
+    position : absolute;
+    top      : 0;
+    left     : 0;
+    width    : 100%;
+    height   : 76px;
+    z-index  : 4000;
+    overflow : hidden;
+}

@@ -1,0 +1,133 @@
+<html>
+	<head>
+		<title>Evendra Point of Sale</title>
+		<meta type="description" content="Cloud Point of Sale">
+		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes, minimum-scale=1.0, maximum-scale=1.0">
+		<!-- Compressed Assets -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<%= stylesheet_link_tag 'pos' %>
+		<link rel="stylesheet" href="/font-awesome-4.1.0/css/font-awesome.min.css">
+		<%= javascript_include_tag 'jquery2', 'jsormdb', 'database', 'blizzard', 'alert' %>
+		<!-- CSRF Tag -->
+		<%= csrf_meta_tag %>
+		<!-- Local Storage Assets -->
+		<!-- <script type="text/javascript" charset="utf-8" src="/pos/localStorage.js"></script> -->
+		
+		<!-- Printing CSS -->
+		<style type="text/css" media="print">
+			
+	        @media print{
+	            table{width:100%;}
+	            .hideOnReceipt{display:none;}
+	            #top_bar{display:none;}
+	            #mainHeader{display:none;}
+	            #subHeader{display:none;}
+	            .layoutRight{display:none;}
+	            #paymentArea{display:none;}
+	            #paymentAreaRight{display:none;}
+	            #cashRegisterSection{display:none;}
+	            #posArea{display:none;}
+	            #posAreaRight{display:none;}
+	            #returnArea{display:none;}
+	            #returnAreaRight{display:none;}
+	            #itemSearch{display:none;}
+	            #timesheetSection{display:none;}
+	            #register_info{display:none;}
+	            #barcode{display: block;}
+	            /* CSS Barcode Generator */
+	            #receiptWrapper{
+	                    margin:0 auto;
+	                    width:100%;
+	                    text-align:center;
+	            }
+	            .receiptProductList{
+	                            margin:0 auto;
+	                            width:100%;
+	                            text-align: center;
+	                    }        
+	            .barcode128h  {
+	                clear: both;
+	                padding: 0 30px /*quiet zone*/;
+	                overflow: auto;
+	                height: 100px   /*size*/;
+	            }
+	            .barcode128h div {
+	                /*float: left;*/
+	                height: 100px  /*size*/;
+	                display: inline-block;
+	            }
+	            .barcode128h .bar1 { border-left: 1px solid black }
+	            .barcode128h .bar2 { border-left: 2px solid black }
+	            .barcode128h .bar3 { border-left: 3px solid black }
+	            .barcode128h .bar4 { border-left: 4px solid black }
+	            .barcode128h .space0 { margin-right: 0px }
+	            .barcode128h .space1 { margin-right: 1px }
+	            .barcode128h .space2 { margin-right: 2px }
+	            .barcode128h .space3 { margin-right: 3px }
+	            .barcode128h .space4 { margin-right: 4px }
+	        }
+			
+		</style>
+	
+	</head>
+	<body>
+		<!-- Login Page -->
+		<%= render "login" %>
+		
+		<div id="wrapper">
+			<!-- Login Page -->
+		
+			<!-- Alert Box -->
+			<div id="alertBoxBg" class="hideOnReceipt"></div>
+			<div id="alertBox" class="hideOnReceipt">
+				<div id="alertContent"></div>
+				<div id="closeAlert" class="buttons icon remove danger">Close</div>
+			</div>
+				
+			<!-- Processing Alert -->
+			<div id="processingAlert" class="hideOnReceipt">
+				<div style="float:left;"><img src="/assets/processing.gif"></div>
+				<div style="float: left;padding: 64px 0 0 0;font-size: 26px;text-align:center;">Processing...</div>
+			</div>
+			
+			<!-- Cash Register -->
+		
+			<div class="container-fluid">
+				<div class="header row hideOnReceipt">
+					<div class="col-lg-7">
+						<a onclick="showPage('#cashRegisterPage');" id="cashRegisterPageButton" class="topBarButton"><i class="fa fa-shopping-cart"></i> Register</a>
+						<a onclick="showPage('#returnsPage');" id="returnsPageButton" class="topBarButton"><i class="fa fa-reply"></i> Returns</a>
+						<a onclick="showPage('#timesheetPage');" id="timesheetPageButton" class="topBarButton"><i class="fa fa-clock-o"></i> Timesheet</a>
+						<a onclick="showPage('#optionsPage');" id="optionsPageButton" class="topBarButton"><i class="fa fa-gear"></i> Options</a>
+					</div>
+					<div class="col-lg-5 text-right">
+						<a href="/admin"><i class="fa fa-tachometer"></i> Admin Panel</a>
+					</div>
+					<div class="sidebar-nav navbar-collapse pull-right">
+						<div class="page" id="cashRegisterPage-right"><%= render "cash_register_right" %></div>
+						<div class="page" id="paymentScreenPage-right"><%= render "paymentScreen_right" %></div>
+						<div class="page" id="receiptScreenPage-right"><%= render "receiptScreen_right" %></div>
+						<div class="page" id="suspendedScreen-right"><%= render "suspended_sales_right" %></div>
+						<div class="page" id="returnsPage-right"><%= render "returns_right" %></div>
+						<div class="page" id="returnsPaymentPage-right"><%= render "returnsPayment_right" %></div>
+						<div class="page" id="returnReceiptScreenPage-right"><%= render "returnReceipt_right" %></div>
+						<div class="page" id="timesheetPage-right"><%= render "timeSheet_right" %></div>
+						<div class="page" id="optionsPage-right"><%= render "options_right" %></div>
+					</div>
+				</div>
+				<div id="page-wrapper">
+					<div class="page" id="cashRegisterPage"><%= render "cash_register" %></div>
+					<div class="page" id="paymentScreenPage"><%= render "paymentScreen" %></div>
+					<div class="page" id="receiptScreenPage"><%= render "receiptScreen" %></div>
+					<div class="page" id="suspendedScreen"><%= render "suspended_sales" %></div>
+					<div class="page" id="returnsPage"><%= render "returns" %></div>
+					<div class="page" id="returnsPaymentPage"><%= render "returnsPayment" %></div>
+					<div class="page" id="returnReceiptScreenPage"><%= render "returnReceipt" %></div>
+					<div class="page" id="timesheetPage"><%= render "timeSheet" %></div>
+					<div class="page" id="optionsPage"><%= render "options" %></div>
+				</div>
+			</div>
+		
+		</div>
+	</body>
+</html>

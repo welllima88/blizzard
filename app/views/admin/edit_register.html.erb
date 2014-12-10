@@ -1,0 +1,16 @@
+<%= form_tag(:action => 'edit_register', :id => params[:id]) do %>
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Edit Register</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<%= submit_tag("Update", :class => 'btn btn-success')%>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6 form-group">
+		<div class="input-group"><span class="input-group-addon">Register Name</span><%= text_field(:register, :name, :class => 'form-control')%></div>
+	</div>
+</div>
+
+<% end %>

@@ -1,0 +1,213 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Coupon Details <% if @coupon.status.to_i == 1 %>Active<% else %>Inactive<% end %></h4></div>
+	<div class="col-xs-12 col-sm-4">
+		<div class="btn-group pull-right">
+			<a href="/admin/edit_coupon/<%= @coupon.id %>" class="btn btn-primary btn-sm ">Edit</a>
+			<% if @coupon.status.to_i == 1 %>
+				<a href="/admin/change_coupon_status/<%= @coupon.id %>?status=inactive" class="btn btn-primary btn-sm ">De-Activate</a>
+			<% else %>
+				<a href="/admin/change_coupon_status/<%= @coupon.id %>?status=active" class="btn btn-primary btn-sm ">Re-Activate</a>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+
+<table class="table" cellspacing="0" cellpadding="0">
+
+	<tr>
+		<td colspan="4" style="background-color:#eeeeee;padding:10px;border:1px solid #cccccc;"><strong>Coupon Information</strong></td>
+	</tr>
+	<tr>
+		<td width="33%" class="row"><strong>Coupon Name</strong><br><%= @coupon.name %></td>
+		<td width="34%" class="row"><strong>Coupon Code</strong><br><%= @coupon.code %></td>
+		<td width="33%" class="row"><strong>Max Uses</strong><br><%= @coupon.max_uses %><br></td>
+	</tr>
+	<tr>
+		<td class="row"><strong>Discount Value</strong><br><%= @coupon.discount_value %></td>
+		<td class="row"><strong>Discount Type</strong><br><%= @coupon.discount_type %></td>
+		<td class="row"><strong>Use With Other Coupons?</strong><br><%= @coupon.multiple_coupons %></td>
+	</tr>
+	<tr>
+		<td class="row"><strong>Start Date</strong><br><%= @coupon.start_date.strftime("%m / %d / %Y") %></td>
+		<td class="row"><strong>Discount Type</strong><br><%= @coupon.end_date.strftime("%m / %d / %Y") %></td>
+		<td class="row"></td>
+	</tr>
+	<tr>
+		<td class="row" colspan="4">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#eeeeee;padding:10px;border:1px solid #cccccc;"><strong>Products</strong></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="padding:10px 0 10px 0;">
+			<% if @coupon.products.count == 0 %>
+				All products eligible (unless selected departments or excluded products state otherwise)
+			<% else %>
+				<% for p in @coupon.products %>
+					<%= p %>,&nbsp;
+				<% end %>
+			<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#eeeeee;padding:10px;border:1px solid #cccccc;"><strong>Departments</strong></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="padding:10px 0 10px 0;">
+			<% for d in @departments %>
+			<div style="background-color:#f1f1f1;padding:10px;margin:8px 8px 8px 0;float:left;border:1px solid #dddddd;">
+				<% if @coupon.departments.include?(d.id.to_s) %>&#x2713;<% end %> <%= d.name %>
+				<% for sub in d.departments %>
+					<br>&nbsp;&nbsp;<% if @coupon.departments.include?(sub.id.to_s) %>&#x2713;&nbsp;<% else %>&nbsp;&nbsp;&nbsp;&nbsp;<% end %><%= sub.name %>
+				<% end %>
+			</div>
+			<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#eeeeee;padding:10px;border:1px solid #cccccc;"><strong>Excluded Products</strong></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="padding:10px 0 10px 0;">
+			<% if @coupon.excluded_products.count == 0 %>
+				No Excluded Products
+			<% else %>
+				<% for p in @coupon.excluded_products %>
+					<%= p %>,&nbsp;
+				<% end %>
+			<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="padding:10px;text-align:right;">
+		
+		</td>
+	</tr>
+</table>
+
+<table class="standard_table" cellspacing="0" cellpadding="0">
+	<tr>
+		<td colspan="3" style="background-color:#eeeeee;padding:10px;border:1px solid #cccccc;"><strong>Metrics and Tracking</strong></td>
+	</tr>
+	<tr>
+		<td><br><center><strong>Redeems</strong></center></td>
+		<td><br><center><strong>Gross Revenue</strong></center></td>
+		<td><br><center><strong>Net Profit</strong></center></td>
+	</tr>
+	<tr>
+		<td><center><%= @coupon.uses %></center></td>
+		<td><center><%= number_to_currency @coupon.revenue %></center></td>
+		<td><center><%= number_to_currency @coupon.net_profit %></center></td>
+	</tr>
+
+	<% if @coupon.uses >= 1 %>
+		<tr>
+			<td colspan="3">
+				<script type="text/javascript">
+
+					var chart;
+					$(document).ready(function() {
+						chart = new Highcharts.Chart({
+							chart: {
+								renderTo: 'container',
+								defaultSeriesType: 'column'
+							},
+							title: {
+								text: 'Coupon Statistics'
+							},
+							subtitle: {
+								text: 'Coupons with at least 1 redemption'
+							},
+							xAxis: {
+								categories: [
+									'Number of Uses', 
+									'Gross Revenue', 
+									'Net Profit'
+								]
+							},
+							yAxis: {
+								min: 0,
+								title: {
+									text: ''
+								}
+							},
+							legend: {
+								layout: 'vertical',
+								backgroundColor: '#FFFFFF',
+								align: 'left',
+								verticalAlign: 'top',
+								x: 100,
+								y: 70,
+								floating: true,
+								shadow: true
+							},
+							tooltip: {
+								formatter: function() {
+									return ''+
+										this.x +' $'+ this.y +'/order';
+								}
+							},
+							plotOptions: {
+								column: {
+									pointPadding: 0.2,
+									borderWidth: 0
+								}
+							},
+						        series: [{
+								name: "<%= @coupon.name %>",
+								data: [<%= @coupon.uses.to_i %>, <%= @coupon.average_revenue %>, <%= @coupon.net_profit/@coupon.uses %>]
+
+							}
+							<% if @all_coupons.count >= 1 %>
+							, 
+							{
+								name: 'Average Coupon',
+								data: [<%= @all_coupons.to_a.sum(&:uses)/@all_coupons.count %>, <%= @all_coupons.to_a.sum(&:average_revenue)/@all_coupons.count %>, <%= @all_coupons.to_a.sum(&:average_net_profit)/@all_coupons.count %>]
+
+							}, {
+								name: 'Best Coupon',
+								data: [<%= @all_coupons.sort_by{|a| -a[:uses]}.first.uses %>, <%= @all_coupons.sort_by{|r| r[:average_revenue]}.last.average_revenue %>, <%= @all_coupons.sort_by{|r| -r[:average_net_profit]}.first.average_net_profit %>]
+
+							}
+							<% end %>
+							]
+						});
+
+
+					});
+				</script>
+				<div id="container" style="width: 100%; height: 350px; margin: 0 auto"></div>
+			</td>
+		</tr>
+	<% end %>
+</table>
+
+
+
+<table class="standard_table" style="margin:20px 0 25px 0;" cellspacing="1" cellpadding="0">
+	<tr>
+		<td class="table_heading">Store</td>
+		<td class="table_heading"><center>Employee</center></td>
+		<td class="table_heading" width="180"><center>Time</center></td>
+		<td class="table_heading"><center>Total</center></td>
+		<td class="table_heading"><center>Status</center></td>
+		<td class="table_heading"><center>Customer</center></td>
+		<td class="table_heading" width="40">&nbsp;</td>
+	</tr>
+	<% for s in @sales %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td class="row"><a href="/admin/view_store/<%= s.store_id %>"><%= s.store_name %></a></td>
+		<td width="120" class="row"><center><a href="/admin/employee/<%= s.employee_id %>"><%= s.employee_name %></center></a></td>
+		<td width="120" class="row"><center><%= s.created_at.strftime("%b %d, %Y") %> <%= s.created_at.strftime("%I:%M %p") %></center></td>
+		<td class="row"><center><%= number_to_currency s.total %></center></td>
+		<td class="row" width="80"><center><%= s.status %></center></td>
+		<td class="row"><center><a href="/admin/customer/<%= s.customer_id %>"><%= s.customer_name %></center></td>
+		<td class="row" width="120"><center><a href="/admin/view_sale/<%= s.id %>">Details</a></center></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td colspan="7" style="test-align:right;"><%= will_paginate @sales %></td>
+	</tr>
+</table>

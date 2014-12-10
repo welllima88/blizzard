@@ -1,0 +1,38 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8">
+		<h4 class="productTitle"> Store: <span style="font-weight:300;margin-right:15px;"><%= @register.store.name %></span> Register: <span style="font-weight:300;"><%= @register.name %></span></h4>
+	</div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/edit_register/<%= params[:id] %>" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Register</a>
+		</div>
+	</div>
+</div>
+<h3>Register Logs</h3>
+<table class="table" cellspacing="1" cellpadding="0">
+	<tr>
+		<th>Date</th>
+		<th>Opening Employee</th>
+		<th>Starting Till</th>
+		<th>Ending Till</th>
+		<th></th>
+	</tr>
+	<% if @active != nil %>
+		<tr style="background-color:#d8e6d7;">
+			<td><%= @active.opened_at.strftime('%b %d, %Y %I:%M %P') %></td>
+			<td><%= @active.register.current_employee %></td>
+			<td><%= number_to_currency @active.opening_amount %></td>
+			<td>Currently Open</td>
+			<td class="text-center"><a href="/admin/register_log/<%= @active.id %>" class="buttons">Details</a></td>
+		</tr>
+	<% end %>
+	<% for l in @logs %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td><%= l.opened_at.strftime('%b %d, %Y %I:%M %P') %></td>
+		<td><%= l.opening_employee %></td>
+		<td><%= number_to_currency l.opening_amount %></td>
+		<td><%= number_to_currency l.closing_amount %></td>
+		<td class="text-right"><a href="/admin/register_log/<%= l.id %>" class="btn btn-sm">Details</a></td>
+	</tr>
+	<% end %>
+</table>

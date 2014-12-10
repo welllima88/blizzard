@@ -1,0 +1,117 @@
+<%= form_tag(:action => 'edit_settings') do %>
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Editing Account Settings</h4></div>
+	<div class="col-xs-12 col-sm-4">
+		<div class="btn-group pull-right">
+			<%= submit_tag("Save Settings", :class => 'btn btn-primary')%>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-8 col-md-12">
+		<h3 class="text-left">Company Information</h3>
+		<div class="row">
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon">Company Name</span><%= text_field(:company, :company_name, :class => 'form-control')%></div>
+			</div>
+		</div>
+		
+		<!-- First Line -->
+		<div class="row">
+			<div class="col-sm-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Phone</span><%= text_field(:company, :company_phone, :class => 'form-control')%></div>
+			</div>
+
+			<div class="col-sm-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Email</span><%= text_field(:company, :company_email, :class => 'form-control')%></div>
+			</div>
+
+			<div class="col-sm-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Fax</span><%= text_field(:company, :company_fax, :class => 'form-control')%></div>
+			</div>
+		</div>
+		
+		<!-- Second Line -->
+		<div class="row top-buffer">
+			<div class="col-sm-8 form-group">
+				<div class="input-group"><span class="input-group-addon">Address</span><%= text_field(:company, :company_address, :class => 'form-control')%></div>
+			</div>
+			<div class="col-sm-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Line 2</span><%= text_field(:company, :company_address2, :class => 'form-control')%></div>
+			</div>
+
+			<div class="col-sm-4 form-group">
+				<div class="input-group"><span class="input-group-addon">City</span><%= text_field(:company, :company_city, :class => 'form-control')%></div>
+			</div>
+			<div class="col-sm-4 form-group">
+				<div class="input-group"><span class="input-group-addon">State</span><%= text_field(:company, :company_state, :class => 'form-control')%></div>
+			</div>
+			<div class="col-sm-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Postal Code</span><%= text_field(:company, :company_zip, :class => 'form-control')%></div>
+			</div>
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Country</span><%= text_field(:company, :company_country, :class => 'form-control')%></div>
+			</div>
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Timezone</span><%= text_field(:company, :company_timezone, :class => 'form-control')%></div>
+			</div>
+		</div>
+		
+		<h3 class="text-left">Customer Loyalty Settings</h3>
+		<!-- First Line -->
+		<div class="row">
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Enable Points System</span><%= text_field(:company, :company_phone, :class => 'form-control', :value => ['Off', 'On'][@company.enable_points])%></div>
+			</div>
+
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Point Value</span><%= text_field(:company, :point_value, :class => 'form-control')%></div>
+			</div>
+
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Point Payout</span><%= text_field(:company, :point_payout, :class => 'form-control')%></div>
+			</div>
+			
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Certificate Valid Length</span><%= text_field(:company, :point_half_life, :class => 'form-control')%></div>
+			</div>
+		</div>
+		
+		
+		<h3 class="text-left">Commission Settings</h3>
+		<!-- First Line -->
+		<div class="row">
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Enable Commission</span><%= text_field(:company, :company_phone, :class => 'form-control', :value => ['Off', 'On'][@company.enable_commission])%></div>
+			</div>
+
+			<div class="col-sm-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Default Commission</span><%= text_field(:company, :default_commission, :class => 'form-control')%></div>
+			</div>
+		</div>
+		
+		
+		
+	</div>
+	<div class="col-lg-4 col-md-12">
+		<p>
+			<h3>Settings Help</h3>
+		</p>
+		<p>
+			<strong>Customer Loyalty</strong><br>
+			The customer loyalty system is designed to entice users to become repeat customers. When the points system is enabled, customers receive 1 point for every dollar they spend. Once the customer has obtained the minimum number of points required for a voucher, a gift certificate is generated for them in an amount based on the points value set by you.<br><br>
+			The points system has 3 custom values, Point Value, Point Payout, and Certificate Valid Length. <br><br>
+			The Point Value allows you to set what each point will be worth in dollars. By default we set this to $0.05. For a customer who purchases $100 in merchandise, their customer reward certificate will be worth $5.00.<br><br>
+			
+		</p>
+		<p>
+			<strong>Commission Settings</strong><br>
+			Evendra allows you to allow your employees to earn commission for the products they sell. When the commission module is enabled, all employees will automatically receive the default commission rate. You can additionally set individual commission amounts per employee in the employee settings. If an employee commission rate is blank, Evendra will automatically use the default commission rate here.
+		</p>
+		
+		
+	</div>
+</div>
+
+<% end %>

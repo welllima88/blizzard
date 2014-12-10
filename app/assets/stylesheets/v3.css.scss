@@ -1,0 +1,721 @@
+$darkgrey: #2d4250; //#43505D
+$darkText: #111111; //
+$lightGrey: #3f94cc; //
+$green: #42c31f;
+
+//$darkgrey: #f1f1f1; //##2d4250
+//$darkText: #111111; //
+//$lightGrey: #e1e1e1; //
+//$green: #2c9d04;
+
+
+// Alert Box
+
+#alertBoxBg{
+	background-color:#000000;
+	opacity:0.65;
+	width:100%;
+	height:100%;
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:99999;
+}
+
+#alertBox{
+	background-color:#ffffff;
+	padding:20px 20px 10px 20px;
+	box-shadow: 0px 0px 20px 5px #333;
+	display:none;
+	position:absolute;
+	top:50px;
+	left:1%;
+	right:1%;
+	width:500px;
+	margin:0 auto;
+	z-index:999991;
+	#alertContent{
+		display: inline-block;
+		width: 500px;
+		padding-bottom: 20px;
+		margin-bottom: 10px;
+		border-bottom: 1px solid #e1e1e1;
+	}
+	#closeAlert{
+		float:right;
+	}
+}
+
+#processingAlert{
+	background-color:#ffffff;
+	padding:20px 20px 10px 20px;
+	box-shadow: 0px 0px 20px 5px #333;
+	display:none;
+	position:absolute;
+	top:50px;
+	left:1%;
+	right:1%;
+	width:500px;
+	margin:0 auto;
+	z-index:999991;
+}
+
+// End Alert
+
+html{
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+}
+
+body{
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+	font-family:helvetica;
+}
+
+table{
+	margin:0;
+	padding:0;
+	border-spacing:0;
+	border-collapse:collapse;
+}
+table.space{border:0;}
+
+// Layout Wrapper
+
+.mainLayout{
+	width:100%;
+	height:100%;
+	border-spacing:0;
+	border-collapse:collapse;
+	td{
+		vertical-align:top;
+	}
+	.topLinks{
+		position:relative;
+		z-index:9999;
+		background-color:$darkgrey;
+		height:38px;
+		#mainHeader{
+			background-color:$darkgrey;
+			margin:0;
+			padding:0;
+			display:inline-block;
+			height:38px;
+			width:100%;
+			ul{
+				margin:0;
+				padding:0;
+				border:0;
+				display:inline-block;
+				a{
+					color:#fff;
+					text-decoration:none;
+					text-transform:uppercase;
+					letter-spacing:2px;
+					border:0;
+					&:hover{
+						color:#fff;
+					}
+				}
+			}
+			li{
+				border:0;
+				list-style-type: none;
+				padding:10px 20px;
+				display:inline-block;
+				margin:0;
+				&:hover{
+					background-color: $lightGrey;
+					color: #ffffff;
+					cursor: hand; cursor: pointer;
+				}
+			}
+			.on{
+				background-color:$lightGrey;
+				&:hover{
+					background-color:$lightGrey;
+				}
+			}
+		}
+	}
+	.infoBar{
+		background-color:$lightGrey;
+		height:25px;
+		padding:12px 0 0 20px;
+		font-size:13px;
+		color:#fff;
+		border-bottom:1px solid #e1e1e1;
+	}
+	.contentArea{
+		//padding-top:78px;
+		#loadingWrapper{
+			background-color:$green;
+			font-size:40px;
+			color:#ffffff;
+			width:100%;
+			height:100%;
+			vertical-align:middle;
+			text-align:center;
+		}
+		#contentWrapper{
+			width:100%;
+			height:100%;
+			display:inline-block;
+			position:absolute;
+			top:0px;
+			.page{
+				position:absolute;
+				top:0px;
+				display:none;
+				width:100%;
+				height:100%;
+				float:left;
+			
+				.pageSpace{
+					height:78px;
+					width:100%;
+				}
+				.pageTable{
+					width:100%;
+					height:100%;
+					margin:0;
+					padding:0;
+					border-collapse:collapse;
+					.pageLeft, .pageRight{
+						vertical-align:top;
+						padding-top: 96px;
+					}
+					.pageRight{
+						width:269px;
+						padding:46px 0 0 0;
+						background-color:$lightGrey;
+						border-left:1px solid #e1e1e1;
+						vertical-align:top;
+						#current_order{
+							text-align:center;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+.right_box{
+	padding:0;
+	margin:10px;
+	background-color:#ffffff;
+	border:1px solid #d1d1d1;
+	font-size:13px;
+	text-align:left;
+	h3{
+		font-size:16px;
+		margin:5px 0;
+	}
+	.customer_box{
+		font-size:14px;
+		padding:2px;
+		width:170px;
+	}
+	h2{
+		padding:4px 8px;
+		font-size:16px;
+		color:#fff;
+		margin:0;
+		font-weight:normal;
+		letter-spacing:1px;
+	}
+	.right_box_padding{
+		margin:0;
+		padding:10px;
+	}
+	.addNewCustomerButton{
+		margin-top: 10px;
+		text-decoration: underline;
+	}
+	.cancel_sale{
+		margin:10px 10px 10px 20px;
+	}
+	#customerSearchBox{
+		margin: 0 0 10px 0;
+		#customerSearch{
+			width:160px;
+		}
+	}
+	#addCustomerBox{
+		margin:5px -8px 0 -8px;
+		padding-top: 10px;
+		border-top: 1px solid #d1d1d1;
+		.customerRegularBox{
+			width:100px;
+			float: left;
+			margin:4px 8px;
+			.customerInputRegularBox{
+				width: inherit;
+			}
+		}
+		.customerWideBox{
+			width:215px;
+			float: left;
+			margin:4px 8px;
+			.customerInputWideBox{
+				width: inherit;
+			}
+		}
+		.add_button{
+			background-color: $green;
+			color: #ffffff;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			margin:16px 0 0 10px;
+			padding:6px 10px;
+			border:0;
+			-webkit-box-shadow: 0px 0px 1px 1px #666666;
+   			box-shadow: 0px 0px 1px 1px #666666;
+			&:hover{
+				-webkit-box-shadow: 0px 0px 0px 0px #666666;
+	   			box-shadow:  0px 0px 0px 0px #666666;
+			}
+		}
+	}
+}
+
+// General
+
+form, table, div, h1, h2, h3, h4{
+	margin:0;
+}
+
+.hideField{
+	display:none;
+}
+
+.table_heading{
+	background-color:#333333;
+	color:#ffffff;
+}
+
+.row{
+	padding:5px;
+}
+
+// Cash Regisdter Page //
+
+#posArea, #returnArea{
+	padding:20px 20px 0 20px;
+}
+
+.scan_box{
+	width: 100%;
+	background-color: #eee;
+	padding: 10px;
+	border:10px solid #ddd;
+
+	td{
+		background-color:$darkgrey;
+		padding:20px;
+		color:#fff;
+	}
+	.scan_field{
+		font-size:16px;
+		width:100%;
+	}
+	.qty_box{
+		font-size:16px;width:50px;
+	}
+	.add_button{
+		background-color: $green;
+		color: #fff;
+		border:0;
+		font-size:16px;
+		margin-left:10px;
+		padding:4px 8px 4px 8px;
+	}
+}
+
+.line_items{
+	width:100%;
+	margin:0;
+	padding:0;
+	font-size:14px;
+	.line_heading{
+		padding:0 10px 10px 10px;
+	}
+	.header{
+		font-weight:bold;
+	}
+	.row{
+		padding:10px;
+		border-bottom:1px solid #eeeeee;
+		vertical-align:middle;
+	}
+	.qty_box{
+		width:30px;
+		padding:4px;
+	}
+	form{
+		margin:0;
+		padding:0;
+	}
+}
+
+// Payment Screen
+
+.payment_table{
+	border:1px solid #cccccc;
+	padding:30px;
+	font-size:16px;
+	margin:20px auto;
+	td{
+		padding:10px;
+	}
+	label{
+		padding:20px 10px 0 0;
+		font-weight:bold;
+	}
+	input{
+		font-size:16px;
+		width:163px;
+	}
+	.amountField{
+		height:32px;
+	}
+	.cashButtons{
+		width:100%;
+		td{
+			text-align:center;
+		}
+	}
+}
+
+// Find Products
+
+.searchItemBox{
+	width:200px;
+	height:110px;
+	float:left;
+	text-align:center;
+	background-color:#f1f1f1;
+	border:1px solid #cccccc;
+	font-size:13px;
+	margin:15px;
+	padding:10px;
+	p{
+		height:60px;
+	}
+}
+
+// Register &Receipt Page
+
+#receiptWrapper{
+	margin:0 auto;
+	width:100%;
+	text-align:center;
+	.receiptProductList{
+		margin:0 auto;
+		width:100%;
+		text-align: center;
+	}	
+}
+
+#returnReceiptWrapper{
+	margin:0 auto;
+	width:100%;
+	text-align:center;
+	.returnReceiptProductList{
+		margin:0 auto;
+		width:100%;
+		text-align: center;
+	}	
+}
+
+.barcode128h  {
+    clear: both;
+    padding: 0 30px /*quiet zone*/;
+    overflow: auto;
+    height: 100px   /*size*/;
+}
+
+.barcode128h div {
+    /*float: left;*/
+    height: 100px  /*size*/;
+    display: inline-block;
+}
+
+
+.barcode128h .bar1 { border-left: 1px solid black }
+.barcode128h .bar2 { border-left: 2px solid black }
+.barcode128h .bar3 { border-left: 3px solid black }
+.barcode128h .bar4 { border-left: 4px solid black }
+.barcode128h .space0 { margin-right: 0px }
+.barcode128h .space1 { margin-right: 1px }
+.barcode128h .space2 { margin-right: 2px }
+.barcode128h .space3 { margin-right: 3px }
+.barcode128h .space4 { margin-right: 4px }
+
+/* Returns */
+
+.returnLineItemsWrapper{
+	width:100%;
+	td{
+		vertical-align:top;
+	}
+	.return_line_items{
+		width:100%;
+		margin:0;
+		padding:0;
+		font-size:14px;
+		.line_heading{
+			padding:10px;
+		}
+		.header{
+			font-weight:bold;
+		}
+		.row{
+			padding:10px;
+			border-bottom:1px solid #dddddd;
+			vertical-align:middle;
+		}
+		.qty_box{
+			width:30px;
+			padding:4px;
+		}
+		form{
+			margin:0;
+			padding:0;
+		}
+	}
+	.origionalLineItemsWrapper{
+		width:40%;
+		padding:0;
+		margin:0;
+		.origionalLineItems{
+			font-size:14px;
+			margin-top:0px;
+			background-color:$lightGrey;
+			border-collapse:collapse;
+			border-left:1px solid #e1e1e1;			
+			.headingOLI{
+				background-color:$darkgrey;
+				color:#ffffff;
+				padding:2px 4px;
+			}
+			td{
+				padding:5px;
+				border-bottom:1px solid #e1e1e1;
+			}	
+		}
+	}
+}
+
+	/* Returns Payment Screen */
+	
+	.returnPaymentRightAmountWrapper{
+		background-color:$darkgrey;
+	}
+	
+	/* Credit Card Return */
+	
+	.returnCreditPaymentWrapper{
+		width: 50%;
+		margin: 20px auto;
+		border: 10px solid #e1e1e1;
+		.returnCreditPaymentLeft{
+			display:inline-block;
+			float:left;
+			width:270px;
+			vertical-align:top;
+			background-color:#f1f1f1;
+			.returnCreditPaymentCard{
+				padding:10px;
+				width:250px;
+				font-size:15px;
+				background-color:#f1f1f1;
+				border-bottom:1px solid #fff;
+				text-align:center;
+				h2{
+					margin:10px 0;
+				}
+				h3{
+					margin:0 0 13px 0;
+				}
+				input{
+					margin:15px auto;
+				}
+				&:hover{
+					background-color:#5EABBE;
+					color:#ffffff;
+				}
+			}
+			.on{
+				background-color:#5EABBE;
+				color:#ffffff;
+				input{
+					display:none;
+				}
+			}
+		}
+		.returnCreditPaymentRight{
+			padding:20px;
+			float:right;
+			vertical-align:top;
+			display:inline-block;
+			#returnPaymentForm{
+				width:300px;
+				margin:0 auto;
+				.swipeBox{
+					width:300px;
+					font-size:15px;
+					padding:5px;
+				}
+				.amountBox{
+					width:300px;
+					font-size:15px;
+					padding:5px;
+				}
+				.submitBox{
+					
+				}
+			}
+		}
+	}
+	
+	
+// Timesheets 
+	
+		#timeSheetInfoArea{
+			width:100%;
+			height:100%;
+			background-color:#f1f1f1;
+			padding:25px 0;
+			.innerTimesheetArea{
+				margin:5px auto;
+				text-align:center;
+				width:400px;
+				padding:25px;
+				border:1px solid #eeeeee;
+				background-color:#ffffff;
+				h1{
+					margin:0 0 15px 0;
+				}
+			}
+		}
+	
+		.timesheet{
+			width:100%;
+			h1{
+				margin:0px 0px 10px 0px;
+			}
+			.heading_row{
+				background-color:$darkgrey;
+				color:#ffffff;
+			}
+			td{
+				padding:5px;
+			}
+		}
+	
+		.timesheetdate{
+			margin:0 0 10px 0;
+		}
+	
+	#timeSheetLogin{
+		padding: 15px;
+		h2{
+			margin:0px 0 10px 0;
+		}
+		label{
+			font-weight: bold;
+			width: 100%;
+			display: inline-block;
+		}
+		.timesheetInput{
+			width: 100%;
+			padding: 5px;
+			font-size: 16px;
+		}
+		.timeSheeSubmit{
+			margin-top:10px;
+			width:100%;
+			font-size:14px;
+		}
+	}
+
+// Options Page
+	.register_options_table{
+		width:800px;
+		margin:20px auto;
+		font-size:14px;
+		border:10px solid $lightGrey;
+		a{
+			margin-bottom:10px;
+			font-size:15px;
+		}
+	}
+
+	.remove_cash_table{
+		font-size:16px;
+		background-color:$darkgrey;
+		text-align:center;color:#ffffff;
+	}
+	
+	// Audit Till
+	.till_table{
+		margin:20px auto 20px auto;
+		max-width:600px;
+		width:90%;
+		border:10px solid $lightGrey;
+		background-color:#ffffff;
+		td{
+			padding:10px;
+		}
+		.till_heading{
+			background-color:$green;
+			color:#ffffff;
+		}
+		h3{
+			color:#ffffff;
+			padding:0;
+			margin:0;
+			font-size:18px;
+		}
+		.tillInputs input{
+			width:80px;
+			padding:5px;
+			font-size:16px;
+		}
+		.auditTillBottom{
+			background-color:$darkgrey;
+		}
+	}
+
+// Old Below
+
+.darkgreyBg{
+	background-color:$darkgrey;
+}
+
+.editBox{
+	padding: 2px 4px;
+	width: 70%;
+}
+
+.greenHeading{
+	background-color:$green;
+	color:#ffffff;
+}
+
+.right_box h2.greenHeading{
+	background-color:$green;
+	color:#ffffff;
+}
+
+

@@ -1,0 +1,115 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle"><%= @vendor.name %></h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/edit_vendor/<%= @vendor.id %>" class="buttons icon edit">Edit Vendor</a>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-8">
+		<div class="row">
+			<table class="table" cellpadding="6">
+				<tr>
+					<td>Name</td>
+					<td><%= @vendor.name %></td>
+				</tr>
+				<tr style="background-color:#ffffff;">
+					<td>Phone</td>
+					<td><%= number_to_phone @vendor.phone %></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><%= @vendor.email %></td>
+				</tr>
+				<tr style="background-color:#ffffff;">
+					<td>Purchase Order Email</td>
+					<td><%= @vendor.po_email %></td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td><%= @vendor.address %></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><%= @vendor.city %>, <%= @vendor.state %> <%= @vendor.zip %></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><%= @vendor.country %></td>
+				</tr>
+				<tr style="background-color:#ffffff;">
+					<td>Account Number</td>
+					<td><%= @vendor.account_number %></td>
+				</tr>
+				<tr>
+					<td>Website</td>
+					<td><%= @vendor.url %></td>
+				</tr>
+				<tr style="background-color:#ffffff;">
+					<td>Tax Rate</td>
+					<td><%= @vendor.tax_rate %></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<table class="table" cellpadding="6">
+			<tr>
+				<td>Rep Name</td>
+				<td><%= "#{@vendor.rep_first_name} #{@vendor.rep_last_name}" %></td>
+			</tr>
+			<tr style="background-color:#ffffff;">
+				<td>Phone</td>
+				<td><%= number_to_phone @vendor.rep_phone %><br>
+					<%= @vendor.rep_alt_phone %>
+				</td>
+			</tr>
+			<tr>
+				<td>Fax</td>
+				<td><%= @vendor.rep_fax %></td>
+			</tr>
+			<tr style="background-color:#ffffff;">
+				<td>Email</td>
+				<td><%= @vendor.rep_email %></td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td><%= @vendor.rep_address %></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><%= @vendor.rep_city %>, <%= @vendor.rep_state %> <%= @vendor.rep_zip %></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><%= @vendor.rep_country %></td>
+			</tr>
+		
+		</table>
+	</div>
+</div>
+
+<div class="row">
+	<table class="table" style="margin-top:12px;" cellspacing="0" cellpadding="0">
+		<tr>
+			<th>Product Name</th>
+			<th>Stock</th>
+			<th>On Order</th>
+			<th>Cost</th>
+			<th>Price</th>
+			<th>Margin</th>
+		</tr>
+		<% for p in @vendor.products %>
+		<tr>
+			<td><a href="/admin/view_inventory/<%= p.id %>"><%= p.name %></a></td>
+			<td><%= p.stock %></td>
+			<td>0</td>
+			<td><%= number_to_currency p.cost %></td>
+			<td><%= number_to_currency p.price %></td>
+			<td><font color="green"><%= number_to_percentage (p.price-p.cost)/p.price*100 %></font></td>
+		</tr>
+		<% end %>
+	</table>
+</div>

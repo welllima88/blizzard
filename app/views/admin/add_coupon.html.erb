@@ -1,0 +1,82 @@
+<%= form_tag(:action => 'create_coupon') do %>
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Create Coupon</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/add_coupon/" class="buttons icon add">Add Coupon</a>
+		</div>
+	</div>
+</div>
+<table class="table" cellspacing="0" cellpadding="0">
+	<tr>
+		<td colspan="4" style="background-color:#dddddd;padding:10px;border:1px solid #cccccc;"><strong>Coupon Information</strong></td>
+	</tr>
+	<tr>
+		<td width="33%" class="row">Coupon Name<br><%= text_field(:coupon, :name )%></td>
+		<td width="34%" class="row">Coupon Code<br><%= text_field(:coupon, :code )%></td>
+		<td width="33%" class="row">Max Uses<br><%= text_field(:coupon, :max_uses )%><br></td>
+	</tr>
+	<tr>
+		<td class="row">Discount Value<br><%= text_field(:coupon, :discount_value )%></td>
+		<td class="row">Discount Type<br><%= select_tag "coupon[discount_type]", 
+		options_for_select(
+		{
+			'Percent Off' => 0,
+			'Amount Off' => 1})%></td>
+		<td class="row">Use With Other Coupons?<br>
+			<%= select_tag "coupon[multiple_coupons]", 
+			options_for_select(
+			{	'Yes' => 1,
+				'No' => 0})%>
+		</td>
+	</tr>
+	<tr>
+		<td class="row dateSelect">Start Date<br><%= date_select(:coupon_date, :start_date)%></td>
+		<td class="row dateSelect">End Date<br><%= date_select(:coupon_end_date, :end_date)%></td>
+		<td class="row"></td>
+	</tr>
+	<tr>
+		<td class="row" colspan="4">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#dddddd;padding:10px;border:1px solid #cccccc;"><strong>Products</strong> (Leave blank for all products)</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<br>
+			sku's, ean's, or ups's separated by commas<br>
+			<%= text_field(:products, :array, :style=> 'width:100%;height:120px;margin:10px 0 20px 0;')%>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#dddddd;padding:10px;border:1px solid #cccccc;"><strong>Departments</strong> (Leaving all departments blank disables department checking)</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="padding:10px 0 10px 0;">
+			<% for d in @departments %>
+			<div style="background-color:#f1f1f1;padding:10px;margin:8px 8px 8px 0;float:left;border:1px solid #dddddd;">
+				<input type="checkbox" name="dep[<%= d.id %>]"> <%= d.name %>
+				<% for sub in d.departments %>
+					<br>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="dep[<%= sub.id %>]"><%= sub.name %>
+				<% end %>
+			</div>
+			<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#dddddd;padding:10px;border:1px solid #cccccc;"><strong>Excluded Products</strong></td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<br>
+			sku's, ean's, or ups's separated by commas<br>
+			<%= text_field(:excluded_products, :array, :style=> 'width:100%;height:120px;margin:10px 0 10px 0;')%>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="padding:10px;text-align:right;">
+			<%= submit_tag("Add Coupon", :class => 'buttons')%>
+		<% end %>
+		</td>
+	</tr>
+</table>

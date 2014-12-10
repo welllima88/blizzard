@@ -1,0 +1,35 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Departments</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/add_department/" class="buttons icon add">Add Department</a>
+		</div>
+	</div>
+</div>
+
+<table class="table" cellspacing="1" cellpadding="0">
+	<tr>
+		<th>Department Name</th>
+		<th>Sub Departments</th>
+		<th>&nbsp;</th>
+	</tr>
+	<% for d in @departments %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td class="row"><a href="/admin/edit_department/<%= d.id %>"><%= d.name %></a></td>
+		<td class="row">
+			<% for sub in d.departments %>
+				<%= render 'sub_departments', :sub => sub %>
+			<% end %>
+		</td>
+		<td class="row" width="150" style="text-align:center;">
+			<div class="buttons-group">
+				<a href="/admin/edit_department/<%= d.id %>" class="buttons icon edit">Edit</a>
+				<a href="/admin/destroy_department/<%= d.id %>" class="buttons icon remove danger">Delete</a>
+			</div>
+		</td>
+	</tr>
+	<% end %>
+	<tr>
+		<td colspan="3" class="paginste"><%= will_paginate(@departments) %></td>
+	</tr>
+</table>

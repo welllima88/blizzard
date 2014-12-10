@@ -1,0 +1,48 @@
+<%= form_tag(:action => 'edit_email_settings') do %>
+	<div class="row header">
+		<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Email Receipts</h4></div>
+		<div class="col-xs-12 col-sm-4">
+			<div class="btn-group pull-right">
+				<%= submit_tag("Save Settings", :class => 'btn btn-primary')%>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-left">Email Receipts</h3>
+			<!-- First Line -->
+			<div class="row">
+				<div class="col-sm-6 col-xs-12 form-group">
+					<div class="input-group"><span class="input-group-addon">Status</span><%= text_field(:company, :email_receipts_human, :class => 'form-control')%></div>
+				</div>
+
+				<div class="col-sm-6 col-xs-12 form-group">
+					<div class="input-group"><span class="input-group-addon">From Email</span><%= text_field(:company, :from_email, :class => 'form-control')%></div>
+				</div>
+			</div>
+		
+		
+			<h3 class="text-left">SMTP Information</h3>
+			<!-- First Line -->
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-xs-12 form-group">
+					<div class="input-group"><span class="input-group-addon">SMTP Host</span><%= text_field(:company, :smtp_host, :class => 'form-control')%></div>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-xs-12 form-group">
+					<div class="input-group"><span class="input-group-addon">SMTP Username</span><%= text_field(:company, :smtp_user, :class => 'form-control')%></div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-xs-12 form-group">
+					<div class="input-group"><span class="input-group-addon">SMTP Password</span><%= text_field(:company, :smtp_pass, :class => 'form-control')%></div>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-xs-12 form-group">
+					<div class="input-group"><span class="input-group-addon">SMTP Port</span><%= text_field(:company, :smtp_port, :class => 'form-control')%></div>
+				</div>
+			</div>
+		
+		
+		</div>
+	</div>
+<% end %>

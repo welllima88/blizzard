@@ -1,0 +1,163 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Product: <%= @p.name %></h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/inventory/" class="buttons icon arrowleft">All Inventory</a>
+			<a href="/admin/edit_product/<%= params[:id] %>" class="buttons icon edit">Edit</a>
+			<% if @p.status == 0 %>
+				<a href="/admin/activate_inventory/<%= params[:id] %>" class="buttons">Activate</a>
+			<% else %>
+				<a href="/admin/de_activate_inventory/<%= params[:id] %>" class="buttons danger icon remove">De Activate</a>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+		
+		<div class="row">
+			<div class="col-xs-12 col-md-12 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Product Name</span><input type="text" class="form-control" value="<%= @p.name %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Department</span><input type="text" class="form-control" value="<%= @p.department.name unless @p.department_id.blank? %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Vendor</span><input type="text" class="form-control" value="<%= @p.vendor.name unless @p.vendor_id.blank? %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Manufacturer</span><input type="text" class="form-control" value="<%= @p.manufacture.name unless @p.manufacturer_id.blank? %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Taxable</span><input type="text" class="form-control" value="<%= ['Taxed', 'Not Taxed'][@p.nontax] %>" disabled></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12"><h4 class="shadded-bg title-padding">Item Identifiers</h4></div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">UPC</span><input type="text" class="form-control" value="<%= @p.upc %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">SKU</span><input type="text" class="form-control" value="<%= @p.sku %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">EAN</span><input type="text" class="form-control" value="<%= @p.ean %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Manufacturer SKU</span><input type="text" class="form-control" value="<%= @p.m_sku %>" disabled></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12"><h4 class="shadded-bg title-padding">Item Location</h4></div>
+			<div class="col-xs-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Isle</span><input type="text" class="form-control" value="<%= @p.isle %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Shelf</span><input type="text" class="form-control" value="<%= @p.shelf %>" disabled></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12"><h4 class="shadded-bg title-padding">Pricing</h4></div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Cost of Goods $</span><input type="text" class="form-control" value="<%= to_money(@p.cost) %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Retail Price $</span><input type="text" class="form-control" value="<%= to_money(@p.price) %>" disabled></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Sale Price $</span><input type="text" class="form-control" value="<%= to_money(@p.sale_price) %>" disabled></div>
+			</div>	
+		</div>   
+		
+		
+		
+		
+		<div class="inlineblock top-buffer"></div>
+		<table class="table" cellspacing="1" cellpadding="0">
+			<tr class="noborder"><td colspan="6" class="blueHeading"><h3>Last 5 Sales</h3></td></tr>
+			<tr>
+				<th>Store</th>
+				<th>Order Date</th>
+				<th>Customer</th>
+				<th>QTY</th>
+				<th>Order Total</th>
+				<th>&nbsp;</th>
+			</tr>
+			<% for o in @orders %>
+			<tr class="<%= cycle('oddrow', 'evenrow') %>">
+				<td class="row"><%= o.store_name %></td>
+				<td class="row"><%= o.created_at.strftime("%b %d, %Y at %I:%M %p") %></td>
+				<td class="row"><%= o.customer_name %></td>
+				<td class="row"><%= o.order_line_items.select{|i| i.product_id.to_s == params[:id].to_s}.first.qty %></td>
+				<td class="row"><%= number_to_currency o.total %></td>
+				<td class="row"><a href="/admin/sale/<%= o.id %>">Sale Details</a></td>
+			</tr>
+			<% end %>
+			<tr>
+				<td class="paginate" colspan="6"><%= will_paginate(@orders) %></td>
+			</tr>
+		</table>
+
+		<table class="table" cellspacing="1" cellpadding="0">
+			<tr><td colspan="6" class="blueHeading"><h3 >Stock Transfers</h3></td></tr>
+			<tr>
+				<th>Source Location</th>
+				<th>Destination Location</th>
+				<th>QTY Sent</th>
+				<th>Status</th>
+			</tr>
+	
+		</table>
+
+		<table class="table" cellspacing="1" cellpadding="0">
+			<tr><td colspan="6" class="blueHeading"><h3>Open Purchase Orders</h3></td></tr>
+			<tr>
+				<th>Vendor</th>
+				<th>Purchase Order ID</th>
+				<th>Purchase Order Date</th>
+				<th>QTY Ordered</th>
+				<th>Received</th>
+				<th>&nbsp;</th>
+			</tr>
+			<% for po in @po %>
+				<tr>
+					<td class="row"><%= po.vendor_name %></td>
+					<td class="row"><%= po.id %></td>
+					<td class="row"><%= po.created_at %></td>
+					<td class="row"><%= po.po_items.select{|i| i.product_id.to_s == @p.id.to_s}.first.qty %></td>
+					<td class="row"><%= po.status_human %></td>
+					<td class="row"></td>
+				</tr>
+			<% end %>
+		</table>
+		
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+		<table class="table">
+			<tr class="noborder">
+				<td colspan="2"><h3>Stock Information</h3></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="<% if @p.stock >= 1 %>blueBg<% else %>redBg<% end %>"><strong>Total Stock: </strong><%= @p.stock+@p.in_transfer %> <font style="font-size:12px;margin-left:10px;">( <%= @p.on_order %> on order )</font></td>
+			</tr>
+			<tr>
+				<td><strong>Re-Order Level: </strong></td>
+				<td class="text-right"><%= @p.reorder_level %></td>
+			</tr>
+			<tr>
+				<td><strong>Desired Level: </strong></td>
+				<td class="text-right"><%= @p.desired_level %></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="blueBg">Stock by Location </td>
+			</tr>
+			<% for s in Store.where(:company_id => session[:user]['company_id']) %>
+				<tr>
+					<td><strong><%= s.name %>: </strong></td>
+					<td class="text-right"><%= @p.product_inventorys.select{|item| item.store_id == s.id }.first.qty.to_i unless !@p.product_inventorys.select{|item| item.store_id == s.id }.first %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

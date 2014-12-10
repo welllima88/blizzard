@@ -1,0 +1,27 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Vendors</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/add_vendor/" class="buttons icon add">Add Vendor</a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<table class="table" cellspacing="0" cellpadding="0">
+		<tr>
+			<th>Vendor Name</th>
+			<th width="150" class="text-right">Actions</th>
+		</tr>
+		<% for v in @vendors %>
+			<tr style="background-color:#<%= cycle('ffffff','eeeeee')%>;">
+				<td class="row"><a href="/admin/vendor/<%= v.id %>"><%= v.name %></a></td>
+				<td class="row text-right">
+					<div class="buttons-group">
+						<a href="/admin/vendor/<%= v.id %>" class="buttons icon search">View</a>
+						<a href="/admin/deactivate_vendor/<%= v.id %>" class="buttons danger">De-Activate</a>
+					</div>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>

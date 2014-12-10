@@ -1,0 +1,31 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Employees</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/add_employee/" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Employee</a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<table class="table">
+		<tr>
+			<th>Employee Name</th>
+			<th>Phone</th>
+			<th>Email</th>
+			<th>Admin</th>
+			<th></th>
+		</tr>
+		<% for e in @employees %>
+			<tr>
+				<td><%= e.full_name.titleize %></td>
+				<td><%= number_to_phone e.phone %></td>
+				<td><%= e.email %></td>
+				<td><% if e.super_admin == true %>Yes<% else %>No<% end %></td>
+				<td class="text-right"><a href="/admin/employee/<%= e.id %>" class="btn btn-sm">View Employee</a></td>
+			</tr>
+		<% end %>
+		<tr>
+			<td class="paginate" colspan="5"><%= will_paginate(@employees) %></td>
+		</tr>
+	</table>
+</div>

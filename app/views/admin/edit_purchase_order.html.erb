@@ -1,0 +1,107 @@
+<%= form_tag(:action => 'edit_purchase_order', :id => params[:id]) do %>
+<div class="row">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Edit Purchase Order</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<%= submit_tag("Save Changes", :class=>'buttons', :style=>'margin:0;', :done => 'no') %>
+			<%= submit_tag("Done", :class=>'buttons', :style=>'margin:0;', :done => 'yes') %>
+		</div>
+	</div>
+</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-8">
+
+			<div class="col-xs-12 col-sm-6 row-buffer"><strong>Purchase Order ID</strong><br><%= @purchaseorder.id %></div>
+			<div class="col-xs-12 col-sm-6 row-buffer"><strong>Vendor</strong><br><%= @purchaseorder.vendor.name %></div>
+			<div class="col-xs-12 col-sm-6 row-buffer"><strong>Status</strong><br><%= @purchaseorder.status_human %></div>
+			<div class="col-xs-12 col-sm-6 row-buffer"><strong>Vendor Account Number</strong><br><%= @purchaseorder.vendor_account_number %></div>
+
+			<% if @purchaseorder.status != 'complete' %>
+				<%= form_tag(:action => 'record_po_payment', :id => params[:id]) do %>
+					<div class="col-xs-12 col-sm-8 top-buffer blueBg center-element">
+						<div class="col-sm-12 text-center"><h3>Add Items</h3></div>
+						<div class="col-sm-4 row-buffer">
+							<b>Select Item:</b> <%= collection_select(:item, :id, Product.all(:vendor_id => @purchaseorder.vendor_id, :id.nin => @purchaseorder.po_items.map{|i| i.product_id}), :id, :name, :prompt => true, :style=> 'font-size:16px;margin-bottom:10px;') %>
+						</div>
+						<div class="col-sm-4 row-buffer"><strong>Quantity:</strong> <%= text_field(:item, :qty, :style => 'width:100px;margin:0 10px 10px 0;padding:5px; ')%></div>
+						<div class="col-sm-4 row-buffer"><%= submit_tag("Add Product", :class => 'buttons')%></div>
+					</div>
+					<div class="col-xs-12 col-sm-4 top-buffer row-buffer lightBg">
+						<div class="col-sm-12 text-center"><h3>Add Items</h3></div>
+						<div class="text-center"><a href="/admin/add_low_stock/<%= params[:id] %>" class="buttons icon add">Add All Low Stock Items</a></div>
+					</div>
+				<% end %>
+			<% end %>
+			<div class="inline-block-buffer"></div>
+			<table class="table">
+				<tr>
+					<th colspan="2">&nbsp;Product Name</th>
+					<th>Manufacturer</th>
+					<th>Product Cost</th>
+					<th>Product UPC</th>
+					<th>QTY</th>
+				</tr>
+				<% n=0 %>
+				<% for p in @purchaseorder.po_items %>
+					<% n+=1 %>
+					<tr class="<%= cycle('oddrow', 'evenrow') %>">
+						<% if p.all_received != 'yes' %><td width="6" style="background:#900000;"><% else %><td width="6" style="background:#639e23;"><% end %></td>
+						<td><a href="/admin/view_inventory/<%= p.product_id %>"><%= p.name %></a></td>
+						<td><%= p.manufacturer_name %></td>
+						<td width="120"><%= number_to_currency p.cost %></td>
+						<td><%= p.upc %></td>
+						<td width="100"><%= text_field "#{n}", 'qty', :value => p.qty %><%= hidden_field("#{n}", "id", :value => p.id)%></td>
+					</tr>
+				<% end %>
+			</table>
+		
+		</div>
+		<div class="col-sm-12 col-md-4">
+			<table class="table" >
+				<tr><th class="blueBg" colspan="2"><h3 class="text-center">Shipping Information</h3></td></tr>
+				<tr>
+					<td>Address</td>
+					<td><%= text_field(:purchaseorder, :shipping_address, :style=>"width:100%;")%></td>
+				</tr>
+				<tr>
+					<td>City</td>
+					<td><%= text_field(:purchaseorder, :shipping_city, :style=>"width:100%;")%></td>
+				</tr>
+				<tr>
+					<td>State</td>
+					<td>
+						<%= select_state("purchaseorder", "shipping_state",  @purchaseorder.shipping_state) %>
+					</td>
+				</tr>
+				<tr>
+					<td>Zip</td>
+					<td><%= text_field(:purchaseorder, :shipping_zip, :style=>"width:100%;")%></td>
+				</tr>
+				<tr><th class="blueBg" colspan="2"><h3 class="text-center">Monetary Information</h3></td></tr>
+				<tr>
+					<td>Sub-Total:</td>
+					<td><%= number_to_currency @purchaseorder.cost %></td>
+				</tr>
+				<tr>
+					<td>Shipping:</td>
+					<td><%= text_field(:purchaseorder, :shipping_cost, :value => (number_with_precision @purchaseorder.shipping_cost, :precision => 2)) %></td>
+				</tr>
+				<tr>
+					<td>Discount:</td>
+					<td style="font-weight:normal;">
+						<%= text_field(:purchaseorder, :discount_percent, :value => (number_with_precision @purchaseorder.discount_percent, :precision => 0), :style => 'width:40px;') %>&nbsp;<font style="font-size:12px;">%</font>&nbsp;&nbsp;&nbsp; <font style="font-size:12px;">and/or</font>&nbsp;&nbsp;&nbsp;
+						<font style="font-size:12px;">$</font>&nbsp;<%= text_field(:purchaseorder, :discount_amount, :value => (number_with_precision @purchaseorder.discount_amount, :precision => 0), :style => 'width:40px;') %>
+					</td>
+				</tr>
+				<tr>
+					<td>Total:</td>
+					<td><%= number_to_currency @purchaseorder.total %></td>
+				</tr>
+				<tr>
+					<td>Amount Paid:</td>
+					<td><%= number_to_currency @purchaseorder.amount_paid %></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<% end %>

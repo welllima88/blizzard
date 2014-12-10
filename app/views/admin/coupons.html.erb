@@ -1,0 +1,46 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle"><% if params[:deactive] == 'yes' %>De-active<% else %>Active<% end %> Coupons</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="btn-group">
+			<a href="/admin/add_coupon/" class="btn btn-primary">Add Coupon</a>
+			<% if params[:deactive] == 'yes' %>
+				<a href="/admin/coupons/" class="btn btn-primary">View Active Coupons</a>
+			<% else %>
+				<a href="/admin/coupons?deactive=yes" class="btn btn-primary" >View De-Active Coupons</a>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+<table class="table" cellspacing="1" cellpadding="0">
+	<tr>
+		<th>Coupon</th>
+		<th>Code</th>
+		<th>Discount</th>
+		<th>Start Date</th>
+		<th>End Date</th>
+		<th>Uses</th>
+		<th style="width:130px;"></th>
+	</tr>
+	<% for c in @coupons %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td ><%= c.name %></td>
+		<td ><%= c.code %></td>
+		<td >
+			<% if c.discount_type == 'percent' %>
+				<%= number_with_precision(c.discount_value, :precision => 0) %>%
+			<% else %>
+				<%= number_to_currency c.discount_value %>
+			<% end %>
+		</td>
+		<td><%= c.start_date.strftime("%h %e, %Y") %></td>
+		<td><%= c.end_date.strftime("%h %e, %Y") %></td>
+		<td><%= c.uses %></td>
+		<td class="text-right"><a href="/admin/coupon/<%= c.id %>" class="buttons">view Coupon</a></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td colspan="6" class="paginate"><%= will_paginate(@coupons) %></td>
+	</tr>
+</table>

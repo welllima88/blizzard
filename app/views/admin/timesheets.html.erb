@@ -1,0 +1,24 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Timesheet's</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="btn-group">
+			
+		</div>
+	</div>
+</div>
+<div class="row">
+	<table class="table">
+		<tr>
+			<th>Date</th>
+			<th>Store</th>
+			<th></th>
+		</tr>
+		<% for t in @timesheets %>
+			<tr>
+				<td><%= t.date.to_date.strftime("%B %e, %Y") %></td>
+				<td><%= t.store.name %></td>
+				<td class="text-right"><a href="/admin/timesheet/<%= t.id %>" class="btn btn-sm">View or Edit</a></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

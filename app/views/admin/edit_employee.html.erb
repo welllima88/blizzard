@@ -1,0 +1,115 @@
+<%= form_tag(:action => 'edit_employee') do -%>
+	<div class="row header">
+		<div class="col-xs-12 col-sm-8"><h4 class="productTitle">
+			<%= @employee.full_name.titleize %> (<% if @employee.status == true %>Active<% else %>In-Active<% end %>)
+		</h4></div>
+		<div class="col-xs-12 col-sm-4 text-right">
+			<div class="buttons-group">
+				<%= submit_tag("Save", :class => 'btn btn-success')%>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<h4 class="bg_heading">Employee Information</h4>
+			<table class="table" cellspacing="2" cellpadding="4">
+				<tr>
+					<td><strong>First Name</strong><br><%= text_field(:employee, :first_name)%></td>
+					<td><strong>Last Name</strong><br><%= text_field(:employee, :last_name)%></td>
+				</tr>
+				<tr>
+					<td><strong>Phone Number</strong><br><%= text_field(:employee, :phone)%></td>
+					<td><strong>Email</strong><br><%= text_field(:employee, :email)%></td>
+				</tr>
+				<tr>
+					<td><strong>Address</strong><br><%= text_field(:employee, :address)%></td>
+					<td><strong>City</strong><br><%= text_field(:employee, :city)%></td>
+				</tr>
+				<tr>
+					<td><strong>State</strong><br><%= text_field(:employee, :state)%></td>
+					<td><strong>Zipcode</strong><br><%= text_field(:employee, :zip)%></td>
+				</tr>
+				<tr>
+					<td><strong>Start Date</strong><br><%= date_select(:employee_start, :date, :default => { :day => @employee.start_date.day, :month =>  @employee.start_date.month, :year => @employee.start_date.year}, :order => [:month, :day, :year])%></td></td>
+					<td><strong>Status</strong><br>
+						<select id="employee_status" name="employee[status]">
+							<option value="true" <% if @employee.status == true %>selected="selected"<% end %>>Active</option>
+							<option value="false" <% if @employee.status == false %>selected="selected"<% end %>>In-Active</option>
+						</select>
+					</td>
+				</tr>
+				<tr><td colspan="2"><h4 class="bg_heading">Personal Information</h4></td></tr>
+				<tr>
+					<td><strong>SSN</strong><br>
+					<% if @employee.ssn != nil %>
+						<% if params[:view_ssn] == 'yes' %>
+							<%= text_field(:employee, :ssn) %>
+						<% else %>
+							<%= @employee.ssn.to_s.gsub(/^....../, 'XXX-XX') %> (<a href="/admin/edit_employee/<%= params[:id]%>?view_ssn=yes">View SSN</a>)
+						<% end %>
+					<% end %>
+						</td>
+					<td><strong>Date of Birth</strong><br><%= date_select(:employee_dob, :date, :default => { :day => @employee.dob.day, :month =>  @employee.dob.month, :year => @employee.dob.year}, :order => [:month, :day, :year])%></td>
+				</tr>
+				<tr><td colspan="2"><h4 class="bg_heading">Employee Compensation</h4></td></tr>
+				<tr>
+					<td><strong>Compensation</strong><br><%= text_field(:employee_rate, :amount, :value => number_to_currency(@employee.compensation)) %></td>
+					<td>
+						<strong>Compensation Type</strong><br>
+						<select id="employee_compensation_type" name="employee[compensation_type]">
+							<option value="hourly" <% if @employee.compensation_type == 'hourly' %>selected="selected"<% end %>>Hourly</option>
+							<option value="salary" <% if @employee.compensation_type == 'salary' %>selected="selected"<% end %>>Salary</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Username</strong><br><%= @employee.username %></td>
+					<td><strong>Change Password</strong><br><%= text_field(:employee, :new_password)%></td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<h4 class="bg_heading">Employee Access</h4>
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'super_admin', true,  @employee.super_admin %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Super Admin</strong><br>Admin access allows the employee to access the administration panel and make changes, update, and delete records.</div>
+			</div>
+		
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'sales', true,  @employee.sales %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Admin Sales</strong><br>Admin sales allows the employee access to the admin sales tab of the administration panel.</div>
+			</div>
+		
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'inventory', true,  @employee.inventory %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Admin Inventory</strong><br>Admin inventory allows the employee access to the admin inventory tab of the administration panel.</div>
+			</div>
+		
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'customers', true,  @employee.customers %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Admin Customers</strong><br>Admin customers allows the employee access to the admin customers tab of the administration panel.</div>
+			</div>
+		
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'giftcards', true,  @employee.giftcards %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Admin Gift Cards</strong><br>Admin gift cards allows the employee access to the admin gift cards tab of the administration panel.</div>
+			</div>
+		
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'employees', true,  @employee.employees %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Admin Employees</strong><br>Admin employees allows the employee access to the admin employees tab of the administration panel.</div>
+			</div>
+		
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'stores', true,  @employee.stores %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Admin Stores</strong><br>Admin stores allows the employee access to the admin stores tab of the administration panel.</div>
+			</div>
+		
+			<div class="row row-buffer">
+				<div class="col-xs-2 col-sm-1 text-center green"><%= check_box_tag 'marketing', true,  @employee.marketing %></div>
+				<div class="col-xs-9 col-sm-11"><strong>Admin Reports</strong><br>Admin reports allows the employee access to the admin reports tab of the administration panel.</div>
+			</div>
+		</div>
+	</div>
+<% end %>

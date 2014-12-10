@@ -1,0 +1,337 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle"><%= @store.name %></h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/edit_store/<%= @store._id %>" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Store</a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+		<h3>Store Information</h3>
+		
+		<div class="form-group">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Address</span><%= text_field(:store, :address, :class => 'form-control', :disabled => true, :value => @store.address.titleize)%></div>
+		</div>
+		<div class="form-group">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Line 2</span><%= text_field(:store, :address2, :class => 'form-control', :disabled => true, :value => @store.address2.titleize)%></div>
+		</div>
+		<div class="form-group">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">City</span><%= text_field(:store, :city, :class => 'form-control', :disabled => true, :value => @store.city.titleize)%></div>
+		</div>
+		<div class="form-group">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">State</span><%= text_field(:store, :state, :class => 'form-control', :disabled => true)%></div>
+		</div>
+		<div class="form-group">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Postal Code</span><%= text_field(:store, :zip, :class => 'form-control', :disabled => true)%></div>
+		</div>
+		
+		
+		<div class="form-group top-buffer">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Time Zone</span><%= text_field(:store, :time_zone, :class => 'form-control', :disabled => true, :value => @store.time_zone)%></div>
+		</div>
+		
+		<div class="form-group top-buffer">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Email</span><%= text_field(:store, :email, :class => 'form-control', :disabled => true)%></div>
+		</div>
+		<div class="form-group">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Phone</span><%= text_field(:store, :phone, :class => 'form-control', :disabled => true, :value => (number_to_phone @store.phone))%></div>
+		</div>
+		
+		<div class="form-group top-buffer">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Currency Code</span><%= text_field(:store, :currency_code, :class => 'form-control', :disabled => true)%></div>
+		</div>
+		<div class="form-group">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Tax Rate</span><%= text_field(:store, :tax_rate, :class => 'form-control', :disabled => true, :value => "#{@store.tax_rate}%")%></div>
+		</div>
+		
+		<div class="form-group top-buffer">
+			<div class="input-group"><span class="input-group-addon addon-fixed-a">Payment Gateway</span><%= text_field(:store, :gateway, :class => 'form-control', :disabled => true)%></div>
+		</div>
+		
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8">
+		<table class="table">
+			<tr>
+				<td colspan="2">
+					<h3>Registers</h3>
+				</td>
+				<td colspan="2" style="text-align:right;padding-right:0px;">
+					<a class="btn btn-success" onclick="showaddRegister()">Add Register</a>
+					<script type="text/javascript" charset="utf-8"> function showaddRegister(){ $('#addRegisterBox').slideDown(); } </script>
+				</td>
+			</tr>
+			<tr id="addRegisterBox" style="display:none;background-color:#ffffff;vertical-align:middle;">
+				<%= form_tag(:action => 'addRegister') do %>
+				<td colspan="2" style="text-align:center;">
+					Register Name: <%= text_field(:register, :name) %>
+				</td>
+				<td colspan="2" style="text-align:center;vertical-align:middle;">
+					<%= submit_tag("Save", :class => 'btn btn-success', :style => 'font-size:12px;')%>
+					<%= hidden_field(:register, :company_id, :value => session[:user]['company_id'])%>
+					<%= hidden_field(:register, :store_id, :value => params[:id])%>
+				</td>
+				<% end %>
+			</tr>
+			<tr>
+				<th>Register</th>
+				<th class="text-center">Status</th>
+				<th class="text-center">Till</th>
+				<th class="text-center"></th>
+			</tr>
+			<% for r in @registers %>
+				<tr>
+					<td class="row"><%= r.name %></td>
+					<td class="row" style="text-align: center;"><%= r.human_status %></td>
+					<td class="row" style="text-align: center;"><%= number_to_currency r.till %></td>
+					<td class="row" style="text-align: right;"><a href="/admin/register_logs/<%= r.id %>" class="btn btn-sm">View</a></td>
+				</tr>
+			<% end %>
+			<tr>
+				<td colspan="4" style="text-align:right;"><%= will_paginate @registers %></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div style="display:inline-block;width:100%;margin:25px 0;">
+	<div id="chartcontainer" class="highcharts-container" style="height:410px; margin: 10px 0; clear:both; width:100%;"></div>
+<script type="text/javascript">	
+
+$(function () {
+        $('#chartcontainer').highcharts({
+            chart: {
+                type: 'spline',
+                marginRight: 130,
+                marginBottom: 25
+            },
+            title: {
+                text: 'Weekly Income Chart',
+                x: -20 //center
+            },
+            
+            xAxis: {
+                categories: ['<%= (Date.today-6.days).strftime("%a %h %d") %>', '<%= (Date.today-5.days).strftime("%a %h %d") %>', '<%= (Date.today-4.days).strftime("%a %h %d") %>', '<%= (Date.today-3.days).strftime("%a %h %d") %>', '<%= (Date.today-2.days).strftime("%a %h %d") %>', '<%= (Date.today-1.days).strftime("%a %h %d") %>', '<%= Date.today.strftime("%a %h %d") %>']
+            },
+            yAxis: {
+                title: {
+                    text: 'Dollars ($)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valuePrefix: '$'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Gross Profit',
+                data: [<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-6.days}") && o.created_at <= Time.parse("#{Date.today-5.days}")}.to_a.sum(&:subtotal), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-5.days}") && o.created_at <= Time.parse("#{Date.today-4.days}")}.to_a.sum(&:total), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-4.days}") && o.created_at <= Time.parse("#{Date.today-3.days}")}.to_a.sum(&:total), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-3.days}") && o.created_at <= Time.parse("#{Date.today-2.days}")}.to_a.sum(&:total), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-2.days}") && o.created_at <= Time.parse("#{Date.today-1.days}")}.to_a.sum(&:total), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-1.days}") && o.created_at <= Time.parse("#{Date.today}")}.to_a.sum(&:total), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today}") && o.created_at <= Time.parse("#{Date.today+1.days}")}.to_a.sum(&:total), :precision => 2) %>]
+            }, {
+                name: 'Net Profit',
+                data: [<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-6.days}") && o.created_at <= Time.parse("#{Date.today-5.days}")}.to_a.sum(&:subtotal), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-5.days}") && o.created_at <= Time.parse("#{Date.today-4.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-4.days}") && o.created_at <= Time.parse("#{Date.today-3.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-3.days}") && o.created_at <= Time.parse("#{Date.today-2.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-2.days}") && o.created_at <= Time.parse("#{Date.today-1.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-1.days}") && o.created_at <= Time.parse("#{Date.today}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+				<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today}") && o.created_at <= Time.parse("#{Date.today+1.days}")}.to_a.sum(&:net_profit), :precision => 2) %>]
+            }]
+        });
+    });
+	
+	
+	Highcharts.theme = {
+	   colors: ["#0097cf", "#32bf00"],
+	   chart: {
+	      backgroundColor: '#f1f1f1',
+	      borderWidth: 0,
+	      borderRadius: 15,
+	      plotBackgroundColor: null,
+	      plotShadow: false,
+	      plotBorderWidth: 0
+	   },
+	   title: {
+	      style: { 
+	         color: '#FFF',
+	         font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+	      }
+	   },
+	   subtitle: {
+	      style: { 
+	         color: '#DDD',
+	         font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+	      }
+	   },
+	   xAxis: {
+	      gridLineWidth: 0,
+	      lineColor: '#dddddd',
+	      tickColor: '#dddddd',
+	      labels: {
+	         style: {
+	            color: '#333',
+	            fontWeight: 'normal'
+	         }
+	      },
+	      title: {
+	         style: {
+	            color: '#333',
+	            font: 'normal 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+	         }            
+	      }
+	   },
+	   yAxis: {
+	      alternateGridColor: null,
+	      minorTickInterval: null,
+	      gridLineColor: '#ccc',
+	      lineWidth: 0,
+	      tickWidth: 0,
+	      labels: {
+	         style: {
+	            color: '#333',
+	            fontWeight: 'normal'
+	         }
+	      },
+	      title: {
+	         style: {
+	            color: '#333',
+	            font: 'normal 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+	         }            
+	      }
+	   },
+	   legend: {
+	      itemStyle: {
+	         color: '#333'
+	      },
+	      itemHoverStyle: {
+	         color: '#333'
+	      },
+	      itemHiddenStyle: {
+	         color: '#333'
+	      }
+	   },
+	   labels: {
+	      style: {
+	         color: '#CCC'
+	      }
+	   },
+	   tooltip: {
+	      backgroundColor: '#f1f1f1',
+	      borderWidth: 0,
+	      style: {
+	         color: '#000'
+	      }
+	   },
+
+
+	   plotOptions: {
+	      line: {
+	         dataLabels: {
+	            color: '#CCC'
+	         },
+	         marker: {
+	            lineColor: '#fff'
+	         }
+	      },
+	      spline: {
+	         marker: {
+	            lineColor: '#fff'
+	         }
+	      },
+	      scatter: {
+	         marker: {
+	            lineColor: '#fff'
+	         }
+	      },
+	      candlestick: {
+	         lineColor: 'white'
+	      }
+	   },
+
+	   toolbar: {
+	      itemStyle: {
+	         color: '#CCC'
+	      }
+	   },
+
+	   navigation: {
+	      buttonOptions: {
+	         backgroundColor: {
+	            linearGradient: [0, 0, 0, 20],
+	            stops: [
+	               [0.4, '#606060'],
+	               [0.6, '#333333']
+	            ]
+	         },
+	         borderColor: '#000000',
+	         symbolStroke: '#C0C0C0',
+	         hoverSymbolStroke: '#FFFFFF'
+	      }
+	   },
+
+	   exporting: {
+	      buttons: {
+	         exportButton: {
+	            symbolFill: '#55BE3B'
+	         },
+	         printButton: {
+	            symbolFill: '#7797BE'
+	         }
+	      }
+	   }
+	};
+
+	// Apply the theme
+	var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+    
+    
+</script>
+</div>
+
+
+<table class="table">
+	<tr>
+		<td colspan="7">
+			<h3><%= @store.name.titleize %> Sales</h3>
+		</td>
+	</tr>
+	<tr>
+		<th class="text-center">Employee</th>
+		<th class="text-center">Time</th>
+		<th class="text-center">Total</th>
+		<th class="text-center">Net Profit</th>
+		<th class="text-center">Status</th>
+		<th class="text-center">Customer</th>
+		<th ></th>
+	</tr>
+	<% for s in @sales %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td width="120" class="text-center"><a href="/admin/employee/<%= s.employee_id %>"> <%= s.employee_name %> </a></td>
+		<td width="120" class="text-center"><%= s.created_at.strftime("%b %e, %Y") %><br><%= s.created_at.strftime("%l:%M %p") %></td>
+		<td class="text-center"><%= number_to_currency s.total %></td>
+		<td class="text-center"><%= number_to_currency s.net_profit %></td>
+		<td width="80" class="text-center"><%= s.status %></td>
+		<td class="text-center"><a href="/admin/customer/<%= s.customer_id %>"><%= s.customer_name -%></a></td>
+		<td width="120" class="text-center"><a href="/admin/sale/<%= s.id %>" class="buttons">Details</a></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td colspan="7" class="paginate"><%= will_paginate @sales %></td>
+	</tr>
+</table>

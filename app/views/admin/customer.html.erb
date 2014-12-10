@@ -1,0 +1,105 @@
+<%= form_tag(:action => 'edit_customer', :id => params[:id])%>
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Customer: <%= @customer.full_name %></h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<% if !params[:edit] %>
+				<a href="/admin/customer/<%= @customer.id %>?edit=true" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Customer</a>
+			<% else %>
+				<%= submit_tag('Update Information', :class => 'btn btn-success')%>
+			<% end %>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-8">
+		<table class="table" cellspacing="0" cellpadding="4">
+			<tr><th colspan="3"><h3>Personal Information</h3></th></tr>
+			<% if params[:edit] == nil %>
+				<tr>
+					<td width="33%"><strong>First Name</strong><br><%= @customer.first_name.titleize %></td>
+					<td width="33%"><strong>Last Name</strong><br><%= @customer.last_name.titleize %></td>
+					<td width="33%"><strong>Address</strong><br><%= @customer.address %></td>
+				</tr>
+				
+				<td><strong>City</strong><br><%= @customer.city.titleize %></td>
+				<td><strong>State</strong><br><%= @customer.state.upcase %></td>
+				<td><strong>Zip</strong><br><%= @customer.zip %> </td>
+				<tr>
+					<td><strong>Email</strong><br><%= @customer.email %></td>
+					<td><strong>Phone</strong><br><%= number_to_phone @customer.phone %></td>
+					<td></td>
+				</tr>
+			<% else %>
+				<tr>
+					<td width="33%"><strong>First Name</strong><br><%= text_field(:customer, :first_name, :class => 'form-control') %></td>
+					<td width="33%"><strong>Last Name</strong><br><%= text_field(:customer, :last_name, :class => 'form-control') %></td>
+					<td width="33%"><strong>Address</strong><br><%= text_field(:customer, :address, :class => 'form-control') %></td>
+				</tr>
+				<tr><td colspan="3"></td></tr>					
+				<tr>
+					<td><strong>City</strong><br><%= text_field(:customer, :city, :class => 'form-control') %></td>
+					<td>
+						<strong>State</strong><br><%= select_state('customer', 'state', @customer.state)%>
+					</td>
+					<td><strong>Zip</strong><br><%= text_field(:customer, :zip, :class => 'form-control') %> </td>
+				</tr>
+				
+				<tr><td colspan="3"></td></tr>
+				<tr>
+					<td><strong>Email</strong><br><%= text_field(:customer, :email, :class => 'form-control') %></td>
+					<td><strong>Phone</strong><br><%= text_field(:customer, :phone_number, :value => @customer.phone, :class => 'form-control') %></td>
+					
+				</tr>
+			<% end %>
+		</table>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<h4 class="lightBg row-buffer" style="margin:0;">Other Information</h4>
+		<table class="table" style="text-align:center;font-size:18px;color:#000000;background-color:#ffffff;margin:0;padding:0;">
+			<tr>
+				<td width="50%">Points</td>
+				<td width="50%">Point Value</td>
+			</tr>
+			<tr>
+				<td style="font-size:22px"><%= @customer.points %></td>
+				<td style="font-size:22px"><%= number_to_currency @customer.points*@customer.company.point_value %></td>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>Spent</td>
+				<td>Net Profit</td>
+			</tr>
+			<tr>
+				<td style="font-size:22px"><%= number_to_currency @customer.spent %></td>
+				<td style="font-size:22px"><%= number_to_currency @customer.net_profit %></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<% if !params[:edit] %>
+<h2 style="margin:30px 0 10px 2px;font-size:20px">Sales</h2>
+<table class="table" cellspacing="1" cellpadding="0">
+	<tr>
+		<th>Sale Date</th>
+		<th>Total</th>
+		<th>Store</th>
+		<th>Employee</th>
+		<th style="width:100px;">&nbsp;</th>
+	</tr>
+	<% for o in @orders %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td class="row"><%= o.created_at.strftime("%d/%m/%Y") %></td>
+		<td class="row"><%= number_to_currency o.total %></td>
+		<td class="row"><%= o.store_name %></td>
+		<td class="row"><%= o.employee_name %></td>
+		<td class="row"><center><a href="/admin/sale/<%= o.id %>" class="btn btn-sm">View Sale</a></center></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td class="paginate" colspan="5"><%= will_paginate @orders %></td>
+	</tr>
+</table>
+<% end %>

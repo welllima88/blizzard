@@ -1,0 +1,7 @@
+Rails.application.config.assets.precompile += %w( admin.css )
+Rails.application.config.assets.precompile += %w( buttons.css )
+Rails.application.config.assets.precompile += %w( admin.js )
+Rails.application.config.assets.precompile += %w( login.css )
+Rails.application.config.assets.precompile += %w( jqueryMobileStructure.css )
+Rails.application.config.assets.precompile += %w( *.css )
+Rails.application.config.assets.precompile += %w( *.js )

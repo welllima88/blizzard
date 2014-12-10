@@ -1,0 +1,180 @@
+
+<!-- Payment Screen -->
+<div id="paymentArea" class="">
+	<form accept-charset="UTF-8" action="" method="" onsubmit="return false;" autocomplete="off">
+		
+		
+		
+		
+		
+		<!-- Cash Payment -->
+		<div id="cashPaymentBox" class="">
+			<table class="payment_table" cellspacing="0" cellpadding="10" >
+				<tr>
+					<td colspan="3" style="text-align:center;"><h1>Cash Payment</h1></td>
+				</tr>
+				<tr style="background-color:#dddddd;">
+					<td><b>AMOUNT</b></td>
+					<td>
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input type="text" class="form-control payment-remaining-field" placeholder="229" id="amountField" name="amountField">
+						</div>
+					</td>
+					<td width="90"><input class="btn btn-go" name="commit" type="submit" value="Add Payment" onclick="addPayment('cash')" /></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						
+						<div class="newPaymentButtons">
+							<div class="column">
+								<input type="button" class="cashButton" value="$1" onclick="addCashAmmount(1);">
+								<input type="button" class="cashButton" value="$10" onclick="addCashAmmount(10);">
+								<input type="button" class="cashButton" value="$50" onclick="addCashAmmount(50);">
+							</div>
+							<div class="column">
+								<input type="button" class="cashButton" value="$5" onclick="addCashAmmount(5);">
+								<input type="button" class="cashButton" value="$20" onclick="addCashAmmount(20);">
+								<input type="button" class="cashButton" value="$100" onclick="addCashAmmount(100);">
+							</div>
+							<div class="centButtons">
+								<input type="button" class="centButton" value="1&cent;" onclick="addCashAmmount(0.01);">
+								<input type="button" class="centButton" value="5&cent;" onclick="addCashAmmount(0.05);">
+								<input type="button" class="centButton" value="10&cent;" onclick="addCashAmmount(0.10);">
+								<input type="button" class="centButton" value="25&cent;" onclick="addCashAmmount(0.25);">
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- Credit Card Payment -->
+		<div id="creditCardPaymentBox" class="hideField">
+			<div id="scanCCField">
+				<table class="payment_table" cellspacing="0" cellpadding="5">
+					<tr>
+						<td colspan="2" class="text-center"><h1>Credit Card Payment</h1></td>
+					</tr>
+					<tr style="background-color:#dddddd;">
+						<td class="text-center">
+							<b>AMOUNT</b>
+						</td>
+						<td colspan="2" style="text-align:center;">
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								<input type="text" class="form-control payment-remaining-field" id="amountFieldCC" name="amountFieldCC">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-top:17px;">Scan Card:</td>
+						<td style="width: 262px;"><input type="password" name="magData" id="magData" class="form-control payment-data-field" autocomplete="off" style="width: 100%;"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" class="btn btn-primary" value="Manualy Enter Card" onclick="manualCard();" /></td>
+						<td style="text-align:right;"><input class="btn btn-go" name="commit" type="submit" value="Add Payment" onclick="addPayment('credit_card')" /></td>
+					</tr>
+				</table>
+			</div>
+			<div id="manualCCField" class="hideField">
+				<table class="payment_table" cellspacing="0" cellpadding="5">
+					<tr>
+						<td colspan="2" class="text-center"><h1>Manual Credit Card</h1></td>
+					</tr>
+					<tr style="background-color:#dddddd;">
+						<td class="text-center"><b>AMOUNT</b></td>
+						<td>
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								<input type="text" class="form-control payment-remaining-field" id="amountFieldCCManual" name="amountFieldCCManual">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td >Cardholder Name:<br><input type="text" name="cardHolderName" id="cardHolderName" value="" class="form-control payment-data-field" /></td>
+						<td >Card Number:<br><input type="text" name="creditCardNumber" id="creditCardNumber" value="" class="form-control payment-data-field" /></td>
+					</tr>
+					<tr>
+						<td >Expiration Date (MMYY)<br><input type="text" name="cardExpDate" id="cardExpDate" value="" class="form-control payment-data-field" /></td>
+						<td >CVV Number:<br><input type="text" name="CardCvvNumber" id="CardCvvNumber" value="" class="form-control payment-data-field" /></td>
+					</tr>
+					<tr>
+						<td><input type="button" class="btn btn-primary" value="Scan Credit Card" onclick="scanCreditCard();" /></td>
+						<td style="text-align:right;"><input class="btn btn-go" name="commit" type="submit" value="Add Payment" onclick="addPayment('credit_card')" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- Gift Card Payment -->
+		<div id="giftCardPaymentBox" class="hideField">
+			<div id="scanGCField">
+				<table class="payment_table" cellspacing="0" cellpadding="5">
+					<tr>
+						<td colspan="2" style="text-align:center;"><h1>Gift Card Payment</h1></td>
+					</tr>
+					<tr style="background-color:#dddddd;">
+						<td style="text-align:center;">
+							<b>AMOUNT</b>
+						</td>
+						<td>
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								<input type="text" class="form-control payment-remaining-field" id="amountFieldGC" name="amountFieldGC">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-top:17px;">Scan Card:</td>
+						<td style="width: 262px;"><input type="password" name="giftMagData" id="giftMagData" class="form-control payment-data-field" autocomplete="off" style="width: 100%;"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="text-align:right;"><input class="btn btn-go" name="commit" type="submit" value="Add Payment" onclick="addPayment('gift_card')" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- Check Payment -->
+		<div id="checkPaymentBox" class="hideField">
+			<table class="payment_table" cellspacing="0" cellpadding="10">
+				<tr>
+					<td colspan="3" style="text-align:center;"><h1>Check Payment</h1></td>
+				</tr>
+				<tr style="background-color:#dddddd;">
+					<td style="text-align:center;">
+						<b>AMOUNT</b>
+					</td>
+					<td>
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input type="text" class="form-control payment-remaining-field" id="amountFieldCheck" name="amountFieldCheck">
+						</div>
+					</td>
+					<td><input class="btn btn-go" name="commit" type="submit" value="Add Payment" onclick="addPayment('check')" /></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<div class="newPaymentButtons">
+							<div class="column">
+								<input type="button" class="cashButton" value="$1" onclick="addCheckAmmount(1);">
+								<input type="button" class="cashButton" value="$10" onclick="addCheckAmmount(10);">
+								<input type="button" class="cashButton" value="$50" onclick="addCheckAmmount(50);">
+							</div>
+							<div class="column">
+								<input type="button" class="cashButton" value="$5" onclick="addCheckAmmount(5);">
+								<input type="button" class="cashButton" value="$20" onclick="addCheckAmmount(20);">
+								<input type="button" class="cashButton" value="$100" onclick="addCheckAmmount(100);">
+							</div>
+							<div class="centButtons">
+								<input type="button" class="centButton" value="1&cent;" onclick="addCheckAmmount(0.01);">
+								<input type="button" class="centButton" value="5&cent;" onclick="addCheckAmmount(0.05);">
+								<input type="button" class="centButton" value="10&cent;" onclick="addCheckAmmount(0.10);">
+								<input type="button" class="centButton" value="25&cent;" onclick="addCheckAmmount(0.25);">
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div>

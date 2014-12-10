@@ -1,0 +1,17 @@
+<html>
+<body bgcolor="#cccccc">
+	<div style="width:600px;font-size:14px;background-color:#ffffff;padding:20px;">
+		Hello,<br>
+		Attached to this email is a new purchase order from <%= @company.company_name %>.<br><br>
+		
+		If you have any questions, please contact:<br>
+		<%= @company.company_name %><br>
+		<%= @company.company_address %><br>
+		<%= @company.company_city %>, <%= @company.company_state %> <%= @company.company_zip %><br>
+		Phone: <%= @company.company_phone %><br>
+		<br>
+		Thank you,<br>
+		<%= @company.company_name %><br>
+	</div>
+</body>
+</html>

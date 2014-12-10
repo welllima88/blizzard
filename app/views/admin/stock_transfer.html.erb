@@ -1,0 +1,64 @@
+<table class="table">
+	<tr>
+		<td style="width:400px;" valign="top">
+			<table class="table" style="background:#eee;font-size:16px;padding:10px;">
+				<tr>
+					<td>Source Location</td>
+					<td><%= @stock_transfer.source_name %></td>
+				</tr>
+				<tr>
+					<td>Destination Location</td>
+					<td><%= @stock_transfer.destination_name %></td>
+				</tr>
+				<tr>
+					<td>Item Count</td>
+					<td><%= @stock_transfer.item_count %></td>
+				</tr>
+				<tr>
+					<td>Requested By</td>
+					<td><%= @stock_transfer.employee_name %></td>
+				</tr>
+				<tr>
+					<td>Fulfilled By</td>
+					<td><%= @stock_transfer.fulfill_by %></td>
+				</tr>
+				<tr>
+					<td>Status</td>
+					<td><%= @stock_transfer.status.capitalize %></td>
+				</tr>
+			</table>
+		</td>
+		<td valign="top">
+			<table class="table">
+				<tr>
+					<td colspan="2" style="padding:8px 0 20px 0;text-align:right;">
+						<div class="buttons-group">
+							<% if @stock_transfer.status == 'pending' %>
+								<a href="/admin/create_stock_transfer/<%= @stock_transfer.id %>" class="buttons icon edit">Edit Stock Transfer</a>
+							<% end %>
+							<% if @stock_transfer.status == 'submitted' %>
+								<a href="/admin/send_stock_transfer/<%= @stock_transfer.id %>" class="buttons">Send Stock</a>
+							<% end %>
+							<% if @stock_transfer.status == 'sent' %>
+								<a href="/admin/receive_stock_transfer/<%= @stock_transfer.id %>" class="buttons">Mark Stock Received</a>
+							<% end %>
+							<% if @stock_transfer.status != 'sent' && @stock_transfer.status != 'complete'%>
+								<a href="/admin/cancel_stock_transfer/<%= @stock_transfer.id %>" class="buttons remove icon danger">Cancel Transfer</a>
+							<% end %>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="table_heading">Product Name</td>
+					<td class="table_heading">QTY Ordered</td>
+				</tr>
+				<% for p in @stock_transfer.stock_transfer_products %>
+					<tr>
+						<td class="row"><a href="/admin/product/<%= p.product_id %>"><%= p.product_name %></a></td>
+						<td class="row"><%= p.qty %></td>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,249 @@
+<html>
+	<head>
+		<title>Evendra Point of Sale</title>
+		<meta type="description" content="Cloud Point of Sale">
+		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes, minimum-scale=1.0, maximum-scale=1.0">
+		<!-- Compressed Assets -->
+		<%= stylesheet_link_tag 'jqueryMobileStructure', 'v3', 'buttons', 'winter', 'new_login' %>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<%= javascript_include_tag 'jquery2', 'jsormdb', 'database', 'winter', 'alert' %>
+		<!-- CSRF Tag -->
+		<%= csrf_meta_tag %>
+		<!-- Local Storage Assets -->
+		<!-- <script type="text/javascript" charset="utf-8" src="/pos/localStorage.js"></script> -->
+		<style>
+                @media print{
+                        table{width:100%;}
+                        .hideOnReceipt{display:none;}
+                        #top_bar{display:none;}
+                        #mainHeader{display:none;}
+                        #subHeader{display:none;}
+                        .layoutRight{display:none;}
+                        #paymentArea{display:none;}
+                        #paymentAreaRight{display:none;}
+                        #cashRegisterSection{display:none;}
+                        #posArea{display:none;}
+                        #posAreaRight{display:none;}
+                        #returnArea{display:none;}
+                        #returnAreaRight{display:none;}
+                        #itemSearch{display:none;}
+                        #timesheetSection{display:none;}
+                        #register_info{display:none;}
+                        #barcode{display: block;}
+                        /* CSS Barcode Generator */
+                        #receiptWrapper{
+                                margin:0 auto;
+                                width:100%;
+                                text-align:center;
+                        }
+                        .receiptProductList{
+                                        margin:0 auto;
+                                        width:100%;
+                                        text-align: center;
+                                }        
+                        .barcode128h  {
+                            clear: both;
+                            padding: 0 30px /*quiet zone*/;
+                            overflow: auto;
+                            height: 100px   /*size*/;
+                        }
+                        .barcode128h div {
+                            /*float: left;*/
+                            height: 100px  /*size*/;
+                            display: inline-block;
+                        }
+                        .barcode128h .bar1 { border-left: 1px solid black }
+                        .barcode128h .bar2 { border-left: 2px solid black }
+                        .barcode128h .bar3 { border-left: 3px solid black }
+                        .barcode128h .bar4 { border-left: 4px solid black }
+                        .barcode128h .space0 { margin-right: 0px }
+                        .barcode128h .space1 { margin-right: 1px }
+                        .barcode128h .space2 { margin-right: 2px }
+                        .barcode128h .space3 { margin-right: 3px }
+                        .barcode128h .space4 { margin-right: 4px }
+                }
+                #my_header {
+                    position : absolute;
+                    top      : 0;
+                    left     : 0;
+                    width    : 100%;
+                    height   : 76px;
+                    z-index  : 4000;
+                    overflow : hidden;
+                }
+	    </style>
+	
+	</head>
+	<body>
+		<!-- Login Page -->
+		<%= render "login" %>
+		<!-- Alert Box -->
+		<div id="alertBoxBg" class="hideOnReceipt"></div>
+		<div id="alertBox" class="hideOnReceipt">
+			<div id="alertContent"></div>
+			<div id="closeAlert" class="buttons icon remove danger">Close</div>
+		</div>
+		<!-- Processing Alert -->
+		<div id="processingAlert" class="hideOnReceipt">
+			<div style="float:left;"><img src="/assets/processing.gif"></div>
+			<div style="float: left;padding: 64px 0 0 0;font-size: 26px;text-align:center;">Processing...</div>
+		</div>
+		<!-- Cash Register -->
+		<table class="mainLayout" cellspacing="0" cellpadding="0">
+			<tr class="hideOnReceipt">
+				<td colspan="2" class="topLinks">
+					<div id="mainHeader">
+						<ul>
+							<a onclick="showPage('#cashRegisterPage');"><li id="cashRegisterPageButton" class="topBarButton">Register</li>
+							<a onclick="showPage('#returnsPage');"><li id="returnsPageButton" class="topBarButton">Returns</li></a>
+							<a onclick="showPage('#timesheetPage');"><li id="timesheetPageButton" class="topBarButton">Timesheet</li></a>
+							<a onclick="showPage('#optionsPage');"><li id="optionsPageButton" class="topBarButton">Options</li></a>
+						</ul>
+						<ul style="float:right;">
+							<a href="/admin"><li>Admin Panel</li></a>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			<tr class="hideOnReceipt">
+				<td colspan="2" class="infoBar">
+					<strong>Store:</strong> <font id="storeName"></font> &nbsp;&nbsp;&nbsp;
+					<strong>Register:</strong> <font id="registerName"></font> &nbsp;&nbsp;&nbsp;
+					<strong>Employee:</strong> <font id="employeeName"></font> &nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="contentArea">
+					<div id="contentWrapper">
+
+						<!-- Register Section -->
+							<div id="cashRegisterPage" class="page hideOnReceipt">
+								
+								<table class="pageTable" cellspacing="0" cellpadding="0">
+									<tr>
+										<td class="pageLeft">
+											
+												<%= render "cash_register" %>
+											
+										</td>
+										<td class="pageRight">
+										
+												<%= render "cash_register_right" %>
+								
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+							<div id="paymentScreenPage" class="page hideOnReceipt">
+								<table class="pageTable" cellspacing="0" cellpadding="0">
+									<tr>
+										<td class="pageLeft">
+											<%= render "paymentScreen" %>
+										</td>
+										<td class="pageRight">
+											<%= render "paymentScreen_right" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+							<div id="receiptScreenPage" class="page">
+								<table class="pageTable" cellspacing="0" cellpadding="0">
+									<tr>
+										<td class="pageLeft">
+											<%= render "receiptScreen" %>
+										</td>
+										<td class="pageRight hideOnReceipt">
+											<%= render "receiptScreen_right" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+							<div id="suspendedScreen" class="page hideOnReceipt">
+								<table class="pageTable" cellspacing="0" cellpadding="0">
+									<tr>
+										<td class="pageLeft">
+											<%= render "suspended_sales" %>
+										</td>
+										<td class="pageRight">
+											<%= render "suspended_sales_right" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+						
+						<!-- Returns Section -->
+							<div id="returnsPage" class="page hideOnReceipt">
+								<table class="pageTable">
+									<tr>
+										<td class="pageLeft">
+											<%= render "returns" %>
+										</td>
+										<td class="pageRight">
+											<%= render "returns_right" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+							<div id="returnsPaymentPage" class="page hideOnReceipt">
+								<table class="pageTable">
+									<tr>
+										<td class="pageLeft">
+											<%= render "returnsPayment" %>
+										</td>
+										<td class="pageRight">
+											<%= render "returnsPayment_right" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+							<div id="returnReceiptScreenPage" class="page">
+								<table class="pageTable" cellspacing="0" cellpadding="0">
+									<tr>
+										<td class="pageLeft">
+											<%= render "returnReceipt" %>
+										</td>
+										<td class="pageRight hideOnReceipt">
+											<%= render "returnReceipt_right" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+						
+						<!-- Timesheet Page -->
+							<div id="timesheetPage" class="page hideOnReceipt">
+								<table class="pageTable">
+									<tr>
+										<td class="pageLeft">
+											<%= render "timeSheet" %>
+										</td>
+										<td class="pageRight">
+											<%= render "timeSheetRight" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+						<!-- options Page -->
+							<div id="optionsPage" class="page hideOnReceipt">
+								<table class="pageTable">
+									<tr>
+										<td class="pageLeft">
+											<%= render "options" %>
+										</td>
+										<td class="pageRight">
+											<%= render "optionsRight" %>
+										</td>
+									</tr>
+								</table>
+							</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

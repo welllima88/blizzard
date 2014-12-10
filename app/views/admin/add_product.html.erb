@@ -1,0 +1,107 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Add Product</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/import/import_file/" class="btn"><span class="glyphicon glyphicon-star"></span>Import Items From CSV File</a>
+		</div>
+	</div>
+</div>
+<%= form_tag(:action => 'add_product') do %>
+<div class="row">
+	<div class="col-sm-9 col-md-7 col-lg-9">
+		<div class="row">
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Product Name</span><%= text_field(:product, :name, :class => 'form-control')%></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Department</span><%= collection_select(:product, :department_id, @company.departments, :id, :name, options ={:prompt => "-Select a Department"}, :class =>"form-control") %></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Vendor</span><%= collection_select(:product, :vendor_id, @company.vendors, :id, :name, options ={:prompt => "-Select a vendor"}, :class =>"form-control") %></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Manufacturer</span><%= collection_select(:product, :manufacturer_id, @company.manufacturers, :id, :name, options ={:prompt => "-Select a manufacturer"}, :class =>"form-control") %></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Taxable</span><%= select_tag "product[nontax]", options_for_select({'Taxed' => 0,'Not Taxed' => 1}), :class => 'form-control' %></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12"><h3 class="shadded-bg title-padding">Item Location</h3></div>
+			<div class="col-xs-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Isle</span><%= text_field(:product, :isle, :class => 'form-control')%></div>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-6 form-group">
+				<div class="input-group"><span class="input-group-addon">Shelf</span><%= text_field(:product, :shelf, :class => 'form-control')%></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12"><h3 class="shadded-bg title-padding">Pricing</h3></div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Cost of Goods $</span><%= text_field(:product, :cost, :class => 'form-control')%></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Retail Price $</span><%= text_field(:product, :price, :class => 'form-control')%></div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
+				<div class="input-group"><span class="input-group-addon">Retail Price $</span><%= text_field(:product, :sale_price, :class => 'form-control')%></div>
+			</div>	
+		</div>
+	</div>
+	<div class="col-sm-3 col-md-5 col-lg-3">
+		<div class="shadded-bg" style="display:inline-block;">
+			<h3 class="text-center">Product Identifiers</h3>
+			<div class="col-xs-12 form-group">
+				<div class="input-group"><span class="input-group-addon">UPC</span><%= text_field(:product, :upc, :class => 'form-control')%></div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="input-group"><span class="input-group-addon">EAN</span><%= text_field(:product, :ean, :class => 'form-control')%></div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="input-group"><span class="input-group-addon">SKU</span><%= text_field(:product, :sku, :class => 'form-control')%></div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="input-group"><span class="input-group-addon">Manu. SKU</span><%= text_field(:product, :m_sku, :class => 'form-control')%></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<h3 class="shadded-bg title-padding">Inventory Control</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-9 col-md-7 col-lg-9">
+		<table class="table">
+			<tr>
+				<th>Store</th>
+				<th>Stock Count</th>
+			</tr>
+			<% for store in @company.stores %>
+				<tr>
+					<td><%= store.name %></td>
+					<td class="text-right"><%= text_field(store.id, :qty, :value => 0)%></td>
+				</tr>
+			<% end %>
+		</table>	
+	</div>
+	<div class="col-sm-3 col-md-5 col-lg-3">
+		<div class="shadded-bg" style="display:inline-block;">
+			<h3 class="text-center">Inventory Control</h3>
+			<div class="col-xs-12 form-group">
+				<div class="input-group"><span class="input-group-addon">Re-Order Level</span><%= text_field(:product, :reorder_level, :class => 'form-control', :value => 0)%></div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="input-group"><span class="input-group-addon">Desired Level</span><%= text_field(:product, :desired_level, :class => 'form-control', :value => 0)%></div>
+			</div>
+			<div class="col-xs-12 form-group">
+				<div class="input-group"><span class="input-group-addon">Min. Store Level</span><%= text_field(:product, :min_store_level, :class => 'form-control', :value => 0)%></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 text-right">
+		<%= submit_tag('Add Item', :class => 'btn btn-primary')%>
+	</div>
+</div>
+<% end %>

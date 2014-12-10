@@ -1,0 +1,15 @@
+<%= form_tag(:action => 'edit_department') do %>
+	<table class="table" style="background-color:#e1e1e1;padding:10px;">
+		<tr>
+			<td>
+				Department Name: <%= text_field(:department, :name) %>
+			</td>
+			<td>
+				Sub Department Of: <%= collection_select(:department, :department_id, Department.all(:company_id => session[:user]['company_id']), :id, :name, :prompt => true) %>
+			</td>
+			<td>
+				<%= submit_tag("Save", :class => 'submit_button')%>
+			</td>
+		</tr>
+	</table>
+<% end %>

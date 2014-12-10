@@ -1,0 +1,8 @@
+<a href="/admin/edit_department/<%= sub.id %>"><%= sub.name %></a><br>
+<% if sub.sub_departments.count >= 1 %>
+	<ul>
+	<% for s in sub.departments %>
+		<li> <%= render 'sub_departments', :sub => s %></li>
+	<% end %>
+	</ul>
+<% end %>

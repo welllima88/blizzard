@@ -1,0 +1,318 @@
+// Place all the styles related to the admin controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$green: #197707;
+$blue: #2d4250;
+$light-blue:#3f94cc;
+
+// Bootstrap Fixes
+	.infoBox{padding:5px 5px 15px 5px;}
+	.inlineblock{width:100%;display:inline-block;}
+	.top-buffer{margin-top:30px;}
+	.buttonNav{padding-top:20px !important;}
+	.table{font-size:14px;}
+	.table th{background-color: #eeeeee;}
+	.table tr.noborder td{border-color:transparent;}
+	.table tr h3{padding: 5px 0;margin: 0;font-size: 20px;font-weight: 300;}
+	.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group{height:34px;}
+	
+	.top-buffer{margin-top:30px;}
+	.row-buffer{padding:10px 0;}
+	.cell-buffer{padding:10px;}
+	.inline-block{display:inline-block;}
+	.inline-block-buffer{display:inline-block;margin-top:30px;width:100%;}
+	.center-element{margin-right:auto;margin-left:auto;}
+	
+	.border-bottom{border-bottom:1px solid #eee;}
+	.navbar-static-top{background-color: #2d4250;}
+	.shadded-bg{background-color:#eee;}
+	.title-padding{padding:10px;}
+	
+	.row.header {border-bottom: 1px solid #eee;margin-bottom: 15px;padding-bottom: 15px;}
+	h4.productTitle {padding: 0;margin: 4px 0 0 0;}
+	
+	.btn{
+		border:1px solid #ccc;background-color:#eee;color:#000;
+		&:hover{
+			background-color:$light-blue;
+			color:#fff;
+			border-color:$blue;
+		}
+		&.btn-primary{
+			background-color:$blue;
+			color:#fff;
+			&:hover{
+				background-color:$light-blue;
+				color:#fff;
+				border-color:$blue;
+			}
+		}
+		span{
+			margin-right: 5px;
+			padding-top: 2px;
+			float: left;
+			display: block;
+		}
+		&.btn-success {
+			color: #fff;
+			background-color: #5cb85c;
+			border-color: #4cae4c;
+			&:hover{
+				color: #fff;
+				background-color: #449d44;
+				border-color: #398439;
+			}
+		}
+	}
+	
+	.flash-error{
+		background-color: #e58e8e;
+		padding: 10px;
+		color: #ffffff;
+		text-align: center;
+		width: 100%;
+		margin-bottom:15px;
+	}
+
+body{font-size:15px;font-family:lato;}
+
+.green{color:$green;}
+.lightBg{background-color: #eeeeee !important;}
+.blueHeading, .blueBg{background-color: $blue !important; color:#ffffff;input,textarea{color:#000;}}
+.redBg{background-color:#730707 !important;color:#fff;}
+.greenHeading, .greenBg{background-color: $green !important; color:#ffffff;}
+
+.mainWrapper{
+	width:100%;
+	height:100%;
+	border-collapse:collapse;
+	td{
+		vertical-align:top;
+	}
+	.logo{
+		font-size: 34px;
+		font-weight: bold;
+		padding:10px;
+		height:60px;
+	}
+	.navSection{
+		padding:10px 20px;
+		text-align:right;
+		height:60px;
+		.textWrapper{
+			float:right;
+			div{
+				float:left;
+				padding-left:20px;
+			}
+			.welcomeText{padding-top:5px;}
+		}
+	}
+	.subNavSection{
+		background-color: $blue;
+		color:#ffffff;
+		padding:10px;
+		height:42px;
+	}
+	#subNav{
+		width:100%;
+		display:inline-block;
+		background-color:$blue;
+		padding:5px 0;
+		div{
+			display:none;
+		}
+		a{
+			color:#ffffff;
+			text-decoration:none;
+			font-size:15px;
+			font-weight:300;
+			display:inline-block;
+			float:left;
+			margin:0 15px;
+			border-bottom:1px solid $blue;
+			&:hover{
+				border-bottom:1px solid #ffffff;
+			}
+		}
+		.on{
+			border-bottom:1px solid #ffffff;
+		}
+	}
+	.rightWrapper{
+		padding:10px 0;
+	}
+	.leftWrapper{
+		width:210px;
+		background-color: #eeeeee;
+		border-right: 1px solid #c1c1c1;
+		a{
+			display: inline-block;
+			width:210px;
+			color: #000;
+			font-size:16px;
+			text-decoration:none;
+			padding:0px;
+			font-weight:300;
+			border-left: 2px solid transparent;
+			border-bottom:1px solid #c1c1c1;
+			background: #eeeeee;
+			img{
+				visibility:hidden;
+				float:left;
+				background-color:#333333;
+				margin-right:10px;
+			}
+			p{
+				float:left;
+				padding-top:10px;
+			}
+			&:hover{
+				border-left: 2px solid $blue;
+				color: #000000;
+				background-color:#ffffff;
+				background:#ffffff;
+			}
+		}
+		.on{
+			border-left: 2px solid $green;
+			color: #000000;
+			background-color: #ffffff;
+			background:#ffffff;
+			img{
+				visibility:visible;
+				background-color:$green;
+			}
+			&:hover{
+				border-left: 2px solid $green;
+				color: #000000;
+				background-color:#ffffff;
+				img{
+					visibility:visible;
+					background-color:$green;
+				}
+			}
+
+		}
+	}
+}
+
+.paginate{
+	text-align:right;
+	padding:20px 0 0 0;
+	/* Pagination */
+
+	.pagination{
+		cursor: default;
+		font-size:12px;
+		float:right;
+
+		a, span, em{
+			padding: 0.2em 0.5em;
+		    display: block;
+		    float: left;
+		    margin-right: 1px;
+		}
+
+		.disabled{
+			color: #999999;
+		    border: 1px solid #dddddd;
+
+		}
+
+		.current{
+			font-style: normal;
+		    font-weight: bold;
+		    background: #000000;
+		    color: white;
+		    border: 1px solid $blue;
+		}
+
+		a{
+			text-decoration: none;
+		    color: $blue;
+		    border: 1px solid $blue;
+			&:hover, &:focus{
+				color: #ffffff;
+			    border-color: #d7edff;
+				background-color:$blue;
+			}
+		}
+
+		.page_info{
+		    background: $blue;
+		    color: white;
+		    padding: 0.4em 0.6em;
+		    width: 22em;
+		    margin-bottom: 0.3em;
+		    text-align: center;
+
+			b{
+			 color: $blue;
+			 background: $blue + 60;
+			 padding: 0.1em 0.25em;
+			}
+		}
+
+	}
+}
+
+
+
+h2{margin-top:10px;padding:0;}
+h3{font-size:18px;}
+.row{font-size:14px;}
+
+.productTitle{font-size: 22px;}
+
+a{color:#2d4250;}
+
+// Tills
+.opening-till{}
+
+
+.register-log-trans-wrapper{
+	background-color:#ffffff;
+	&.active{
+		color:#ffffff;
+		td{ background-color:#3f94cc !important; }
+		a{color:#ffffff;&:hover{color:#ffffff;}}
+	}
+}
+
+.till-expand{
+	display:none;
+	background-color:#3f94cc !important;
+	td{ background-color:#3f94cc !important;color:#ffffff; }
+	th{ background-color: #2d4250; color:#fff; border:0 !important; }
+	&.active{ display:table-row; }
+}
+
+// Fixed width addon
+.input-group{width:100%;}
+.addon-fixed-a{width:120px;}
+.addon-fixed-b{width:217px;}
+
+
+
+
+// Custom
+	.shadded-bg{background-color:#eee;}
+	.cell{padding-top:8px;padding-bottom:8px;border-bottom:1px solid #ccc;}
+	.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{background-color:#fff;}
+	
+	// Layout Fix
+	// @media screen and (max-width:1200px){ .sidebar{width: 200px;font-size: 13px;} div#page-wrapper {margin-left: 200px;padding: 0 15px;font-size:14px;} }
+	
+	@media screen and (max-width:767px){
+		.text-center-xs{text-align:center;}
+		.btn-xs-full{width:100%;}
+	}
+
+
+
+// Create Stock Transfer Page
+	#create_stock_transfer_main{
+		.text-right, .text-only{padding-top:15px;font-size:15px;}
+	}

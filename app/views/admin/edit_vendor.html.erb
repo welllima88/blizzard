@@ -1,0 +1,38 @@
+<%= form_tag(:action => 'edit_vendor', :id => params[:id]) do %>
+	<div class="row">
+		<div class="col-xs-12 col-sm-8"><h2 class="productTitle"><%= @vendor.name %></h2></div>
+		<div class="col-xs-12 col-sm-4 text-right">
+			<div class="buttons-group">
+				<%= submit_tag("Save Changes", :class => 'buttons')%>
+				<a href="/admin/vendors" class="buttons icon remove danger">Cancel</a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<div class="col-xs-12 row-buffer"><h3>Vendor Information</h3></div>
+			<div class="col-xs-12 row-buffer"><strong>Name</strong><br><%= text_field(:vendor, :name) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Phone</strong><br><%= text_field(:vendor, :phone) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Email Address</strong><br><%= text_field(:vendor, :email) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Purchase Order Email Address</strong><br><%= text_field(:vendor, :po_email) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Address</strong><br><%= text_field(:vendor, :address) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>City</strong><br><%= text_field(:vendor, :city) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>State</strong><br><%= select_state('vendor', 'state', @vendor.state)%></div>
+			<div class="col-xs-12 row-buffer"><strong>Zipcode</strong><br><%= text_field(:vendor, :zip) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Account Number</strong><br><%= text_field(:vendor, :account_number) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Website</strong><br><%= text_field(:vendor, :url) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Tax Rate</strong><br><%= text_field(:vendor, :tax_rate) -%>%</div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="col-xs-12 row-buffer"><h3>Representative Information</h3></div>
+			<div class="col-xs-12 row-buffer"><strong>Representative Name</strong><br><%= text_field(:vendor, :rep_first_name, :style => 'width:165px;') -%><%= text_field(:vendor, :rep_last_name, :style => 'width:165px;') -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Phone</strong><br><%= text_field(:vendor, :rep_phone) -%> Main<br><%= text_field(:vendor, :rep_alt_phone) -%> Cell</div>
+			<div class="col-xs-12 row-buffer"><strong>Email Address</strong><br><%= text_field(:vendor, :email) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Fax</strong><br><%= text_field(:vendor, :rep_fax) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>Address</strong><br><%= text_field(:vendor, :rep_address) -%></div>
+			<div class="col-xs-12 row-buffer"><strong>City</strong><br><%= text_field(:vendor, :rep_city, :style => 'width:155px;') -%></div>
+			<div class="col-xs-12 row-buffer"><strong>State</strong><br><%= select_state('vendor', 'rep_state', @vendor.rep_state)%></div>
+			<div class="col-xs-12 row-buffer"><strong>Zipcode</strong><br><%= text_field(:vendor, :rep_zip) -%></div>
+		</div>
+	</div>
+<% end %>

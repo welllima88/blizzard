@@ -1,0 +1,572 @@
+// Place all the styles related to the pos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$blue: #2d4250;
+$red: #d9534f;
+$lightBlue: #3f94cc;
+$green: #449210;
+$darkGreen: #3b7f0d;
+$darkText: #111111;
+
+// Login top-buffer
+
+#select-store-wrapper, #login-wrapper, #select_register_wrapper{ display:none; }
+
+.form-group.top-buffer{margin-top:15px;}
+
+#login_wrapper{margin-top:10%;}
+
+div#select_register_wrapper h2 {
+	padding: 10px;
+	margin: 15px 0;
+	background-color: #eee;
+}
+
+.store-box {
+    padding: 20px 0;
+    text-align:center;
+    border-right:1px solid #eee;
+    border-left:1px solid #eee;
+    margin-left:-1px;
+    border-bottom:1px solid #eee;
+    border-top:1px solid #eee;
+    margin-top:-1px;
+}
+
+.store-box h4{
+    font-size:22px;
+}
+
+.store-box p{
+    text-transform:uppercase;
+}
+
+.store-box .btn{
+    width:90%;
+} 
+
+
+// Alert Box
+
+#alertBoxBg{
+	background-color:#000000;
+	opacity:0.65;
+	width:100%;
+	height:100%;
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:99999;
+}
+
+#alertBox{
+	background-color:#ffffff;
+	padding:20px 20px 10px 20px;
+	box-shadow: 0px 0px 20px 5px #333;
+	display:none;
+	position:absolute;
+	top:50px;
+	left:1%;
+	right:1%;
+	width:500px;
+	margin:0 auto;
+	z-index:999991;
+	#alertContent{
+		display: inline-block;
+		width: 500px;
+		padding-bottom: 20px;
+		margin-bottom: 10px;
+		border-bottom: 1px solid #e1e1e1;
+	}
+	#closeAlert{
+		float:right;
+	}
+}
+
+#processingAlert{
+	background-color:#ffffff;
+	padding:20px 20px 10px 20px;
+	box-shadow: 0px 0px 20px 5px #333;
+	display:none;
+	position:absolute;
+	top:50px;
+	left:1%;
+	right:1%;
+	width:500px;
+	margin:0 auto;
+	z-index:999991;
+}
+
+// End Alert
+
+
+form{margin:0;}
+.form-margin{margin-bottom:5px;}
+.hideField{display:none;}
+
+.btn-wide{width:100%;margin:5px 0;}
+
+.input-group-btn .btn{height:34px;}
+
+#wrapper, .navbar-static-top { background-color: #dfdfdf; display:none;}
+
+#page-wrapper{background-color:#fff;margin-right:250px;padding:15px 15px 15px 15px;height:100%;padding-bottom:-40px;margin-left:-15px;}
+
+.container-fluid{height:100%;}
+
+.page{width:100%;display:none;margin:0;padding:0;width:100%;}
+
+.sidebar-nav{
+	width: 265px;
+	padding:15px;
+	h3 { font-size: 16px; margin: 0 0 8px 0; }
+	.right-mini-btn{background-color: $blue; padding: 3px 10px;height: auto;font-size: 13px;}
+	.btn-right-buffer{margin-top:5px;}
+	.btn{
+		background-color: $blue;
+		font-size:14px;
+		padding:6px 10px;
+		height:auto;
+		color: #fff;
+		height:34px;
+	}
+	.btn-danger{
+		background-color: $red;
+	}
+	
+	.right_box{
+		background-color:#fff;
+		display:inline-block;
+		width: 100%;
+		margin:15px 0;
+		.right_box_padding{
+			padding:10px;
+		}
+		.input-group{margin-bottom:10px;}
+	}	
+	
+	
+	// Register Page
+	
+	#addCustomerBox{
+		
+		.customerRegularBox{
+			width:48%;
+			margin:4px 1%;
+			float:left;
+		}
+		.customerWideBox{
+			width:98%;
+			margin:4px 1%;
+		}
+		input{width:100%;}
+	}
+	
+	.order-total-table{
+		margin:0;
+		padding:0;
+		td{
+			border-top:0 !important;
+			border-bottom:1px solid #dfdfdf;
+			font-size:14px;
+			padding: 5px 0 !important;
+		}
+		.no-bottom-border{
+			td{border-bottom:0 !important;}
+		}
+	}
+	
+	
+	.right-box-highlight {
+	    background-color: $blue;
+	    display: inline-block;
+	    width: 100%;
+	    color: #fff;
+	    font-size: 20px;
+	    padding: 2px 0;
+	}
+
+	.right-box-highlight > div{ padding:0px 10px !important; }
+	
+	.payment_button {
+		width: 94%;
+		margin: 8px 3%;
+		border-radius: 0;
+		background: $green;
+	}
+	
+}
+
+.btn-go{background-color:$green;color:#fff;&:hover{background-color: $darkGreen;}}
+
+
+
+.header{
+	background-color: $blue;
+	height:40px;
+	div{
+		//padding:0;
+	}
+	a{
+		color: #fff;
+		height:40px;
+		padding: 10px 20px 0 20px;
+		display: inline-block;
+		cursor:pointer;
+		vertical-align: middle;
+		&:hover{
+			background-color: $lightBlue;
+			color:#fff;
+			text-decoration:none;
+		}
+		&.on{
+			background-color: $lightBlue;
+			color:#fff;
+			text-decoration:none;
+		}
+	}
+}
+
+
+// Register Page
+
+table.scan_box {
+	width: 100%;
+	background-color: $blue;
+	color: #fff;
+	border: 10px solid #dfdfdf;
+	padding:15px;
+	td{
+		padding:15px 5px;
+	}
+	font {
+	    float: left;
+	    margin-right: 5px;
+		vertical-align:middle;
+		padding-top:7px;
+	}
+
+	input#qty, input#returnQty {
+	    width: 81px;
+	    float: left;
+	}
+	input.add_button {
+	    width: 96%;
+	    /* margin-right: 5px; */
+	    display: block;
+	    background-color: $lightBlue;
+		border:0;
+		float:left;
+	}
+}
+
+// Payment Screen
+
+.payment_table{
+	border:1px solid #cccccc;
+	padding:30px;
+	font-size:16px;
+	margin:20px auto;
+	td{
+		padding:10px;
+	}
+	label{
+		padding:20px 10px 0 0;
+		font-weight:bold;
+	}
+	.amountField{
+		height:32px;
+	}
+	.cashButtons{
+		width:100%;
+		td{
+			text-align:center;
+		}
+	}
+}
+
+.cashButton {
+position: relative;
+overflow: visible;
+display: inline-block;
+padding: 0.8em 1em;
+border: 1px solid #d4d4d4;
+margin: 0;
+text-decoration: none;
+text-shadow: 1px 1px 0 #fff;
+font: 14px/normal sans-serif;
+color: #333;
+white-space: nowrap;
+cursor: pointer;
+outline: none;
+background-color: #ffffff;
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#f1f1f1));
+background-image: -moz-linear-gradient(#f4f4f4, #f1f1f1);
+background-image: -o-linear-gradient(#f4f4f4, #f1f1f1);
+background-image: linear-gradient(#f4f4f4, #f1f1f1);
+-webkit-background-clip: padding;
+-moz-background-clip: padding;
+-o-background-clip: padding-box;
+-webkit-border-radius: 0.2em;
+-moz-border-radius: 0.2em;
+border-radius: 0.2em;
+zoom: 1;
+}
+
+.paymentWrapper{
+	width:650px;
+	margin:0 auto;
+	padding:0px;
+	height:350px;
+}
+
+.paymentSelection{
+	width:199px;
+	float:left;
+	background-color:#2d4250;
+	display:inline-block;
+	border-right:0;
+	height:inherit;
+}
+
+.paymentSelection .paymentTypeButton{
+	width:150px;
+	margin:10px;
+}
+
+.newPaymentButtons{
+	display: inline-block;
+	width: 445px;
+	float: left;
+	border-left: 0;
+	height: inherit;
+}
+
+.newPaymentButtons .column{
+	width:50%;
+	float:left;
+}
+
+.newPaymentButtons .column .cashButton{
+	width:80%;
+	margin:0 10% 10px 10%;
+}
+
+.newPaymentButtons .centButtons{
+	width:100%;
+	border-top:2px dashed #dfdfdf;
+	display:inline-block;
+	margin-top:10px;
+}
+
+.newPaymentButtons .centButton{
+	height: 58px;
+	width: 58px;
+	text-align: center;
+	border-radius: 95px;
+	text-align: center;
+	border: 1px solid #ccc;
+	background-color: #eee;
+	margin: 10px 24px;
+}
+
+.paymentInfo{
+	display:inline-block;
+	width:100%;
+	text-align:center;
+}
+
+.paymentInfo h3{
+	font-size: 24px;
+	margin: 8px 0;
+}
+
+.paymentInfo .amountSection{
+	padding: 8px 0;
+	background-color: #e6e6e6;
+	margin-bottom: 10px;
+}
+
+.paymentInfo .amountSection{
+	font-size:17px;
+	font-weight:bold;
+}
+
+.paymentInfo .amountField{
+	font-size:16px;
+}
+
+.paymentOptionWrapper{
+	width:400px;
+	padding:0px;
+	display:none;
+}
+#paymentAreaRight .btn{text-align:left;}
+#paymentAreaRight .fa{margin-right:10px;float:left;}
+
+table.line_items {
+    width: 100%;
+	td{
+	    padding:0px 10px 10px 10px;
+	    font-size:14px;
+	}
+	.register_line_items td {
+		padding: 10px 10px;
+		border-bottom: 1px solid #dfdfdf;
+	}
+}
+
+
+// Register &Receipt Page
+
+#receiptWrapper{
+	margin:0 auto;
+	width:100%;
+	text-align:center;
+	.receiptProductList{
+		margin:0 auto;
+		width:100%;
+		text-align: center;
+	}	
+}
+
+#returnReceiptWrapper{
+	margin:0 auto;
+	width:100%;
+	text-align:center;
+	.returnReceiptProductList{
+		margin:0 auto;
+		width:100%;
+		text-align: center;
+	}	
+}
+
+.barcode128h  {
+    clear: both;
+    padding: 0 30px /*quiet zone*/;
+    overflow: auto;
+    height: 100px   /*size*/;
+}
+
+.barcode128h div {
+    /*float: left;*/
+    height: 100px  /*size*/;
+    display: inline-block;
+}
+
+
+.barcode128h .bar1 { border-left: 1px solid black }
+.barcode128h .bar2 { border-left: 2px solid black }
+.barcode128h .bar3 { border-left: 3px solid black }
+.barcode128h .bar4 { border-left: 4px solid black }
+.barcode128h .space0 { margin-right: 0px }
+.barcode128h .space1 { margin-right: 1px }
+.barcode128h .space2 { margin-right: 2px }
+.barcode128h .space3 { margin-right: 3px }
+.barcode128h .space4 { margin-right: 4px }
+
+
+
+
+// Returns 
+
+.returnLineItemsWrapper {
+    width: 100%;
+    font-size: 14px;
+}
+
+table.returnLineItemsWrapper td{
+	vertical-align:top;
+}
+
+table.return_line_items {
+    font-size: 15px;
+    width:100%
+}
+
+table.return_line_items td {
+    padding: 7px 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+td.origionalLineItemsWrapper {
+    background-color: $blue;
+    color: #fff;
+}
+
+td.origionalLineItemsWrapper td{
+    color: #fff;
+    padding:6px;
+}
+
+td.origionalLineItemsWrapper td {
+	color: #fff;
+	padding: 6px;
+	border-top: 1px solid #ddd;
+}
+
+.headingOLI td{border-top:0px;}
+
+
+
+
+// Options Page
+	.register_options_table{
+		width:800px;
+		margin:20px auto;
+		font-size:14px;
+		border:10px solid $lightBlue;
+		a{
+			margin-bottom:10px;
+			font-size:15px;
+		}
+	}
+
+	.remove_cash_table{
+		font-size:16px;
+		background-color: $blue;
+		text-align:center;color:#ffffff;
+	}
+	
+	// Audit Till
+	table.tillInputs{
+		width:100%;
+	}
+	.till_table{
+		margin:20px auto 20px auto;
+		max-width:90%;
+		width:90%;
+		border:10px solid #ccc;
+		background-color:#ffffff;
+		td{
+			padding: 5px;
+		}
+		.till-label{max-width:50%;}
+		.till_heading{
+			background-color:$green;
+			color:#ffffff;
+			padding: 0 10px;
+			margin: 0;
+			h2{
+				font-size: 25px;
+				margin: 0;
+				padding: 10px;
+			}
+		}
+		h3{
+			color:#ffffff;
+			padding:0;
+			margin:0;
+			font-size:18px;
+		}
+		.tillInputs input{
+			width:80px;
+			font-size:16px;
+			float:right;
+		}
+		.auditTillBottom{
+			background-color: #ddd;
+		}
+	}

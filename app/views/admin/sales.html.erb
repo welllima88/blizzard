@@ -1,0 +1,26 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Sales</h4></div>
+</div>
+<div class="row shadded-bg cell hidden-xs">
+	<div class="col-lg-2 col-md-2 col-sm-4">Store</div>
+	<div class="col-lg-2 col-md-2 hidden-sm">Employee</div>
+	<div class="col-lg-3 col-md-2 col-sm-4">Time ( <%= (Time.now.in_time_zone(Time.zone)).strftime("%Z") %> )</div>
+	<div class="col-lg-1 col-md-2 col-sm-2">Total</div>
+	<div class="col-lg-1 hidden-md hidden-sm">Profit</div>
+	<div class="col-lg-2 col-md-2 hidden-sm">Customer</div>
+	<div class="col-lg-1 col-md-2 col-sm-2"></div>
+</div>
+<% for sale in @sales %>
+	<div class="row cell">
+		<div class="col-md-2 col-sm-4 col-xs-6 text-center-xs"><a href="/admin/store/<%= sale.store_id %>"><%= sale.store_name %></a></div>
+		<div class="col-lg-2 col-md-2 hidden-sm col-xs-6 text-center-xs"><a href="/admin/employee/<%= sale.employee_id %>"> <%= sale.employee_name.titleize %></a></div>
+		<div class="col-lg-3 col-md-2 col-sm-4 col-xs-6 text-center-xs"><%= sale.created_at.strftime("%b %d, %Y") %> &nbsp;&nbsp;&nbsp; <%= sale.created_at.strftime("%I:%M %p") %></div>
+		<div class="col-lg-1 col-md-2 col-sm-2 col-xs-6 text-center-xs"><%= number_to_currency sale.total %></div>
+		<div class="col-lg-1 hidden-md hidden-sm green hidden-xs"><%= number_to_currency sale.net_profit %></div>
+		<div class="col-lg-2 col-md-2 hidden-sm col-xs-12 text-center-xs"><a href="/admin/customer/<%= sale.customer_id %>"><%= sale.customer_name -%></div>
+		<div class="col-lg-1 col-md-2 col-sm-2 text-right col-xs-12"><a href="/admin/sale/<%= sale.id %>" class="btn btn-primart btn-sm btn-xs-full">Details</a></div>
+	</div>
+<% end %>
+<div class="row paginate text-right">
+	<%= will_paginate @sales %>
+</div>

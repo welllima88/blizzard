@@ -1,0 +1,136 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Sale Information</h4></div>
+</div>
+<div class="row">
+	<!-- Left -->
+	<div class="col-xs-12 col-sm-12 col-md-8">
+		<table class="table" cellspacing="0" cellpadding="0">
+			<tr class="noborder">
+				<td colspan="6"><h3>Purchased Items</h3></td>
+			</tr>
+			<tr class="noborder">
+				<th class="blueHeading">Product Name</th>
+				<th class="blueHeading hidden-xs">Cost</th>
+				<th class="blueHeading">Price</th>
+				<th class="blueHeading">Quantity</th>
+				<th class="blueHeading">Total</th>
+				<th class="blueHeading hidden-xs">Net Profit</th>
+			</tr>
+			<% for i in @sale.order_line_items %>
+			<% if i.qty != 0 %>
+			<tr class="<%= cycle('oddrow', 'evenrow') %>">
+				<td class="row">
+					<% if i.sku == 'giftcard' %>
+						<a href="/admin/gift_card/<%= i.ean %>"><%= i.name %></a>
+					<% else %>
+						<% if i.sku == 'coupon'%>
+							<a href="/admin/coupon/<%= i.product_id %>">Coupon</a>
+						<% else %>
+							<a href="/admin/product/<%= i.product_id %>"><%= i.name %></a>
+						<% end %>
+					<% end %>
+					</td>
+				<td class="row hidden-xs"><%= number_to_currency i.cost %></td>
+				<td class="row"><%= number_to_currency i.price %></td>
+				<td class="row"><%= i.qty %></td>
+				<td class="row"><%= number_to_currency i.subtotal %></td>
+				<td class="row hidden-xs"><%= number_to_currency i.net_profit %></td>
+			</tr>
+			<% end %>
+			<% end %>
+		</table>
+		
+		<table class="table" style="margin-top:10px;" cellspacing="0" cellpadding="0">
+			<tr class="noborder">
+				<td colspan="4"><h3>Purchased Items</h3></td>
+			</tr>
+			<tr class="noborder">
+				<th class="blueHeading">Payment Type</th>
+				<th class="blueHeading">Amount</th>
+				<th class="blueHeading">Status</th>
+				<th class="blueHeading hidden-xs">Transaction ID</th>
+			</tr>
+			<% for p in @sale.order_payments %>
+			<tr>
+				<td class="row"><%= p.formatted_payment_type %></td>
+				<td class="row" style="<% if p.amount < 0%>color:#900000;<% end %>"><%= number_to_currency p.amount %></td>
+				<td class="row"><%= p.status %></td>
+				<td class="row hidden-xs">
+					<% if p.payment_type == 'gift_card' %>
+						<a href="/admin/view_gift_card/<%= p.transaction_id %>"><%= p.transaction_id %></a>
+					<% else %>
+						<%= p.transaction_id %>
+					<% end %>
+				</td>
+			</tr>
+			<% end %>
+		</table>
+		<% if @sale.order_returns.count > 0 %>
+			<h3>Returned Items</h3>
+			<table class="table" cellspacing="0" cellpadding="0">
+				<tr class="noborder">
+					<th class="redHeading">Product Name</th>
+					<th class="redHeading">Price</th>
+					<th class="redHeading">Return ID</th>
+					<th class="redHeading"></th>
+				</tr>
+				<% for r in @sale.order_returns %>
+					<% for i in r.order_return_line_items %>
+						<tr>
+							<td class="row"><%= i.name %></td>
+							<td class="row"><%= number_to_currency i.price %></td>
+							<td class="row"><%= r.id %></td>
+							<td class="text-center"><a href="/admin/return/<%= r.id %>">Details</a></td>
+						</tr>
+					<% end %>
+				<% end %>
+			</table>
+		<% end %>
+	</div>
+	<!-- Right -->
+	<div class="col-xs-12 col-sm-12 col-md-4">
+		<table class="table" cellspacing="0" cellpadding="2">
+			<tr class="noborder">
+				<td colspan="2" class="greenHeading"><h3 >Sales Data</h3></td>
+			</tr>
+			<tr>
+				<td><strong>Time Of Sale:</strong></td>
+				<td><%= @sale.created_at.strftime("%b %d, %Y %I:%M %p %Z") %></td>
+			</tr>
+			<tr>
+				<td><strong>Store:</strong></td>
+				<td><a href="/admin/store/<%= @sale.store_id%>"><%= @sale.store_name %></td>
+			</tr>
+			<tr>
+				<td><strong>Register:</strong></td>
+				<td><%= @sale.register_name %></td>
+			</tr>
+			<tr>
+				<td><strong>Employee:</strong></td>
+				<td><a href="/admin/employee/<%= @sale.employee_id%>"><%= @sale.employee_name %></a></td>
+			</tr>
+			<tr>
+				<td><strong>Customer:</strong></td>
+				<td><% if @sale.customer_id != nil %><a href="/admin/customer/<%= @sale.customer_id%>"><%= @sale.customer_name %><% end %></a></td>
+			</tr>
+			<tr><td colspan="2">&nbsp;</td></tr>
+			<tr>
+				<td><strong>Subtotal:</strong></td>
+				<td><%= number_to_currency @sale.subtotal %></td>
+			</tr>
+			
+			<tr>
+				<td><strong>Sales Tax:</strong></td>
+				<td><%= number_to_currency @sale.tax %></td>
+			</tr>
+			<tr>
+				<td><strong>Total:</strong></td>
+				<td><%= number_to_currency @sale.total %></td>
+			</tr>
+			<tr>
+				<td><strong>Profit:</strong></td>
+				<td class="green"><%= number_to_currency @sale.net_profit %></td>
+			</tr>
+		</table>
+	</div>
+</div>

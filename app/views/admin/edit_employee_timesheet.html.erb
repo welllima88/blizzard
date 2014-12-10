@@ -1,0 +1,78 @@
+<%= form_tag(:action => 'edit_employee_timesheet', :update => 'true') do -%>
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle"><%= @employee_timesheet.employee_name.titleize %></h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="btn-group">
+			<%= submit_tag("Update Timesheet", :class => 'btn btn-success')%>
+			<a href="/admin/employee_timesheet/<%= params[:id] %>" class="btn btn-remove">Cancel</a>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6 form-group">
+		<div class="input-group">
+			<span class="input-group-addon">Date</span><%= text_field('o', 'date', :class => 'form-control', :value => @employee_timesheet.date.to_date.to_time.strftime("%B %e, %Y"), :disabled => true)%>
+		</div>
+	</div>
+	<div class="col-sm-6 form-group">
+		<div class="input-group">
+			<span class="input-group-addon">Total Hours Worked</span><%= text_field('o', 'date', :class => 'form-control', :value => @employee_timesheet.hours_worked, :disabled => true)%>
+		</div>
+	</div>
+</div>
+
+
+<table class="table">
+
+	<tr>
+		<th>Clock In</th>
+		<th>Clock Out</th>
+		<th>Hours Worked</th>
+	</tr>
+	<% for hit in @employee_timesheet.employee_timesheet_hits %>
+		<tr style="background-color:#<%= cycle('ffffff', 'eeeeee') %>;">
+			<td class="row">
+				<%= text_field(hit.id.to_s.to_sym, :clock_in_hour, :value => hit.clock_in.in_time_zone(@timezone).strftime("%l"), :style => 'width:50px;float:left', :class => 'form-control') -%>
+				<div style="float:left;font-size:16px;padding:5px 2px;">:</div>
+				<%= text_field(hit.id.to_s.to_sym, :clock_in_minute, :value => hit.clock_in.in_time_zone(@timezone).strftime("%M"), :style => 'width:50px;float:left', :class => 'form-control') -%>
+				<select id="<%= hit.id.to_s %>_in_ampm" name="<%= hit.id.to_s %>[in_ampm]" class="ampm form-control" style="float:left;width:auto;margin-left:5px;margin-right:5px;">
+					<option value="am" <% if hit.clock_in.in_time_zone(@timezone).strftime('%p') == 'AM' %>selected="selected"<% end %>>AM</option>
+					<option value="pm" <% if hit.clock_in.in_time_zone(@timezone).strftime('%p') == 'PM' %>selected="selected"<% end %>>PM</option>
+				</select>
+				<%= date_select(hit.id.to_s.to_sym, :clock_in_date, {:default => { :day => hit.clock_in.in_time_zone(@timezone).day, :month =>  hit.clock_in.in_time_zone(@timezone).month, :year => hit.clock_in.in_time_zone(@timezone).year}, :order => [:month, :day, :year]}, {:class => 'form-control', :style => 'float:left;width:auto;margin-left:5px;'})%>
+			</td>
+			<td class="row">
+				<% if !hit.clock_out.blank? %>
+					<%= text_field(hit.id.to_s.to_sym, :clock_out_hour, :value => hit.clock_out.in_time_zone(@timezone).strftime("%l"), :style => 'width:50px;float:left', :class => 'form-control') -%>
+					<div style="float:left;font-size:16px;padding:5px 2px;">:</div>
+					<%= text_field(hit.id.to_s.to_sym, :clock_out_minute, :value => hit.clock_out.in_time_zone(@timezone).strftime("%M"), :style => 'width:50px;float:left', :class => 'form-control') -%>
+					<select id="<%= hit.id.to_s %>_out_ampm" name="<%= hit.id.to_s %>[out_ampm]" class="ampm form-control" style="float:left;width:auto;margin-left:5px;margin-right:5px;">
+						<option value="am" <% if hit.clock_out.in_time_zone(@timezone).strftime('%p') == 'AM' %>selected='selected'<% end %>>AM</option>
+						<option value="pm" <% if hit.clock_out.in_time_zone(@timezone).strftime('%p') == 'PM' %>selected='selected'<% end %>>PM</option>
+					</select>
+					<%= date_select(hit.id.to_s.to_sym, :clock_out_date, {:default => { :day => hit.clock_out.in_time_zone(@timezone).day, :month =>  hit.clock_out.in_time_zone(@timezone).month, :year => hit.clock_out.in_time_zone(@timezone).year}, :order => [:month, :day, :year]}, {:class => 'form-control', :style => 'float:left;width:auto;margin-left:5px;'})%>
+				<% else %>
+				<%= text_field(hit.id.to_s.to_sym, :clock_out_hour, :style => 'width:50px;float:left', :class => 'form-control') -%>
+				<div style="float:left;font-size:16px;padding:5px 2px;">:</div>
+				<%= text_field(hit.id.to_s.to_sym, :clock_out_minute, :style => 'width:50px;float:left', :class => 'form-control') -%>
+				<select id="<%= hit.id.to_s %>_out_ampm" name="<%= hit.id.to_s %>[out_ampm]" class="ampm form-control" style="float:left;width:auto;margin-left:5px;margin-right:5px;">
+					<option value="am">AM</option>
+					<option value="pm">PM</option>
+				</select>
+				<%= date_select(hit.id.to_s.to_sym, :clock_out_date, {:order => [:month, :day, :year]}, {:class => 'form-control', :style => 'float:left;width:auto;margin-left:5px;'})%>
+				<% end %>
+			</td>
+			<td class="row"><div class="form-control"><% if hit.clock_out.blank? %>Clocked In<% else %><%= hit.total %><% end %></div></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td colspan="3" style="text-align:right;padding-top:10px;">
+			<div class="btn-group">
+				<%= submit_tag("Update Timesheet", :class => 'btn btn-success')%>
+
+			</div>
+		</td>
+	</tr>
+</table>
+<% end %>

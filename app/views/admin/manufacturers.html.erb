@@ -1,0 +1,45 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8 text-center-xs"><h4 class="productTitle">Manufacturers</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right text-center-xs">
+		<div class="buttons-group">
+		<a href="/admin/add_manufacturer/" class="buttons icon add">Add Manufacturer</a>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<table class="table" cellspacing="1" cellpadding="0">
+		<tr>
+			<th>Manufacturer Name</th>
+			<th>Phone</th>
+			<th width="100">Website</th>
+			<th width="175">Actions</th>
+		</tr>
+	<% if @m.count == 0 %>
+	<tr style="background:#dedede;">
+		<td colspan="6" style="padding:15px 0 15px 0">
+			<center>There Are No Manufacturers Add One</center>
+		</td>
+	</tr>
+	<% end %>
+	<% for m in @m %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td class="row" valign="top"><a href="/admin/manufacturer/<%= m.id %>"><%= m.name %></a></td>
+		<td class="row"><%= number_to_phone m.phone %></td>
+		<td class="row" valign="top"><%= m.website %></td>
+		<td class="row" valign="top"><center><a href="/admin/manufacturer/<%= m.id %>">View</a> | <a href="/admin/edit_manufacturer/<%= m.id %>">Edit</a> | <a onclick="confirmDestroyManu('<%= m.id %>')">Delete</a></center></td>
+	</tr>
+	<% end %>
+	</table>
+</div>
+
+<script type="text/javascript">
+	
+	function confirmDestroyManu(id){
+		x = prompt('Please type "DELETE" (in caps) in order to confirm you would like to remove this manufacturer')
+		if(x == 'DELETE'){
+			window.location.href="/admin/destroy_manufacturer/"+id+"?confirm=true";
+		}
+	}
+	
+</script>

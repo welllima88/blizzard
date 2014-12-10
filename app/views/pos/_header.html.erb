@@ -1,0 +1,24 @@
+		<div id="my_header">
+			<table class="mainLayout">
+				<tr>
+					<td colspan="2" class="layoutHeader">
+						<div id="mainHeader">
+							<ul>
+								<a onclick="statusCheck();"><li id="registerButton" class="">Register</li>
+								<a onclick="returnPage();"><li id="returnButton" class="">Returns</li></a>
+								<a onclick="timeSheetPage();"><li id="timesheetButton" class="">Timesheet</li></a>
+								<a onclick="$.mobile.changePage( '#optionsScreen', {transition: 'flip', reverse: false});"><li id="optionsButton" class="">Options</li></a>
+							</ul>
+							<ul style="float:right;">
+								<a href="/admin"><li>Admin Panel</li></a>
+							</ul>
+						</div>
+						<div id="subHeader">
+							<p><strong>Store: </strong><%= @store.name %></p>
+							<p><strong>Register: </strong> </p>
+							<p id="headerEmployeeName"><strong>Employee: </strong> </p>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>

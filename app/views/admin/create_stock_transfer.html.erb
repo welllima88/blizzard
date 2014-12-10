@@ -1,0 +1,68 @@
+
+<%= form_tag(:action => 'create_stock_transfer', :id => params[:id] )%>
+<div class="row border-bottom">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">New Stock Transfer</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<%= submit_tag("Submit Transfer", :class => 'buttons', :style => 'font-size:11px;')%>
+			<% if params[:id] != nil %>
+				<a href="/admin/cancel_stock_transfer/<%= @stock_transfer.id %>" class="buttons icon remove danger">Cancel Transfer</a>
+			<% end %>
+		</div>
+	</div>
+</div>
+<div class="col-xs-12 col-sm-12 blueBg top-buffer">
+	<div class="row" id="create_stock_transfer_main">
+		<div class="col-xs-6 col-sm-3 col-lg-1 cell-buffer text-right">Source</div>
+		<div class="col-xs-6 col-sm-9 col-lg-2 cell-buffer">
+			<% if params[:id] == nil %>
+				<%= select("stock_transfer", "source_id", @stores.collect {|s| [ s.name, s.id ] }, {:include_blank => 'Select Source Location', :class => 'form-control'})%>
+			<% else %>
+				<%= select("stock_transfer", "source_id", @stores.collect {|s| [ s.name, s.id ] }, {:include_blank => 'Select Source Location'}, :disabled => true, :class => 'form-control')%>
+			<% end %>
+		</div>
+
+
+		<div class="col-xs-6 col-sm-3 col-lg-1 cell-buffer text-right">Destination</div>
+		<div class="col-xs-6 col-sm-9 col-lg-2 cell-buffer"><%= select("stock_transfer", "destination_id", @stores.collect {|s| [ s.name, s.id ] }, {:include_blank => 'Select Destination Location'}, :class => 'form-control')%></div>
+
+		<div class="col-xs-6 col-sm-3 col-lg-1 cell-buffer text-right">Created By</div>
+		<div class="col-xs-6 col-sm-9 col-lg-2 cell-buffer"><%= text_field(:stock_transfer, :source, :disabled => true, :value => session[:user]['employee_name'] , :class => 'form-control')%></div>
+
+		<% if params[:id] != nil %>
+			<div class="col-xs-6 col-sm-3 col-lg-1 cell-buffer text-right">Status</div>
+			<div class="col-xs-6 col-sm-9 col-lg-2 cell-buffer text-only"><%= @stock_transfer.status %></div>
+		<% end %>
+	</div>
+
+</div>
+
+<div class="inline-block-buffer"></div>
+<% if @source != nil %>
+	<table class="table top-buffer">
+		<tr>
+			<th>Product Name</th>
+			<th>SKU</th>
+			<th>QTY Available</th>
+			<th>Amount</th>
+		</tr>
+		<% for p in @products %>
+			<% existing = @stock_transfer.stock_transfer_products.select{|tp| tp.product_id.to_s == p[1].to_s}.first %>
+			<% if existing != nil %>
+				<% eqty = existing.qty %>
+			<% else %>
+				<% eqty = '' %>
+			<% end %>
+			<tr>
+				<td class="row"><%= p[0] %><%= hidden_field("#{p[1]}", 'name', :value => "#{p[0]}")%></td>
+				<td class="row"><%= p[1] %><%= hidden_field("#{p[1]}", 'id', :value => "#{p[1]}")%></td>
+				<td class="row"><%= p[2] %><%= hidden_field("#{p[1]}", 'available', :value => "#{p[2]}")%></td>
+				<td class="row"><%= p[3] %><%= text_field("#{p[1]}", 'qty', :value => "#{eqty}")%></td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan="3">&nbsp;</td>
+			<td class="alignRight"><%= submit_tag("Add Items", :class => 'buttons', :style => 'font-size:11px;')%></td>
+		</tr>
+	</table>
+<% end %>

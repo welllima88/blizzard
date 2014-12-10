@@ -1,0 +1,141 @@
+<%= form_tag(:action => 'add_store') do %>
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Add Store</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<%= submit_tag('Save', :class => 'btn btn-primary')%>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+		<h3 class="text-left">General Information</h3>
+		<!-- First Line -->
+		<div class="row">
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Store Name</span><%= text_field(:store, :name, :class => 'form-control')%></div>
+			</div>
+
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Address</span><%= text_field(:store, :address, :class => 'form-control')%></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Line 2</span><%= text_field(:store, :address2, :class => 'form-control')%></div>
+			</div>
+
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">City</span><%= text_field(:store, :city, :class => 'form-control')%></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">State</span><%= select_state('store', 'state', '')%></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Postal Code</span><%= text_field(:store, :zip, :class => 'form-control')%></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Country</span><%= select_country('store', 'country', '')%></div>
+			</div>
+
+		</div>
+		
+		<div class="top-buffer row">
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Phone</span><%= text_field(:store, :phone, :class => 'form-control')%></div>
+			</div>
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Email</span><%= text_field(:store, :email, :class => 'form-control')%></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-6">
+		<h3 class="text-left">Local Settings</h3>
+		<!-- First Line -->
+		<div class="row">
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Tax Rate</span><%= text_field(:store, :tax_rate, :class => 'form-control')%></div>
+			</div>
+
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-a">Time Zone</span><%= time_zone_select( :store, :time_zone, ActiveSupport::TimeZone.us_zones, {}, {:class => 'form-control'}) %></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group">
+					<span class="input-group-addon addon-fixed-a">Currency</span>
+					<%= select_tag "store[currency_code]", 
+					options_for_select(
+					{
+						'USD' => '$',
+						'Pound Sterling' => '&pound;',
+						'Euro' => '&euro;',
+						'Japaneese Yen' => '&yen;',
+						'Swiss Franc' => '&#8355;',
+						'Lira' => '&#8356;',
+						'Peseta' => '&#8359;',
+						'Indian Rupee' => '&#8377;',
+					}), :class => 'form-control'%>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<h3 class="text-left">Payment Setting</h3>
+		<!-- First Line -->
+		<div class="row">
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group">
+					<span class="input-group-addon addon-fixed-b">Credit Card Gateway</span>
+					<%= select_tag "store[gateway]", options_for_select( {
+						'PayLeap' => 'PayLeapGateway',
+						'PROCharge' => 'ProChargeGateway',
+						'Merchant Warehouse' => 'MerchantWarehouse',
+						'Credit Card (Not Integrated)' => 'OfflineCreditCard'
+					}), :class => 'form-control'%>
+				</div>
+			</div>
+
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-b">Gateway Username/Login</span><%= text_field(:store, :gateway_username, :class => 'form-control')%></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-b">Gateway Password/Token</span><%= text_field(:store, :gateway_password, :class => 'form-control')%></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group"><span class="input-group-addon addon-fixed-b">Gateway Store Name (optional)</span><%= text_field(:store, :gateway_storename, :class => 'form-control')%></div>
+			</div>
+			
+			<div class="col-sm-12 form-group">
+				<div class="input-group">
+					<span class="input-group-addon addon-fixed-b">Gateway Status</span>
+					<%= select_tag "store[gateway_status]", options_for_select( { 'Live' => 'live', 'Testing' => 'test'}), :class => 'form-control'%>
+				</div>
+			</div>
+			
+			
+			
+		</div>
+		
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12 col-md-12">
+		
+	</div>
+</div>
+
+
+
+
+<% end %>

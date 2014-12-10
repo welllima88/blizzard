@@ -1,0 +1,109 @@
+<!-- POS Screen -->
+
+	<div id="no_order" class="hideField">
+		<div class="right_box">
+			<div class="right-box-highlight">
+				<div class="col-sm-12 text-center">Scan To Begin</div>
+			</div>
+			<div class="right_box_padding">
+				Scan or enter a barcode to create a new order.
+			</div>
+		</div>
+		
+		<div class="right_box">
+			<div class="right-box-highlight">
+				<div class="col-sm-12 text-center">Suspended Sales</div>
+			</div>
+			<div class="right_box_padding" style="text-align:center;">
+				<input type="button" value="View Suspended Sales" class="btn btn-go" onclick="viewSuspendedSales()">
+			</div>
+		</div>
+	</div>
+	<div id="current_order" class="hideField">
+		<a onClick="cancelSale()" class="btn btn-danger pull-left">Cancel Sale</a>
+		<a onClick="suspendSale()" class="btn btn-primary pull-right" />Suspend Sale</a>
+			<div class="right_box">
+				<div class="right_box_padding">
+					<h3>Customer</h3>
+					<div id="customerNameBox"></div>
+					<div id="customerSearchBox">
+						<form accept-charset="UTF-8" class="noSubmitForm form-margin" onsubmit="return false;">
+							<div class="input-group">
+							  <input type="text" id="customerSearch" class="form-control" name="customerSearch" placeholder="Customer Search" />
+						      <span class="input-group-btn">
+						        <button name="commit" type="submit" class="btn btn-go" type="button" onclick="findCustomer();">Go!</button>
+						      </span>
+						    </div>
+						</form>
+					</div>
+					<div id="addCustomerBox" class="hideField">
+						<form accept-charset="UTF-8" action="" method="" onsubmit="return false;">
+							<div class="customerRegularBox" >First Name:<br><input class="customerInputRegularBox" type="text" id="customerFirstName" name="customerFirstName"/></div>
+							<div class="customerRegularBox">Last Name:<br><input class="customerInputRegularBox" type="text" id="customerLastName" name="customerLastName"/></div>
+							<div class="customerRegularBox">Email:<br><input class="customerInputRegularBox" type="text" id="customerEmail" name="customerEmail"/></div>
+							<div class="customerRegularBox">Phone Number:<br><input class="customerInputRegularBox" type="text" id="customerPhone" name="customerPhone"/></div>
+
+							<div class="customerWideBox">Address:<br><input class="customerInputWideBox" type="text" id="customerAddress" name="customerAddress"/></div>
+
+							<div class="customerRegularBox">City:<br><input class="customerInputRegularBox" type="text" id="customerCity" name="customerCity"/></div>
+							<div class="customerRegularBox">State:<br><input class="customerInputRegularBox" type="text" id="customerState" name="customerState"/></div>
+							<div class="customerRegularBox">Zipcode:<br><input class="customerInputRegularBox" type="text" id="customerZip" name="customerZip"/></div>
+							<input name="commit" type="submit" value="Add Customer" class="btn btn-primary btn-wide btn-right-buffer" onclick="addCustomerToDB();" />
+						</form>
+					</div>
+					<a class="right-mini-btn" id="add-new-customer-btn" type="button" onclick="showAddCustomer();">Add Customer</a>
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="right_box_padding">
+					<table class="table order-total-table">
+						<tr>
+							<td>ITEMS</td>
+							<td class="text-right order-item_count"></td>
+						</tr>
+						<tr>
+							<td>SUB TOTAL</td>
+							<td class="text-right order-subtotal"></td>
+						</tr>
+						<tr class="no-bottom-border">
+							<td>TAX</td>
+							<td class="text-right order-tax"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="right-box-highlight">
+					<div class="col-sm-6">TOTAL</div>
+					<div class="col-sm-6 order-total text-right"></div>
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="right-box-highlight">
+					<div class="col-sm-6 due-title"></div>
+					<div class="col-sm-6 amount-due text-right"></div>
+				</div>
+				<center>
+					<div id="RightPaymentButton" class="">
+						<a onclick="paymentScreen()" class="payment_button btn btn-wide">Add Payment</a>
+					</div>
+					<div id="RightCompleteButton" class="">
+						<a onClick="completeSale();" class="payment_button btn btn-wide">Complete Sale</a>
+					</div>
+				</center>
+			</div>
+			<div class="right_box">
+				<div class="right_box_padding">
+					<form onsubmit="return false;" class="noSubmitForm">
+						<div class="input-group">
+						  <input type="text" name="couponId" id="couponId" class="form-control" placeholder="Enter Coupon Code" />
+					      <span class="input-group-btn">
+					        <button name="commit" type="submit" class="btn btn-go" type="button" onclick="addCoupon();">Add</button>
+					      </span>
+					    </div>
+					</form>
+				</div>
+			</div>
+	</div>
+<!-- Receipt -->
+<div id="receiptAreaRight" class="hideField">
+	<input type="button" value="Back To Register" onclick="statusCheck();" />
+</div>

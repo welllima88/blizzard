@@ -1,0 +1,98 @@
+<%= form_tag(:action => 'receive_purchase_order', :id => params[:id]) do %>
+<div class="row">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Purchase Order</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/purchase_order/<%= params[:id] %>" class="buttons">Cancel</a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12 col-md-8">
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Purchase Order ID</strong><br><%= @po.id %></div>
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Vendor</strong><br><%= @po.vendor.name %></div>
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Status</strong><br><%= @po.status_human %></div>
+		<div class="col-xs-12 col-sm-6 row-buffer"><strong>Vendor Account Number</strong><br><%= @po.vendor_account_number %></div>
+	</div>
+	<div class="col-sm-12 col-md-4">
+		<table class="table" >
+			<tr><th class="blueBg" colspan="2"><h3 class="text-center">Shipping Information</h3></td></tr>
+			<tr>
+				<td>Address</td>
+				<td><%= @po.shipping_address %></td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td><%= @po.shipping_city %></td>
+			</tr>
+			<tr>
+				<td>State</td>
+				<td>
+					<%= @po.shipping_state %>
+				</td>
+			</tr>
+			<tr>
+				<td>Zip</td>
+				<td><%= @po.shipping_zip %></td>
+			</tr>
+			<tr><th class="blueBg" colspan="2"><h3 class="text-center">Monetary Information</h3></td></tr>
+			<tr>
+				<td>Sub-Total:</td>
+				<td><%= number_to_currency @po.cost %></td>
+			</tr>
+			<tr>
+				<td>Shipping:</td>
+				<td><%= number_to_currency @po.shipping_cost %></td>
+			</tr>
+			<tr>
+				<td>Discount:</td>
+				<td style="font-weight:normal;">
+				<%= @po.total_discount %>
+				</td>
+			</tr>
+			<tr>
+				<td>Total:</td>
+				<td><%= number_to_currency @po.total %></td>
+			</tr>
+			<tr>
+				<td>Amount Paid:</td>
+				<td><%= number_to_currency @po.amount_paid %></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+<div class="col-sm-12 blueBg row-buffer" style="padding-left:10px;">
+	Adding Inventory To Store: <select name="store[id]"><%= options_from_collection_for_select(@stores, 'id', 'name') %></select>
+</div>
+
+
+
+<table class="table top-buffer" cellspacing="1" cellpadding="0">
+	<tr>
+		<th colspan="2">&nbsp;Product Name</th>
+		<th>Manufacturer</th>
+		<th>Product Cost</th>
+		<th>Product UPC</th>
+		<th>QTY</th>
+		<th>Received</th>
+		<th>Add (+)</th>
+	</tr>
+	<% for p in @po.po_items %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<% if p.all_received != 'yes' %><td width="6" style="background:#900000;"><% else %><td width="6" style="background:#639e23;"><% end %></td>
+		<td><a href="/admin/view_inventory/<%= p.product_id %>"><%= p.name %></a></td>
+		<td><%= p.manufacturer_name %></td>
+		<td width="120"><%= number_to_currency p.cost %></td>
+		<td><%= p.upc %></td>
+		<td width="100"><%= p.qty %></td>
+		<td width="100"><%= p.received %></td>
+		<td width="100"><strong><%= text_field(:item, p.id.to_s.to_sym , :style=>'width:80px;')%></strong></td>
+	</tr>
+	<% end %>
+</table>
+<div style="text-align:right;">
+<%= submit_tag("Save", :class => 'buttons', :style => 'margin:10px 5px;')%>
+</div>
+<% end %>

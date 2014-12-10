@@ -1,0 +1,53 @@
+<div id="receiptWrapper">
+	<h1 class="companyName"></h1>
+	<p class="storeAddress"></p>
+	<table class="receiptProductList">
+		<tr>
+			<td><strong>(QTY) PRODUCT NAME</strong></td>
+			<td><strong>PRICE</strong></td>
+			<td><strong>TOTAL</strong></td>
+		</tr>
+		<tr><td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
+		<tbody id="innerReceiptProductList">
+			<!-- Line Items Here -->
+		</tbody>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>SUBTOTAL</strong></td>
+			<td class="receiptSubTotal">$</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>TAX</strong></td>
+			<td class="receiptTax"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>TOTAL</strong></td>
+			<td class="receiptTotal"></td>
+		</tr>
+		<tr><td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>CASH</strong></td>
+			<td class="receiptCash"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>CREDIT CARD</strong></td>
+			<td class="receiptCreditCard"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>GIFT CARD</strong></td>
+			<td class="receiptGiftCard"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>CHECK</strong></td>
+			<td class="receiptCheck"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:right;"><strong>Change</strong></td>
+			<td class="receiptChange"></td>
+		</tr>
+		<tr><td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
+	</table>
+	<div id="barcodeArea" style="width:100%;text-align:center;padding:15px 0 15px 0;">
+		<div class="barcode128h" id="barcode"></div><br>
+		<div id="receiptBarCodeId"></div>
+	</div>
+</div>

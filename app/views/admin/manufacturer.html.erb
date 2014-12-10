@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle"><%= @m.name %></h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			
+		</div>
+	</div>
+</div>
+
+<table class="table">
+	<tr>
+		<td width="50%">
+			<strong>Phone:</strong><br>
+			<%= number_to_phone @m.phone %>
+		</td>
+		<td width="50%">
+			<strong>Website:</strong><br>
+			<a href="http://<%= @m.website %>"><%= @m.website %></a>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<% if params[:function] != 'show_products' %>
+				<%= form_tag(:action => 'manufacturer', :id => params[:id], :function => 'show_products') do %>
+					<%= submit_tag("Show Products From #{@m.name}")%>
+				<% end %>
+			<% else %>
+			<%= form_tag(:action => 'manufacturer', :id => params[:id], :function => nil) do %>
+				<%= submit_tag("Hide Products From #{@m.name}")%>
+			<% end %><br>
+				<table class="table" style="margin-top:12px;" cellspacing="0" cellpadding="0">
+					<tr>
+						<th>Product Name</th>
+						<th>Stock</th>
+						<th>On Order</th>
+						<th>Cost</th>
+						<th>Price</th>
+						<th>Margin</th>
+					</tr>
+					<% for p in @m.products %>
+					<tr>
+						<td class="row"><a href="/admin/view_inventory/<%= p.id %>"><%= p.name %></a></td>
+						<td class="row"><%= p.stock %></td>
+						<td class="row">0</td>
+						<td class="row"><%= number_to_currency p.cost %></td>
+						<td class="row"><%= number_to_currency p.price %></td>
+						<td class="row"><font color="green"><%= number_to_percentage (p.price-p.cost)/p.price*100 %></font></td>
+					</tr>
+					<% end %>
+				</table>
+			<% end %>
+		</td>
+	</tr>
+</table>

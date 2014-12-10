@@ -1,0 +1,118 @@
+<html>
+	<head>
+		<!-- Meta -->
+			<title>Evendra POS Administration</title>
+			
+		<!-- Stylesheets -->
+			<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+			<%= stylesheet_link_tag 'admin', 'buttons' %>
+			<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+			
+		<!-- Javascript -->
+			<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+			<%= javascript_include_tag "admin" %>
+			<script type="text/javascript" charset="utf-8" src="/assets/highchart.js"></script>
+			<script type="text/javascript" charset="utf-8">
+				$(document).ready(function(){ <%= @section.html_safe unless !@section %> });
+			</script>
+	</head>
+	<body>
+		<table class="mainWrapper" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="logo">
+					<div class="userInfo">
+						EVENDRA
+					</div>
+				</td>
+				<td class="navSection">
+				
+						<div class="textWrapper">
+							<div class="welcomeText">Welcome <%= session[:user]['employee_name'].titleize %></div>
+							<div class="buttons-group" style="margin-right:20px;">
+								<a href="/" class="buttons">Go To Register</a>
+								<a href="/logout" class="buttons">Log Out</a>
+							</div>
+						</div>
+				
+				</td>
+			</tr>
+			<tr>
+				<td class="subNavSection" colspan="2">
+					<div id="subNav">
+						<div id="subnavSales">
+							<a href="/admin/sales" id="subSalesSales">All Sales</a>
+							<a href="/admin/returns" id="subSalesReturns">All Returns</a>
+						</div>
+						<div id="subnavInventory">
+							<a href="/admin/inventory" id="subInventoryInventory">Inventory</a>
+							<a href="/admin/low_inventory" id="subInventoryLowInventory">Low Inventory</a>
+							<a href="/admin/purchase_orders" id="subInventoryPurchaseOrders">Purchase Orders</a>
+							<a href="/admin/stock_transfers" id="subInventoryStockTransfers">Stock Transfers</a>
+							<a href="/admin/departments" id="subInventoryDepartments">Departments</a>
+							<a href="/admin/manufacturers" id="subInventoryManufacturers">Manufacturers</a>
+							<a href="/admin/vendors" id="subInventoryVendors">Vendors</a>
+						</div>
+						<div id="subnavCustomers">
+							<a href="/admin/customers" id="subCustomers">Customers</a>
+						</div>
+						<div id="subnavMarketing">
+							<a href="/admin/coupons" id="subMarketingCoupons">Coupons</a>
+							<a href="/admin/add_coupon" id="subMarketingAddCoupon">Add Coupon</a>
+						</div>
+						<div id="subnavStores">
+							<a href="/admin/stores" id="subStoresStores">Stores</a>
+							<a href="/admin/add_store" id="subStoresAddStore">Add Store</a>
+							<!-- 
+							<a href="/admin/inventory_locations" id="subStoresInventoryLocations">Inventory Locations</a>
+							
+							<a href="/admin/add_coupon" id="subStoresAddStore">Registers</a>
+							<a href="/admin/register_templates" id="subStoresRegisterTemplates">Register Templates</a>
+								-->
+						</div>
+						<div id="subnavEmployees">
+							<a href="/admin/employees" id="subEmployeesEmployees">Employees</a>
+							<a href="/admin/timesheets" id="subEmployeesTimesheets">Timesheet's</a>
+						</div>
+						<div id="subnavReports">
+							<a href="/admin/sales_report" id="subReportsSalesRefunds">Sales & Refunds</a>
+						</div>
+						<div id="subnavSettings">
+							<a href="/admin/email_settings" id="subSettingsEmailSettings">Email Settings</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="leftWrapper">
+					<a href="/admin/sales" id="sectionSales"><img src="/assets/navTick.jpg"><p>Sales & Returns</p></a>
+					<a href="/admin/inventory" id="sectionInventory"><img src="/assets/navTick.jpg"><p>Inventory</p></a>
+					<a href="/admin/customers" id="sectionCustomers"><img src="/assets/navTick.jpg"><p>Customers</p></a>
+					<a href="/admin/employees" id="sectionEmployees"><img src="/assets/navTick.jpg"><p>Employees</p></a>
+					<a href="/admin/stores" id="sectionStores"><img src="/assets/navTick.jpg"><p>Stores</p></a>
+					<a href="/admin/coupons" id="sectionMarketing"><img src="/assets/navTick.jpg"><p>Marketing</p></a>
+					<a href="/admin/sales_report" id="sectionReports"><img src="/assets/navTick.jpg"><p>Reports</p></a>
+					<a href="/admin/settings" id="sectionSettings"><img src="/assets/navTick.jpg"><p>Settings</p></a>
+					<a href="/admin/merchant_services" id="sectionMerchantApplication"><img src="/assets/navTick.jpg"><p>Credit Card Processing</p></a>
+				</td>
+				<td class="rightWrapper">
+					<div class="container-fluid">
+						<%= yield %>
+					</div>
+				</td>
+			</tr>
+		</table>
+		
+		
+		
+		
+		
+		
+		
+	</body>
+</html>
+
+<script type="text/javascript" charset="utf-8">
+	
+
+	
+</script>

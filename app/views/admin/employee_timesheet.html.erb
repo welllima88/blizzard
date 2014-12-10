@@ -1,0 +1,39 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle"><%= @employee_timesheet.employee_name.titleize %></h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<div class="btn-group">
+				<a href="/admin/timesheet/<%= @employee_timesheet.timesheet_id %>" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Employee Timesheet's</a>
+				<a href="/admin/edit_employee_timesheet/<%= params[:id] %>" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Times</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+		<div class="col-sm-6 form-group">
+			<div class="input-group">
+				<span class="input-group-addon">Date</span><%= text_field('timesheet', 'date', :class => 'form-control', :value => @employee_timesheet.date.to_date.to_time.strftime("%B %e, %Y"), :disabled => true)%>
+			</div>
+		</div>
+		<div class="col-sm-6 form-group">
+			<div class="input-group">
+				<span class="input-group-addon">Total Hours Worked</span><%= text_field('timesheet', 'date', :class => 'form-control', :value => @employee_timesheet.hours_worked, :disabled => true)%>
+			</div>
+		</div>
+</div>
+
+	<table class="table">
+		<% if flash[:notice] != nil %><tr><td colspan="3"><div class="greenNotice"><%= flash[:notice] %></div></td></tr><% end %>
+		<tr>
+			<th>Clock In</td>
+			<th>Clock Out</td>
+			<th class="text-right">Hours Worked</td>
+		</tr>
+		<% for hit in @employee_timesheet.employee_timesheet_hits %>
+			<tr>
+				<td><%= hit.clock_in.in_time_zone(@timezone).strftime("%B %e, %Y %l:%M %p %Z") %></td>
+				<td><% if hit.clock_out != nil %><%= hit.clock_out.in_time_zone(@timezone).strftime("%B %e, %Y %l:%M %p %Z") %><% else %>Clocked In<% end %></td>
+				<td class="text-right"><%= hit.total %></td>
+			</tr>
+		<% end %>
+	</table>

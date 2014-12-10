@@ -1,0 +1,109 @@
+
+<div class="row header">
+	<div class="col-xs-12 col-sm-8 text-center-xs"><h4 class="productTitle">Stock Transfers</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right text-center-xs">
+		<div class="buttons-group">
+			<a href="/admin/create_stock_transfer" class="buttons icon add">Create New Transfer</a>
+			<% if params[:completed] == 'yes' %>
+				<a href="/admin/stock_transfers" class="buttons">View Non Completed Transfers</a>
+			<% else %>
+				<a href="/admin/stock_transfers?completed=yes" class="buttons">View Completed Transfers</a>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<% if params[:completed] == 'yes' %>
+	<table class="table" style="margin-top:10px;font-size:14px;" cellspacing="1" cellpadding="4">
+		<tr><td colspan="6" class="blueBg"><strong>Completed Stock Transfers</strong></td></tr>
+		<tr>
+			<th>Source</th>
+			<th>Destination</th>
+			<th>Items</th>
+			<th>Date Created</th>
+			<th>Requested By</th>
+			<th></th>
+		</tr>
+		<% for t in @completed %>
+		<tr class="<%= cycle('oddrow', 'evenrow') %>">
+			<td><%= t.source_name %></td>
+			<td><%= t.destination_name %></td>
+			<td><%= t.item_count %></td>
+			<td><%= t.created_at.strftime("%B %d, %Y") %></td>
+			<td><%= t.employee_name %></td>
+			<td><a href="/admin/stock_transfer/<%= t.id %>">View Details</a></td>
+		</tr>
+		<% end %>
+	</table>
+<% else%>
+	<table class="table" style="margin-top:10px;font-size:14px;" cellspacing="1" cellpadding="4">
+		<tr><td colspan="6" class="blueBg"><strong>Pending Stock Transfers</strong></td></tr>
+		<tr>
+			<th>Source</th>
+			<th>Destination</th>
+			<th>Items</th>
+			<th>Date Created</th>
+			<th>Requested By</th>
+			<th></th>
+		</tr>
+		<% for t in @pending %>
+		<tr class="<%= cycle('oddrow', 'evenrow') %>">
+			<td><%= t.source_name %></td>
+			<td><%= t.destination_name %></td>
+			<td><%= t.item_count %></td>
+			<td><%= t.created_at.strftime("%B %d, %Y") %></td>
+			<td><%= t.employee_name %></td>
+			<td class="text-right"><a href="/admin/create_stock_transfer/<%= t.id %>" class="btn btn-primary btn-sm">View Details / Submit Transfer</a></td>
+		</tr>
+		<% end %>
+	</table>
+	
+	<table class="table" style="margin-top:30px;font-size:14px;" cellspacing="1" cellpadding="4">
+		<tr><td colspan="6" class="blueBg"><strong>Submitted Stock Transfers</strong></td></tr>
+		<tr>
+			<th>Source</th>
+			<th>Destination</th>
+			<th>Items</th>
+			<th>Date Created</th>
+			<th>Requested By</th>
+			<th></th>
+		</tr>
+		<% for t in @submitted %>
+		<tr class="<%= cycle('oddrow', 'evenrow') %>">
+			<td><%= t.source_name %></td>
+			<td><%= t.destination_name %></td>
+			<td><%= t.item_count %></td>
+			<td><%= t.created_at.strftime("%B %d, %Y") %></td>
+			<td><%= t.employee_name %></td>
+			<td class="row text-right">
+				<div class="buttons-group">
+					<a href="/admin/stock_transfer/<%= t.id %>" class="btn btn-primary">View Details</a>
+					<a href="/admin/send_stock_transfer/<%= t.id %>" class="btn btn-primary btn-sm">Send Transfer</a>
+				</div>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+
+	<table class="table" style="margin-top:30px;font-size:14px;" cellspacing="1" cellpadding="4">
+		<tr><td colspan="6" class="blueBg"><strong>Sent Stock Transfers</strong></td></tr>
+		<tr>
+			<th>Source</th>
+			<th>Destination</th>
+			<th>Items</th>
+			<th>Date Created</th>
+			<th>Requested By</th>
+			<th></th>
+		</tr>
+		<% for t in @sent %>
+		<tr class="<%= cycle('oddrow', 'evenrow') %>">
+			<td><%= t.source_name %></td>
+			<td><%= t.destination_name %></td>
+			<td><%= t.item_count %></td>
+			<td><%= t.created_at.strftime("%B %d, %Y") %></td>
+			<td><%= t.fulfill_by %></td>
+			<td class="text-right"><a href="/admin/stock_transfer/<%= t.id %>" class="btn btn-primary btn-sm">View Details</a> <a href="/admin/receive_stock_transfer/<%= t.id %>" class="btn btn-primary btn-sm">Received Stock Transfer</a></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

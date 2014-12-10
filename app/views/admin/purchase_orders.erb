@@ -1,0 +1,156 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Purchase Orders</h2></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/create_po/" class="buttons icon add">Create Purchase Order</a>
+			<% if params[:completed] == 'yes' %>
+				<a href="/admin/purchase_orders" class="buttons icon search">View Non Completed Orders</a>
+			<% else %>
+				<a href="/admin/purchase_orders?completed=yes" class="buttons icon search">View Completed Orders</a>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+	<% if params[:completed] == 'yes' %>
+		<table class="table">
+			<tr>
+				<th class="redBg" colspan="5">
+					Completed Orders in Receiving
+				</th>
+			</tr>
+			<tr>
+				<th>Vendor</th>
+				<th>Item Count</th>
+				<th width="100">Cost</th>
+				<th width="140">Created</th>
+				<th width="175"></th>
+			</tr>
+			<% for p in @completed %>
+				<tr class="<%= cycle('oddrow', 'evenrow') %>">
+					<td class="row" width="130"><%= p.vendor_name %></td>
+					<td class="row" width="200" style="font-size:12px;">
+						<%= p.po_items.count %>
+					</td>
+					<td class="row" valign="top"><%= number_to_currency p.cost %></td>
+					<td class="row" valign="top"><%= p.created_at.strftime("%B %d, %Y") %></td>
+					<td class="row alignRight" width="200"><center><a href="/admin/purchase_order/<%= p.id %>">View Purchase Order</a></center></td>
+				</tr>
+			<% end %>
+			</table>
+	<% else %>
+		<table class="table" style="font-size:12px;" cellspacing="1" cellpadding="0">
+			<tr>
+				<th class="blueBg" colspan="5">
+					Pending Purchase Orders
+				</th>
+			</tr>
+			<tr>
+				<th>Vendor</th>
+				<th>Items</th>
+				<th width="100">Cost</th>
+				<th width="120">Created</th>
+				<th width=""></th>
+			</tr>
+		<% if @pending.count == 0 %>
+			<tr style="background:#dedede;">
+				<td colspan="6" style="padding:15px 0 15px 0" class="text-center">
+					There Are No Pending Purchase Orders
+				</td>
+			</tr>
+		<% else %>
+			<% for p in @pending %>
+			<tr class="<%= cycle('oddrow', 'evenrow') %>">
+				<td  width="130"><a href="/admin/purchase_order/<%= p.id %>"><%= p.vendor_name %></a></td>
+				<td  style="font-size:12px;">
+					<% for i in p.po_items %>
+					<%= i.name %> (qty: <%= i.qty %>)<br>
+					<% end %>
+				</td>
+				<td  valign="top"><%= number_to_currency p.cost %></td>
+				<td  valign="top"><%= p.created_at.strftime("%B %d, %Y") %></td>
+				<td class="text-right">
+					<div class="buttons-group">
+						<a href="/admin/submit_po_to_vendor/<%= p.id %>" class="buttons icon approve">Submit To Vendor</a>
+						<a href="/admin/edit_purchase_order/<%= p.id %>" class="buttons icon edit">Edit</a>
+						<a href="/admin/cancel_po/<%= p.id %>" class="buttons icon remove danger">Cancel</a>
+					</div>
+				</td>
+			</tr>
+			<% end %>
+			</table>
+		<% end %>
+
+
+		<table class="table top-buffer">
+			<tr>
+				<th class="greenBg" colspan="6">Submitted Purchase Orders</th></tr>
+			<tr>
+				<th>ID Number</th>
+				<th>Vendor</td>
+				<th>Created</th>
+				<th>Status</th>
+				<th>Emailed</th>
+				<th></th>
+			</tr>
+		<% if @submitted.count == 0 %>
+			<tr style="background:#dedede;">
+				<td colspan="7" style="padding:15px 0 15px 0">
+					<center>There Are No Submitted Purchase Orders</center>
+				</td>
+			</tr>
+		<% end %>
+		<% for p in @submitted %>
+			<tr class="<%= cycle('oddrow', 'evenrow') %>">
+				<td><%= p.id %></td>
+				<td  width="130"><%= p.vendor_name %></td>
+				<td><%= p.created_at.strftime("%h %d, %Y") %></td>
+				<td>Submitted</td>
+				<td><%= p.emailed_human %></td>
+				<td class="text-right">
+					<div class="buttons-group">
+						<a href="/admin/purchase_order/<%= p.id %>" class="buttons icon search">View</a>
+						<a href="/admin/edit_purchase_order/<%= p.id %>" class="buttons icon edit">Edit</a>
+						<a href="/admin/receive_purchase_order/<%= p.id %>" class="buttons icon log">Receive</a>
+						<a href="/admin/pdf_print_view/<%= p.id %>.pdf" class="buttons icon arrowdown">Download PDF</a>
+					</div>
+				</td>
+			</tr>
+		<% end %>
+		</table>
+
+		<% if @receiving.count >= 1 %>
+			<table class="table" style="margin-top:30px;font-size:12px;" cellspacing="1" cellpadding="0">
+				<tr><td colspan="6"><strong>Purchase Orders in Receiving</strong></td></tr>
+				<tr>
+					<td class="table_heading_green">Vendor</td>
+					<td class="table_heading_green">Items</td>
+					<td class="table_heading_green" width="100">Cost</td>
+					<td class="table_heading_green" width="140">Created</td>
+					<td class="table_heading_green" width="175"></td>
+				</tr>
+				<% for p in @receiving %>
+				<tr class="<%= cycle('oddrow', 'evenrow') %>">
+					<td  width="130"><a href="/admin/purchase_order/<%= p.id %>"><%= p.vendor_name %></a></td>
+					<td  width="200" style="font-size:12px;">
+						<% for i in p.po_items %>
+							<% if i.all_received != 'yes' %>
+								<%= i.name %> (left: <%= i.qty-i.received %>)<br>
+							<% end %>
+						<% end %>
+					</td>
+					<td  valign="top"><%= number_to_currency p.cost %></td>
+					<td  valign="top"><%= p.created_at.strftime("%B %d, %Y") %></td>
+					<td class="row alignRight" width="200">
+						<div class="buttons-group">
+							<a href="/admin/purchase_order/<%= p.id %>" class="buttons icon search">View</a>
+							<a href="/admin/edit_purchase_order/<%= p.id %>" class="buttons icon edit">Edit</a>
+						</div>
+					</td>
+				</tr>
+				<% end %>
+				</table>
+		<% end %>
+<% end %>
+	

@@ -1,0 +1,165 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Sales Report</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="buttons-group">
+			<a href="/admin/sales_report" class="btn btn-primary"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Run New Report</a>
+		</div>
+	</div>
+</div>
+
+<table class="table" cellspacing="1" cellpadding="0">
+	<% if params[:conditions] == nil %>
+	<tr>
+		<td colspan="6" style="padding:0;margin:0;">
+			<table class="table">
+				<tr>
+					<td colspan="4"><h3>Report Filters</h3></td>
+				</tr>
+				<tr>
+					<td class="dateSelect">
+						<label>Start Date</label><br />
+						<%= date_select("range", "start_date", :order => [:day, :month, :year]) %><br>
+					</td>
+					<td class="dateSelect">
+						<label>End Date</label><br />
+						<%= date_select("range", "end_date", :order => [:day, :month, :year]) %>
+					</td>
+					<td>
+						<label>Store</label><br />
+						<%= select_tag "condition_store", options_from_collection_for_select(@stores, "id", "name"), :prompt => "All Stores" %>
+					</td>
+					<td>
+						<label>Employee</label><br />
+						<%= select_tag "condition_employee", options_from_collection_for_select(@employees, "id", "full_name"), :prompt => "All Employee's" %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4"><h3>Custom Filter</h3></td>
+				</tr>
+				<tr>
+					<td class="row">
+						<select id="condition_field">
+							<option value=":item_count">Item Count</option>
+							<option value=":subtotal">Subtotal</option>
+							<option value=":tax_rate">Tax Rate</option>
+							<option value=":tax">Tax</option>
+							<option value=":discount">Discount</option>
+							<option value=":total">Total</option>
+							<option value=":net_profit">Net Profit</option>
+						</select>
+					</td>
+					<td class="row">
+						<select id="condition_compare">
+							<option value="">Equals</option>
+							<option value=".gt">Greater Than</option>
+							<option value=".gte">Greater Than or Equal To</option>
+							<option value=".lt">Less Than</option>
+							<option value=".lte">Less Than or Equal To</option>
+						</select>
+					</td>
+					<td class="row">
+						<input type="text" id="condition_value">
+					</td>
+					<td class="alignRight">
+						<input type="button" value="Add Condition" onclick="addCondition()" class="buttons">
+					</td>
+				</tr>
+				<tr>
+					<td class="table_heading">Field</td>
+					<td class="table_heading">Compare</td>
+					<td class="table_heading">Value</td>
+					<td class="table_heading"></td>
+				</tr>
+				<tbody id="sales_report_conditions"></tbody>
+				<tr>
+					<td colspan="4" class="alignRight">
+						
+							<input type="hidden" value="" id="conditions" name="conditions">
+							<input type="button" value="Run Report" class="buttons icon reload" onclick="runSaleReport()">
+				
+					</td>
+				</tr>
+			</table>
+			
+			<script type="text/javascript" charset="utf-8">
+				
+				function addCondition(){
+					if ($('#condition_value').val()!= ''){
+						conditions = $('#conditions').val();
+						conditions += ", " + $('#condition_field').val() + $('#condition_compare').val() + " => " + $('#condition_value').val();
+						$('#conditions').val(conditions);
+						$('#sales_report_conditions').append("<tr><td class='row'>" + $('#condition_field').val().replace(':', '').replace('_', ' ') + "</td><td class='row'>" + conditionCompareHuman($('#condition_compare').val()) + "</td><td class='row'>" + $('#condition_value').val() + "</td><td></td></tr>");
+					}
+				}
+				
+				function conditionCompareHuman(compare){
+					if(compare == ''){
+						return 'equals';
+					}else{
+						compare = compare.replace('.', '');
+						compare = compare.split('');
+						newVal = '';
+						for(i=0;i<compare.length;i++){
+							if(compare[i] == 'g'){
+								newVal += 'greater ';
+							}
+							if(compare[i] == 'l'){
+								newVal += 'less ';
+							}
+							if(compare[i] == 't'){
+								newVal += 'than ';
+							}
+							if(compare[i] == 'e'){
+								newVal += 'or equal to';
+							}
+						}
+						return newVal;
+					}
+					
+				}
+				
+				function runSaleReport(){
+					conditions = $('#conditions').val();
+					start_date = $('#range_start_date_1i').val() + '-' + $('#range_start_date_2i').val() + '-' + $('#range_start_date_3i').val();
+					end_date = $('#range_end_date_1i').val() + '-' + $('#range_end_date_2i').val() + '-' + $('#range_end_date_3i').val();
+					if ($('#condition_end_date').val() != '' ){
+						//conditions += ", :created_at.lte => '" + $('#condition_end_date').val() + "'";
+					}
+					if ($('#condition_store').val() != '' ){
+						conditions += ", :store_id => '" + $('#condition_store').val() + "'";
+					}
+					if ($('#condition_employee').val() != '' ){
+						conditions += ", :employee_id => '" + $('#condition_employee').val() + "'";
+					}
+					window.location = '/admin/sales_report?conditions='+conditions+'&start_date='+start_date+'&end_date='+end_date;
+				}
+				
+			</script>
+			
+		
+		</td>
+	</tr>
+	<% else %>
+		<tr>
+			<td class="table_heading">Store </td>
+			<td class="table_heading" style="text-align: center;">Employee</td>
+			<td class="table_heading" style="text-align: center;">Time ( <%= (Time.now.in_time_zone(Time.zone)).strftime("%Z") %> )</td>
+			<td class="table_heading" style="text-align: center;">Total</td>
+			<td class="table_heading" style="text-align: center;">Customer</td>
+			<td class="table_heading"></td>
+		</tr>
+		<% for s in @sales %>
+			<tr class="<%= cycle('oddrow', 'evenrow') %>">
+				<td class="row"><a href="/admin/view_store/<%= s.store_id %>"><%= s.store_name %></a></td>
+				<td width="150" class="row" style="text-align: center;"><a href="/admin/view_employee/<%= s.employee_id %>"> <%= s.employee_name %> </a></td>
+				<td width="200" class="row" style="text-align: center;"><%= s.created_at.strftime("%b %d, %Y") %> &nbsp;&nbsp;&nbsp; <%= s.created_at.strftime("%I:%M %p") %></td>
+				<td class="row" style="text-align: center; text-align: center;"><%= number_to_currency s.total %></td>
+				<td class="row" style="text-align: center;"><a href="/admin/customer/<%= s.customer_id %>"><%= s.customer_name -%></a></td>
+				<td class="row" width="120" style="text-align: center;"><a href="/admin/sale/<%= s.id %>" class="buttons">Details</a></td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan="6" class="paginate"><%= will_paginate @sales %></td>
+		</tr>
+	<% end %>
+</table>
