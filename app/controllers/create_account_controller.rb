@@ -15,7 +15,7 @@ class CreateAccountController < ApplicationController
     employee.save
     session[:user] = {'company_id' => employee.company_id, 'employee_id' => employee.id, 'employee_name' => employee.full_name, 'store_id' => '', 'register_id' => ''}
     CompanyMailer.newAccount(company.id.to_s, employee.username, employee.email).deliver
-    redirect_to(:action => 'index')
+    redirect_to(:controller => 'pos', :action => 'index')
   end
   
 end
