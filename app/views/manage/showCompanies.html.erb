@@ -1,0 +1,21 @@
+<table class="standard">
+	<tr>
+		<td class="table_heading">Company Name</td>
+		<td class="table_heading">Address</td>
+		<td class="table_heading">Email</td>
+		<td class="table_heading"></td>
+	</tr>
+	<% for c in @companies %>
+		<tr style="background-color:#<%= cycle('ffffff', 'f1f1f1')%>;">
+			<td class="row"><%= c.company_name %></td>
+			<td class="row"><%= c.company_address %></td>
+			<td class="row"><a href="mailto:<%= c.company_email %>"><%= c.company_email %></a></td>
+			<td class="row"><a href="/manage/viewCompany/<%= c.id %>" class="buttons">view</a></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td colspan="4">
+			<%= will_paginate(@companies) %>
+		</td>
+	</tr>
+</table>

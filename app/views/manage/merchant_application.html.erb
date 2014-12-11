@@ -1,0 +1,506 @@
+<table class="standard">
+	<tr>
+	</tr>
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Association</td>
+		<td class="table_heading"></td>
+	</tr>
+	<tr>
+		<td class="row">Company ID</td>
+		<td class="row"><%= @merchant_application.company_id %></td>
+	</tr>
+	<tr>
+		<td class="table_heading" colspan="2">Internal Use</td>
+	</tr>
+	<tr>
+		<td class="row">Status</td>
+		<td class="row"><%= @merchant_application.status %></td>
+	</tr>
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Section 1 (Merchant Information)</td>
+	</tr>
+	<tr>
+		<td class="row">dba_name</td>
+		<td class="row"><%= @merchant_application.dba_name %></td>
+	</tr>
+	<tr>
+		<td class="row">legal_name</td>
+		<td class="row"><%= @merchant_application.legal_name %></td>
+	</tr>
+	<tr>
+		<td class="row">legal_address</td>
+		<td class="row"><%= @merchant_application.legal_address %></td>
+	</tr>
+	<tr>
+		<td class="row">legal_city</td>
+		<td class="row"><%= @merchant_application.legal_city %></td>
+	</tr>
+	<tr>
+		<td class="row">legal_state</td>
+		<td class="row"><%= @merchant_application.legal_state %></td>
+	</tr>
+	<tr>
+		<td class="row">legal_zip</td>
+		<td class="row"><%= @merchant_application.legal_zip %></td>
+	</tr>
+	<tr>
+		<td class="row">legal_country</td>
+		<td class="row"><%= @merchant_application.legal_country %></td>
+	</tr>
+	<tr>
+		<td class="row">dba_address</td>
+		<td class="row"><%= @merchant_application.dba_address %></td>
+	</tr>
+	<tr>
+		<td class="row">dba_city</td>
+		<td class="row"><%= @merchant_application.dba_city %></td>
+	</tr>
+	<tr>
+		<td class="row">dba_state</td>
+		<td class="row"><%= @merchant_application.dba_state %></td>
+	</tr>
+	<tr>
+		<td class="row">dba_zip</td>
+		<td class="row"><%= @merchant_application.dba_zip %></td>
+	</tr>
+	<tr>
+		<td class="row">dba_country</td>
+		<td class="row"><%= @merchant_application.dba_country %></td>
+	</tr>
+	<tr>
+		<td class="row">contact_name</td>
+		<td class="row"><%= @merchant_application.contact_name %></td>
+	</tr>
+	<tr>
+		<td class="row">contact_phone</td>
+		<td class="row"><%= @merchant_application.contact_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">location_phone</td>
+		<td class="row"><%= @merchant_application.location_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">location_fax</td>
+		<td class="row"><%= @merchant_application.location_fax %></td>
+	</tr>
+	<tr>
+		<td class="row">customer_service_phone</td>
+		<td class="row"><%= @merchant_application.customer_service_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">website</td>
+		<td class="row"><%= @merchant_application.website %></td>
+	</tr>
+	<tr>
+		<td class="row">invoice_address</td>
+		<td class="row"><%= @merchant_application.invoice_address %></td>
+	</tr>
+	<tr>
+		<td class="row">seasonal</td>
+		<td class="row"><%= @merchant_application.seasonal %></td>
+	</tr>
+	<tr>
+		<td class="row">merchant_email</td>
+		<td class="row"><%= @merchant_application.merchant_email %></td>
+	</tr>
+	<tr>
+		<td class="row">receipt_address</td>
+		<td class="row"><%= @merchant_application.receipt_address %></td>
+	</tr>
+	<!-- Section 2 -->
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Section 2 IRS Disclosure</td>
+	</tr>
+	<tr>
+		<td class="row">irs_name</td>
+		<td class="row"><%= @merchant_application.irs_name %></td>
+	</tr>
+	<tr>
+		<td class="row">tax_id</td>
+		<td class="row"><%= @merchant_application.tax_id %></td>
+	</tr>
+	<tr>
+		<td class="row">tax_id_type</td>
+		<td class="row"><%= @merchant_application.tax_id_type %></td>
+	</tr>
+	<tr>
+		<td class="row">business_type</td>
+		<td class="row"><%= @merchant_application.business_type %></td>
+	</tr>
+	<!-- Section 3 -->
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2"># Section 3 Owner Officers</td>
+	</tr>
+	<tr>
+		<td class="row">owner1_name</td>
+		<td class="row"><%= @merchant_application.owner1_name %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_equity</td>
+		<td class="row"><%= @merchant_application.owner1_equity %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_ssn</td>
+		<td class="row"><%= @merchant_application.owner1_ssn %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_title</td>
+		<td class="row"><%= @merchant_application.owner1_title %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_phone</td>
+		<td class="row"><%= @merchant_application.owner1_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_address</td>
+		<td class="row"><%= @merchant_application.owner1_address %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_city</td>
+		<td class="row"><%= @merchant_application.owner1_city %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_state</td>
+		<td class="row"><%= @merchant_application.owner1_state %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_zip</td>
+		<td class="row"><%= @merchant_application.owner1_zip %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_dob</td>
+		<td class="row"><%= @merchant_application.owner1_dob %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_license_number</td>
+		<td class="row"><%= @merchant_application.owner1_license_number %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_license_state</td>
+		<td class="row"><%= @merchant_application.owner1_license_state %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_bankruptcy</td>
+		<td class="row"><%= @merchant_application.owner1_bankruptcy %></td>
+	</tr>
+	<tr>
+		<td class="row">owner1_bankruptcy_reason</td>
+		<td class="row"><%= @merchant_application.owner1_bankruptcy_reason %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_name</td>
+		<td class="row"><%= @merchant_application.owner2_name %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_equity</td>
+		<td class="row"><%= @merchant_application.owner2_equity %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_ssn</td>
+		<td class="row"><%= @merchant_application.owner2_ssn %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_title</td>
+		<td class="row"><%= @merchant_application.owner2_title %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_phone</td>
+		<td class="row"><%= @merchant_application.owner2_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_address</td>
+		<td class="row"><%= @merchant_application.owner2_address %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_city</td>
+		<td class="row"><%= @merchant_application.owner2_city %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_state</td>
+		<td class="row"><%= @merchant_application.owner2_state %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_zip</td>
+		<td class="row"><%= @merchant_application.owner2_zip %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_dob</td>
+		<td class="row"><%= @merchant_application.owner2_dob %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_license_number</td>
+		<td class="row"><%= @merchant_application.owner2_license_number %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_license_state</td>
+		<td class="row"><%= @merchant_application.owner2_license_state %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_bankruptcy</td>
+		<td class="row"><%= @merchant_application.owner2_bankruptcy %></td>
+	</tr>
+	<tr>
+		<td class="row">owner2_bankruptcy_reason</td>
+		<td class="row"><%= @merchant_application.owner2_bankruptcy_reason %></td>
+	</tr>
+	<!-- Section 4 -->
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Section 4 Merchant Profile</td>
+	</tr>
+	<tr>
+		<td class="row">product_delivery_time</td>
+		<td class="row"><%= @merchant_application.product_delivery_time %></td>
+	</tr>
+	<tr>
+		<td class="row">product_fulfillment</td>
+		<td class="row"><%= @merchant_application.product_fulfillment %></td>
+	</tr>
+	<tr>
+		<td class="row">vendor_name</td>
+		<td class="row"><%= @merchant_application.vendor_name %></td>
+	</tr>
+	<tr>
+		<td class="row">vendor_address</td>
+		<td class="row"><%= @merchant_application.vendor_address %></td>
+	</tr>
+	<tr>
+		<td class="row">vendor_city</td>
+		<td class="row"><%= @merchant_application.vendor_city %></td>
+	</tr>
+	<tr>
+		<td class="row">vendor_state</td>
+		<td class="row"><%= @merchant_application.vendor_state %></td>
+	</tr>
+	<tr>
+		<td class="row">vendor_zip</td>
+		<td class="row"><%= @merchant_application.vendor_zip %></td>
+	</tr>
+	<tr>
+		<td class="row">vendor_phone</td>
+		<td class="row"><%= @merchant_application.vendor_phone %></td>
+	</tr>
+	
+	<tr>
+		<td class="row">deposit_required</td>
+		<td class="row"><%= @merchant_application.deposit_required %></td>
+	</tr>
+	<tr>
+		<td class="row">deposit_percentage</td>
+		<td class="row"><%= @merchant_application.deposit_percentage %></td>
+	</tr>
+	
+	<tr>
+		<td class="row">swiped_percentage</td>
+		<td class="row"><%= @merchant_application.swiped_percentage %></td>
+	</tr>
+	<tr>
+		<td class="row">ecommerce_percentage</td>
+		<td class="row"><%= @merchant_application.ecommerce_percentage %></td>
+	</tr>
+	<tr>
+		<td class="row">mail_percentage</td>
+		<td class="row"><%= @merchant_application.mail_percentage %></td>
+	</tr>
+	<tr>
+		<td class="row">phone_percentage</td>
+		<td class="row"><%= @merchant_application.phone_percentage %></td>
+	</tr>
+	
+	<tr>
+		<td class="row">gross_yearly_volume</td>
+		<td class="row"><%= @merchant_application.gross_yearly_volume %></td>
+	</tr>
+	<tr>
+		<td class="row">average_card_volume</td>
+		<td class="row"><%= @merchant_application.average_card_volume %></td>
+	</tr>
+	<tr>
+		<td class="row">average_ticket</td>
+		<td class="row"><%= @merchant_application.average_ticket %></td>
+	</tr>
+	<tr>
+		<td class="row">highest_ticket</td>
+		<td class="row"><%= @merchant_application.highest_ticket %></td>
+	</tr>
+	<!-- Section 5 -->
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Section 5 Banking Information</td>
+	</tr>
+	<tr>
+		<td class="row">bank_name</td>
+		<td class="row"><%= @merchant_application.bank_name %></td>
+	</tr>
+	<tr>
+		<td class="row">bank_contact</td>
+		<td class="row"><%= @merchant_application.bank_contact %></td>
+	</tr>
+	<tr>
+		<td class="row">bank_phone</td>
+		<td class="row"><%= @merchant_application.bank_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">account_type</td>
+		<td class="row"><%= @merchant_application.account_type %></td>
+	</tr>
+	<tr>
+		<td class="row">bank_routing_number</td>
+		<td class="row"><%= @merchant_application.bank_routing_number %></td>
+	</tr>
+	<tr>
+		<td class="row">bank_account_number</td>
+		<td class="row"><%= @merchant_application.bank_account_number %></td>
+	</tr>
+	<!-- Section 6 -->
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Section 6 Existing Entitlements</td>
+	</tr>
+	<tr>
+		<td class="row">accept_amex</td>
+		<td class="row"><%= @merchant_application.accept_amex %></td>
+	</tr>
+	<tr>
+		<td class="row">existing_amex</td>
+		<td class="row"><%= @merchant_application.existing_amex %></td>
+	</tr>
+	<tr>
+		<td class="row">amex_se_number</td>
+		<td class="row"><%= @merchant_application.amex_se_number %></td>
+	</tr>
+	<tr>
+		<td class="row">amex_ebt_fns</td>
+		<td class="row"><%= @merchant_application.amex_ebt_fns %></td>
+	</tr>
+	<!-- Section 7 -->
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Section 7 Vendor Trade References</td>
+	</tr>
+	<tr>
+		<td class="row">reference1_name</td>
+		<td class="row"><%= @merchant_application.reference1_name %></td>
+	</tr>
+	<tr>
+		<td class="row">reference1_contact</td>
+		<td class="row"><%= @merchant_application.reference1_contact %></td>
+	</tr>
+	<tr>
+		<td class="row">reference1_phone</td>
+		<td class="row"><%= @merchant_application.reference1_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">reference1_address</td>
+		<td class="row"><%= @merchant_application.reference1_address %></td>
+	</tr>
+	<tr>
+		<td class="row">reference1_city</td>
+		<td class="row"><%= @merchant_application.reference1_city %></td>
+	</tr>
+	<tr>
+		<td class="row">reference1_state</td>
+		<td class="row"><%= @merchant_application.reference1_state %></td>
+	</tr>
+	<tr>
+		<td class="row">reference1_zip</td>
+		<td class="row"><%= @merchant_application.reference1_zip %></td>
+	</tr>
+	<tr>
+		<td class="row">reference1_account_number</td>
+		<td class="row"><%= @merchant_application.reference1_account_number %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_name</td>
+		<td class="row"><%= @merchant_application.reference2_name %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_contact</td>
+		<td class="row"><%= @merchant_application.reference2_contact %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_phone</td>
+		<td class="row"><%= @merchant_application.reference2_phone %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_address</td>
+		<td class="row"><%= @merchant_application.reference2_address %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_city</td>
+		<td class="row"><%= @merchant_application.reference2_city %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_state</td>
+		<td class="row"><%= @merchant_application.reference2_state %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_zip</td>
+		<td class="row"><%= @merchant_application.reference2_zip %></td>
+	</tr>
+	<tr>
+		<td class="row">reference2_account_number</td>
+		<td class="row"><%= @merchant_application.reference2_account_number %></td>
+	</tr>
+	<!-- Section 8 -->
+	<tr class="headingRow">
+		<td class="table_heading" colspan="2">Section 8 Merchant Site Survey / Business Details</td>
+	</tr>
+	<tr>
+		<td class="row">product_service_sold</td>
+		<td class="row"><%= @merchant_application.product_service_sold %></td>
+	</tr>
+	<tr>
+		<td class="row">selling_location</td>
+		<td class="row"><%= @merchant_application.selling_location %></td>
+	</tr>
+	<tr>
+		<td class="row">length_of_ownership</td>
+		<td class="row"><%= @merchant_application.length_of_ownership %></td>
+	</tr>
+	<tr>
+		<td class="row">business_location_type</td>
+		<td class="row"><%= @merchant_application.business_location_type %></td>
+	</tr>
+	<tr>
+		<td class="row">business_incorporation_date</td>
+		<td class="row"><%= @merchant_application.business_incorporation_date %></td>
+	</tr>
+	<tr>
+		<td class="row">business_incorporation_state</td>
+		<td class="row"><%= @merchant_application.business_incorporation_state %></td>
+	</tr>
+	<tr>
+		<td class="row">previous_processor</td>
+		<td class="row"><%= @merchant_application.previous_processor %></td>
+	</tr>
+	<tr>
+		<td class="row">reason_for_leaving</td>
+		<td class="row"><%= @merchant_application.reason_for_leaving %></td>
+	</tr>
+	
+	<tr>
+		<td class="row">business_area_zoned</td>
+		<td class="row"><%= @merchant_application.business_area_zoned %></td>
+	</tr>
+	<tr>
+		<td class="row">square_footage</td>
+		<td class="row"><%= @merchant_application.square_footage %></td>
+	</tr>
+	<tr>
+		<td class="row">number_of_registers</td>
+		<td class="row"><%= @merchant_application.number_of_registers %></td>
+	</tr>
+	<tr>
+		<td class="row">number_of_employees</td>
+		<td class="row"><%= @merchant_application.number_of_employees %></td>
+	</tr>
+	<tr>
+		<td class="row">main_advertising_method</td>
+		<td class="row"><%= @merchant_application.main_advertising_method %></td>
+	</tr>
+	<tr>
+		<td class="row">signage_displayed</td>
+		<td class="row"><%= @merchant_application.signage_displayed %></td>
+	</tr>
+</table>
+
+
+
+

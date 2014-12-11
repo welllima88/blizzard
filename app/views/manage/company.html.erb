@@ -1,0 +1,113 @@
+<table class="standard">
+	<tr>
+		<td colspan="2"><h2><%= @company.company_name %></h2></td>
+	</tr>
+	<tr>
+		<td>
+			<h3>General Information</h3>
+			<div class="infoLine"><label>Name</label> <%= @company.company_name %></div>
+			<div class="infoLine"><label>Phone</label> <%= @company.company_phone %></div>
+			<div class="infoLine"><label>Email</label> <%= @company.company_email %></div>
+			<div class="infoLine"><label>Fax</label> <%= @company.company_fax %></div>
+			<div class="infoLine"><label>Address</label> <%= @company.company_address %></div>
+			<div class="infoLine"><label>City</label> <%= @company.company_city %></div>
+			<div class="infoLine"><label>State</label> <%= @company.company_state %></div>
+			<div class="infoLine"><label>Zipcode</label> <%= @company.company_zip %></div>
+			<div class="infoLine"><label>Country</label> <%= @company.company_country %></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			
+			<table class="standard">
+				<tr>
+					<td colspan="6" class="h3Section"><h3>Sales</h3></td>
+				</tr>
+				<tr class="headingrow">
+					<td class="table_heading">Store</td>
+					<td class="table_heading" style="text-align: center;">Employee</td>
+					<td class="table_heading" style="text-align: center;">Time ( <%= (Time.now.in_time_zone(Time.zone)).strftime("%Z") %> )</td>
+					<td class="table_heading" style="text-align: center;">Total</td>
+					<td class="table_heading" style="text-align: center;">Customer</td>
+					<td class="table_heading"></td>
+				</tr>
+				<% for s in @sales %>
+					<tr class="<%= cycle('oddrow', 'evenrow') %>">
+						<td class="row"><a href="/admin/view_store/<%= s.store_id %>"><%= s.store_name %></a></td>
+						<td width="150" class="row" style="text-align: center;"><a href="/admin/view_employee/<%= s.employee_id %>"> <%= s.employee_name %> </a></td>
+						<td width="150" class="row" style="text-align: center;"><%= s.created_at.strftime("%b %d, %Y") %><br><%= s.created_at.strftime("%I:%M %p") %></td>
+						<td class="row" style="text-align: center; text-align: center;"><%= number_to_currency s.total %></td>
+						<td class="row" style="text-align: center;"><a href="/admin/view_customer/<%= s.customer_id %>"><%= s.customer_name -%></a></td>
+						<td class="row" width="120" style="text-align: center;"><a href="/admin/view_sale/<%= s.id %>" class="buttons">Details</a></td>
+					</tr>
+				<% end %>
+				<tr>
+					<td colspan="6" class="right-align"><%= will_paginate @sales%></td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="2">
+			
+			<table class="standard">
+				<tr>
+					<td colspan="6" class="h3Section"><h3>Stores</h3></td>
+				</tr>
+					<td colspan="6">
+						<% for s in @stores.reverse %>
+							<a href="/admin/view_store/<%= s._id %>">
+								<div class="storeBox">
+									<center><h4><%= s.name %></h4></center>
+									<b>Address</b><br/>
+									<%= s.full_address.html_safe %><br /><br />
+									<b>Phone:</b> <%= number_to_phone s.phone %><br /><br />
+									<center><p>View Store</p></center>
+								</div>
+							</a>
+						<% end %>
+					</td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="2">
+			
+			<table class="standard">
+				<tr>
+					<td colspan="5" class="h3Section"><h3>Employees</h3></td>
+				</tr>
+				<tr>
+					<td class="table_heading">Employee Name</td>
+					<td class="table_heading">Phone</td>
+					<td class="table_heading">Email</td>
+					<td class="table_heading">Admin</td>
+					<td class="table_heading"></td>
+				</tr>
+				<% for e in @employees %>
+					<tr style="background-color:#<%= cycle('ffffff', 'eeeeee')%>;">
+						<td class="row"><%= e.full_name.titleize %></td>
+						<td class="row"><%= number_to_phone e.phone %></td>
+						<td class="row"><%= e.email %></td>
+						<td class="row"><%= form_tag(:action => 'updatePassword', :company_id => @company.id, :employee_id => e.id) do %><%= text_field(:employee, :new_password)%><%= submit_tag('set new password')%><% end %></td>
+						<td class="row"><% if e.super_admin == true %>Yes<% else %>No<% end %></td>
+						<td class="row" style="text-align:right;"><a href="/manage/login_as_employee/<%= e.id %>" class="buttons">Login as Employee</a></td>
+					</tr>
+				<% end %>
+				
+				<tr>
+					<td colspan="5" class="right-align"><%= will_paginate @sales%></td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+</table>
+
+
+

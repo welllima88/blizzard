@@ -1,0 +1,156 @@
+<table class="standard_table">
+	<tr>
+		<td>
+			<h2 class="headlineWrapper">Company Information</h2>
+			<div class="fieldWrapper SingleLine">
+				<label>Company Name</label><br><%= @company.company_name %>
+			</div>
+			<!-- First Line -->
+			<div class="fieldWrapper W33">
+				<label>Phone</label><br><%= @company.company_phone %>
+			</div>
+			<div class="fieldWrapper W33">
+				<label>Email</label><br><%= @company.company_email %>
+			</div>
+			<div class="fieldWrapper W33">
+				<label>Fax</label><br><%= @company.company_fax %>
+			</div>
+			<!-- Second Line -->
+			<div class="fieldWrapper W50">
+				<label>Address</label><br><%= @company.company_address %><br><%= @company.company_city %>, <%= @company.company_state %> <%= @company.company_zip %> 
+			</div>
+			<div class="fieldWrapper W50">
+				<label>Timezone</label><br><%= @company.company_timezone %>
+			</div>
+			<!-- Second Line -->
+			<h2 class="headlineWrapper">Customer Loyalty Settings</h2>
+			<div class="fieldWrapper W50">
+				<label>Enable Points System</label><br><% if @company.enable_points == 1 %>Enabled<% else %>Disabled<% end %> 
+			</div>
+			<div class="fieldWrapper W50">
+				<label>Point Value</label><br><%= number_to_currency @company.point_value %>
+			</div>
+			<div class="fieldWrapper W50">
+				<label>Point Payout</label><br><%= @company.point_payout %>
+			</div>
+			<div class="fieldWrapper W50">
+				<label>Certificate Valid Length</label><br><%= @company.point_half_life %> days
+			</div>
+			<!-- Second Line -->
+			<h2 class="headlineWrapper">Commission Settings</h2>
+			<div class="fieldWrapper W50">
+				<label>Enable Commission</label><br><% if @company.enable_commission == 1 %>Enabled<% else %>Disabled<% end %> 
+			</div>
+			<div class="fieldWrapper W50">
+				<label>Default Commission</label><br><%= @company.default_commission %>%
+			</div>
+			<!-- Second Line -->
+			<h2 class="headlineWrapper">Domain Mapping</h2>
+			<%= form_tag(:action => 'mapDomain') do %>
+				<div class="fieldWrapper W50">
+					<label>Domain</label><br><%= text_field(:domain_map, :url)%>
+				</div>
+				<div class="fieldWrapper W50">
+					<label>Store ID</label><br>
+					<select id="domain_map_store_id" name="domain_map[store_id]" onchange="setRegisters()">
+						<option value="">No Store Selected</option>
+						<% for s in @stores %>
+						<option value="<%= s.id %>"><%= s.name %></option>
+						<% end %>
+					</select>
+				</div>
+				
+				<script type="text/javascript" charset="utf-8">
+					
+				function setRegisters(){
+					$('.domainRegister').css("display", "none");
+					$('#reg_'+$("select#domain_map_store_id").val()).css("display", "block");
+					
+				}
+					
+				</script>
+				
+				
+				<div class="fieldWrapper W50" style="margin-top:18px;">
+					<% @registers.group_by(&:store_id).each do |store, registers| %>
+					<div style="display:none;" class="domainRegister" id="reg_<%= store %>">
+						<select id="domain_map_register_id" name="domain_map[register_id]" >
+							<option value="">Dont Map To Register</option>
+							<% for r in registers %>
+							<option value="<%= r.id %>"><%= r.name %></option>
+							<% end %>
+						</select>
+					</div>
+					<% end %>
+				</div>
+				<div class="fieldWrapper W50">
+					<br><%= submit_tag("Add Map", :class => 'buttons')%>
+				</div>
+			<% end %>
+			
+			<table class="standard">
+				<tr>
+					<td class="table_heading">Domain</td>
+					<td class="table_heading">Store</td>
+					<td class="table_heading">Register</td>
+					<td class="table_heading"></td>
+				</tr>
+				<% for d in @domains %>
+				<tr>
+					<td class="row"><%= d.url %></td>
+					<td class="row"><%= Store.find(d.store_id).name unless d.store_id.blank? %></td>
+					<td class="row"><%= Register.find(d.register_id).name unless d.register_id.blank? %></td>
+					<td class="row" style="text-align:center;width:100px;"><a href="/admin/deleteDomainMap/<%= d.id %>" class="buttons icon remove danger">Delete</a></td>
+				</tr>
+				<% end %>
+			</table>
+			<table class="standard" style="margin-top:40px;">
+				<tr>
+					<td>Name</td>
+					<td>Payment Gateway</td>
+					<td>Gateway Status</td>
+					<td>Gateway Username</td>
+				</tr>
+				<% for s in @stores %>
+					<tr>
+						<td><%= s.name %></td>
+						<td><%= s.gateway %></td>
+						<td><%= s.gateway_status %></td>
+						<td><%= s.gateway_username %></td>
+					</tr>
+				<% end %>
+			
+			</table>
+		</td>
+		<td style="width:40%;" class="helpSide">
+			<div style="float:right;"><a href="/admin/edit_settings" class="buttons icon edit">Edit Settings</a></div>
+			<p>
+				<h3>Settings Help</h3>
+			</p>
+			<p>
+				<strong>Customer Loyalty</strong><br>
+				The customer loyasty system is designed to entice users to become repeat customers. When the points system is enabled, customers recieve 1 point for every dollar they spend. Once the customer has obtained the minimum number of points requied for a voucher, a gift certificate is generated for them in an ammount based on the points value set by you.<br><br>
+				The points system has 3 custom values, Point Value, Point Payout, and Certificate Valid Length. <br><br>
+				The Point Value allows you to set what each point will be worth in dollars. By default we set this to $0.05. For a customer who purchases $100 in merchandise, their customer reward certificate will be worth $5.00.<br><br>
+				
+			</p>
+			<p>
+				<strong>Commission Settings</strong><br>
+				Evendra allows you to allow your employees to earn commission for the products they sell. When the commision module is enabled, all employees will automatically recieve the default commission rate. You can adittionaly set individual commision ammounts per employee in the employee settings. If an employee commision rate is blank, Evendra will automatically use the default commision rate here.
+			</p>
+			
+			<p style="font-size:13px;">
+				<strong>Domain Mapping</strong><br>
+				Domain mapping lets you create your own custom subdomain (on your own domain) and map it to your company, store or register directly. This makes it easy for your employees to login without having to remember your company id.<br><br>
+				
+				For example if you create the fallowing subdomain: pos.yourdomain.com and map it to your company, you will no longer have to enter the company ID when loggin in.
+				If you map the domain to a store, when loggin in, you will not have to input the company id or select a store.<br><br>
+				
+				You also have the ability to create chained subdomains and map them as such:<br>
+				pos.yourdomain.com >> maps to your company<br>
+				store1.pos.yourdomain.com >> maps to your company & store<br>
+				frontregister.store1.pos.yourdomain.com >> maps to your company, store, and your front register.<br>
+			</p>
+		</td>
+	</tr>
+</table>

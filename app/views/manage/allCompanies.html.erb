@@ -1,0 +1,24 @@
+<table class="standard">
+	<tr>
+		<td colspan=""><h2>All Companies</h2></td>
+	</tr>
+	<tr class="headingrow">
+		<td>Company Name</td>
+		<td>Email</td>
+		<td>Phone</td>
+		<td></td>
+	</tr>
+	<% for c in @companies %>
+		<tr class="row <%= cycle('odd', 'even') %>">
+			<td><%= c.company_name %></td>
+			<td><%= c.company_email %></td>
+			<td><%= number_to_phone c.company_phone %></td>
+			<td><a href="/manage/company/<%= c.id %>" class="buttons">View</a></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td colspan="4">
+			<%= will_paginate @companies %>
+		</td>
+	</tr>
+</table>

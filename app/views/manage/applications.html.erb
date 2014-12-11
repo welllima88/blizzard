@@ -1,0 +1,23 @@
+<table class="standard_table" cellspacing="1" cellpadding="0">
+	<tr>
+		<td colspan="4">
+			<h2>All Applications</h2>
+		</td>
+		<td colspan="4"></td>
+	</tr>
+	<tr>
+		<td class="table_heading">Application ID</td>
+		<td class="table_heading">Status</td>
+		<td class="table_heading"></td>
+	</tr>
+	<% for a in @apps %>
+		<tr class="<%= cycle('oddrow', 'evenrow') %>">
+			<td class="row"><%= a.id %></td>
+			<td class="row"><%= a.status %></td>
+			<td class="row" width="120" style="text-align: center;">
+				<a href="/manage/merchant_application/<%= a.id %>">View</a>
+			</td>
+		</tr>
+	<% end %>
+</table>
+<%= will_paginate @apps %>
