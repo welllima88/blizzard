@@ -6,7 +6,17 @@
 
 # Ignore bundler config.
 /.bundle
-
+updateGithub.sh
+" ============================================================================
+" Netrw Directory Listing                                        (netrw v140)
+"   /Users/steffan/Google Drive/Sites/polar/tmp/pids
+"   Sorted by      name reversed
+"   Sort sequence: [\/]$,\<core\%(\.\d\+\)\=\>,\.h$,\.c$,\.cpp$,*,\.o$,\.obj$,\.info$,\.swp$,\.bak$,\~$
+"   Quick Help: <F1>:help  -:go up dir  D:delete  R:rename  s:sort-by  x:exec
+" ============================================================================
+.swp
+server.pid
+../
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
