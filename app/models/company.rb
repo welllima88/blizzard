@@ -21,10 +21,10 @@ class Company
   before_save :update_location
   
   def update_location
-    require 'geokit'
-    coordinates = MultiGeocoder.geocode("#{self.company_address}, #{self.company_city}, #{self.company_state} #{self.company_zip}, #{self.company_country}")
-    self.longitude = coordinates.lat
-    self.latitude = coordinates.lng
+    #require 'geokit'
+    #coordinates = MultiGeocoder.geocode("#{self.company_address}, #{self.company_city}, #{self.company_state} #{self.company_zip}, #{self.company_country}")
+    #self.longitude = coordinates.lat
+    #self.latitude = coordinates.lng
   end
   
   # General
