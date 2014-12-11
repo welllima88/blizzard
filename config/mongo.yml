@@ -20,5 +20,3 @@ test:
 production:
   <<: *defaults
   database: polar-production
-  username: <%= ENV['MONGO_USERNAME'] %>
-  password: <%= ENV['MONGO_PASSWORD'] %>
