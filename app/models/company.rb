@@ -1,7 +1,7 @@
 require 'digest/sha2'
 class Company
   include MongoMapper::Document
-  include GeoKit::Geocoders
+  #include GeoKit::Geocoders
 
   
   Company.ensure_index(:api_token)
