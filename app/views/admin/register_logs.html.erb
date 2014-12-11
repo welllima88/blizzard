@@ -23,7 +23,7 @@
 			<td><%= @active.register.current_employee %></td>
 			<td><%= number_to_currency @active.opening_amount %></td>
 			<td>Currently Open</td>
-			<td class="text-center"><a href="/admin/register_log/<%= @active.id %>" class="buttons">Details</a></td>
+			<td class="text-right"><a href="/admin/register_log/<%= @active.id %>" class="btn btn-sm">Details</a></td>
 		</tr>
 	<% end %>
 	<% for l in @logs %>

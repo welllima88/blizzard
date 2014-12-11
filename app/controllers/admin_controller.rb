@@ -804,7 +804,7 @@ class AdminController < ApplicationController
     Time.zone = @store.time_zone
     @sales = Order.paginate(:store_id => @store.id, :page => params[:page], :per_page => 10, :order => 'created_at DESC')
     @registers = Register.paginate(:store_id => @store.id, :page => params[:pageregister], :per_page => 8)
-    @chart_sales = Order.where(:company_id => session[:user]['company_id'], :store_id => @store.id, :created_at.gte => Time.now-6.days).fields(:created_at, :net_profit, :total)
+    @chart_sales = Order.where(:company_id => session[:user]['company_id'], :store_id => @store.id, :created_at.gte => Time.now-6.days).fields(:created_at, :net_profit, :total, :subtotal)
   end
   
   def add_store
@@ -874,7 +874,7 @@ class AdminController < ApplicationController
     checkAdminAccess('stores')
     showSection('Stores', '')
     @register = Register.find(params[:id])
-    @logs = RegisterLog.paginate(:register_id => @register.id, :closed_at.ne => nil, :page => params[:page], :per_page => 25, :order => 'created_at DESC')
+    @logs = RegisterLog.paginate(:register_id => @register.id, :closed_at.ne => nil, :page => params[:page], :per_page => 25, :order => 'opened_at DESC')
     @active = RegisterLog.first(:register_id => @register.id, :closed_at => nil)
   end
   

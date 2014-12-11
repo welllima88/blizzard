@@ -53,7 +53,7 @@ class RegisterLog
   end
   
   def self.register_transaction(payment_id, register_id, amount, payment_type, employee_id, employee_name, order_id, current_till, transaction_type, created_at)
-    register_log = RegisterLog.first(:register_id => register_id, :status => 1)
+    register_log = RegisterLog.where(:register_id => register_id, :status => 1).first
     if register_log
       register_log_transaction = RegisterLogTransaction.new(:amount => amount,
                                                             :payment_id => payment_id,
@@ -70,7 +70,7 @@ class RegisterLog
   end
   
   def self.close_register(register, timestamp)
-    register_log = RegisterLog.first(:register_id => register.id, :status => 1)
+    register_log = RegisterLog.where(:register_id => register.id, :status => 1).first
     register_log.status = 0
     register_log.closed_at = Time.now
     register_log.closing_amount = register.till

@@ -9,6 +9,8 @@ $green: #449210;
 $darkGreen: #3b7f0d;
 $darkText: #111111;
 
+body, .container-fluid, .header{min-width:768px;}
+
 // Login top-buffer
 
 #select-store-wrapper, #login-wrapper, #select_register_wrapper{ display:none; }
@@ -101,6 +103,10 @@ div#select_register_wrapper h2 {
 
 // End Alert
 
+// Login
+
+.login-panel{margin-top:10%;}
+
 
 form{margin:0;}
 .form-margin{margin-bottom:5px;}
@@ -110,9 +116,11 @@ form{margin:0;}
 
 .input-group-btn .btn{height:34px;}
 
-#wrapper, .navbar-static-top { background-color: #dfdfdf; display:none;}
+.content-all{display:table;width:100%;height:100%;}
 
-#page-wrapper{background-color:#fff;margin-right:250px;padding:15px 15px 15px 15px;height:100%;padding-bottom:-40px;margin-left:-15px;}
+#wrapper, .navbar-static-top { background-color: #dfdfdf; display:none;height: 100%;}
+
+#page-wrapper{background-color:#fff;margin-right:250px;padding:55px 15px 15px 15px;height:100%;padding-bottom:-40px;margin-left:-15px;}
 
 .container-fluid{height:100%;}
 
@@ -206,6 +214,9 @@ form{margin:0;}
 .header{
 	background-color: $blue;
 	height:40px;
+	position: absolute;
+	top: 0;
+	width: 100%;
 	div{
 		//padding:0;
 	}
@@ -569,4 +580,35 @@ td.origionalLineItemsWrapper td {
 		.auditTillBottom{
 			background-color: #ddd;
 		}
+	}
+
+
+
+
+
+
+
+	// Responsive Height
+	
+	@media screen and (max-height: 599px){
+		.sidebar-nav .right_box{margin:10px 0;}
+		.sidebar-nav .btn{padding-top:4px;padding-bottom:4px;height: 30px;}
+		.form-control, .input-group-btn .btn{height:30px;}
+		.sidebar-nav h3{font-size:15px;margin-bottom:6px;}
+		.sidebar-nav .order-total-table td{padding:4px 0 !important;font-size: 13px;}
+		.sidebar-nav .right-box-highlight{font-size:18px;}
+		
+	}
+	
+	// Responsive width
+	
+	@media screen and (max-width: 1249px){
+		
+		.sidebar-nav{width:230px;padding:10px;}
+		#page-wrapper{margin-right:215px;}
+		.sidebar-nav .btn, table.line_items .register_line_items td{padding-left:7px;padding-right:7px;}
+		.form-control,.sidebar-nav .order-total-table td, table.line_items td{font-size:13px;}
+		.sidebar-nav .right-box-highlight{font-size:18px;}
+		.btn{padding-left:9px;padding-right:9px;}
+		
 	}

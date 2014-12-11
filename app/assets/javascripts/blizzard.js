@@ -3,6 +3,12 @@ $(document).ready(function(){
 	$("form").submit(function () {
     	return false;
     });
+	
+	// Correct the window size
+	
+	$(document).resize(function(){ configureSize(); });
+	
+	
 	// Load the Register
 	setTimeout(function(){
 		checkLogin();
@@ -13,24 +19,34 @@ $(document).ready(function(){
 			localStorage.setItem('currency_code', '$');
 		}
 		if (currentSale == null){
-			cached_sale = dbOrders.find({where: {field: "status", compare: "equals", value: "open"}})[0];
-			if(cached_sale != null){
-				currentSale = cached_sale;
-				totalOrder();
-			}
+			loadOrder();
 		}
 	}, 200);
 });
 
+function loadOrder(){
+	cached_sale = dbOrders.find({where: {field: "status", compare: "equals", value: "open"}})[0];
+	if(cached_sale != null){
+		currentSale = cached_sale;
+		totalOrder();
+	}
+}
+
+function configureSize(){
+	$('#page-wrapper').height( $(window).height()-40 + 'px' );
+}
+
 function checkLogin(){
-	if( globalEmployeeId == '' || globalStoreId == '' || globalRegisterId == '' ){
-		displayLogin();
+	displayLogin();
+	if( !globalEmployeeId || !globalStoreId || !globalRegisterId ){
+		$('#wrapper').hide();
 	}else{
-		$('#wrapper').fadeIn(400);
+		
 		loadRegister();
-		if (localStorage.getItem('register_status') == 0 ){
-			return openRegister();
-		}
+		
+		$('#wrapper').fadeIn(400);
+		if (localStorage.getItem('register_status') == 0 ){ return openRegister(); }
+
 	}
 }
 
@@ -100,10 +116,12 @@ function displayLogin(){
 	console.log('displayLogin');
 	$('#wrapper').hide();
 	// Hide login, select store and select register
-	$('#login-wrapper').hide();
-	$('#select-store-wrapper').hide();
-	
+	$('.login-options').hide();
 	if(!globalEmployeeId){
+		if( globalCompanyID != null && globalCompanyID != '' ){
+			$('#employee_company_id').val( globalCompanyID );
+			$('#employee_company_id').parent().hide();
+		}
 		$('#login-wrapper').show();
 		return $('#employee_company_id').focus();
 	}
@@ -133,6 +151,8 @@ function tryToLogin(){
            if (data.status == 'ok'){
                 globalCompanyToken = data.globalCompanyToken;
                 localStorage.setItem('company_token', data.globalCompanyToken);
+				globalCompanyID = data.globalCompanyID;
+				localStorage.setItem('company_id', data.globalCompanyID);
                 globalCompanyName = data.globalCompanyName;
                 localStorage.setItem('company_name', data.globalCompanyName);
                 globalCompanyName = data.globalCompanyName;
@@ -195,12 +215,13 @@ function loadSelectRegisters(){
 	    registerClosedData = '';
 		registerOpenData = '';
 	    for (i=0;i<globalRegisters.length;i++){
-		
+			if(globalRegisters[i].current_employee){ current_user = '<b>CURRENT USER:</b> '+globalRegisters[i].current_employee; }else{ current_user = ''; }
 			if(globalRegisters[i].status == 0){
 				registerClosedData+='<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 store-box closed"><h4>' + globalRegisters[i].name + '</h4><p>Status: Closed<p><input type="button" value="Open Register" class="btn btn-primary btn-lg" onclick="selectRegister(\'' + globalRegisters[i].id + '\')" /></div>';
 			}else{
-				registerOpenData+='<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 store-box opened"><h4>' + globalRegisters[i].name + '</h4><p>Status: Open<p>Current User:</b> ' + globalRegisters[i].current_employee + '<br><br><input type="button" value="Select Register" class="btn btn-primary btn-lg" onclick="selectRegister(\'' + globalRegisters[i].id + '\')" /></div>';
+				registerOpenData+='<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 store-box opened"><h4>' + globalRegisters[i].name + '</h4><p><b>Status:</b> Open</p>' + current_user + '<br><br><input type="button" value="Select Register" class="btn btn-primary btn-lg" onclick="selectRegister(\'' + globalRegisters[i].id + '\')" /></div>';
 			}
+			current_user = null;
 		}
 	    $('#registerClosedData').html(registerClosedData);
 		$('#registerOpenData').html(registerOpenData);
@@ -475,10 +496,10 @@ function showPage(id){
 		return showPage(currentPage);
 	}
 	if(id != currentPage){
-		$(currentPage).fadeOut(120);
-		$(currentPage+'-right').fadeOut(120);
-		$(id).fadeIn(120);
-		$(id+'-right').fadeIn(120);
+		$(currentPage).hide();
+		$(currentPage+'-right').hide();
+		$(id).show();
+		$(id+'-right').show();
 	}else{
 		$(currentPage).hide();
 		$(currentPage+'-right').hide();
@@ -533,7 +554,7 @@ function showPage(id){
 
 
 function checkStatus(){
-	console.log('checkStatus');
+	loadOrder();
 	if(currentSale){
 		displayOrder();
 	}else{
@@ -699,7 +720,7 @@ function displayOrder(){
 	}
 	items = '';
 	for (n = 0; n < currentSale.order_line_items.length; n++){
-		items += "<tr><td><b>"+ currentSale.order_line_items[n].name +"</b></td><td><b>"+ currentSale.order_line_items[n].sku +"</b></td><td width='110' id='" + currentSale.order_line_items[n].product_id + "_price' ondblclick=\"lineItemEditable('price', '" + currentSale.order_line_items[n].product_id + "_price', '"+ currentSale.order_line_items[n].price +"')\"><b>"+ displayMoney(currentSale.order_line_items[n].price) +"</b></td><td style='width:125px;' ondblclick=\"lineItemEditable('qty', '" + currentSale.order_line_items[n].product_id + "_qty', '"+ currentSale.order_line_items[n].qty +"')\" id='" + currentSale.order_line_items[n].product_id + "_qty'><b>"+ currentSale.order_line_items[n].qty +"</b></td><td class='row'><b>"+ displayMoney(currentSale.order_line_items[n].total) +"</b></td><td class='row' width='95'><a class='btn btn-danger btn-line-item' onclick='addItemToSale(\""+ currentSale.order_line_items[n].product_id +"\", -1)' >Remove</a></td></tr>";
+		items += "<tr><td><b>"+ currentSale.order_line_items[n].name +"</b></td><td class='hidden-sm'><b>"+ currentSale.order_line_items[n].sku +"</b></td><td width='110' id='" + currentSale.order_line_items[n].product_id + "_price' ondblclick=\"lineItemEditable('price', '" + currentSale.order_line_items[n].product_id + "_price', '"+ currentSale.order_line_items[n].price +"')\"><b>"+ displayMoney(currentSale.order_line_items[n].price) +"</b></td><td style='width:125px;' ondblclick=\"lineItemEditable('qty', '" + currentSale.order_line_items[n].product_id + "_qty', '"+ currentSale.order_line_items[n].qty +"')\" id='" + currentSale.order_line_items[n].product_id + "_qty'><b>"+ currentSale.order_line_items[n].qty +"</b></td><td class='row'><b>"+ displayMoney(currentSale.order_line_items[n].total) +"</b></td><td class='row' width='95'><a class='btn btn-danger btn-line-item' onclick='addItemToSale(\""+ currentSale.order_line_items[n].product_id +"\", -1)' >Remove</a></td></tr>";
 	}
 	$('.register_line_items').html(items);
 	resetScanBox();
@@ -769,7 +790,7 @@ function showAddCustomer(){
 }
 
 function findCustomer(){
-	if ($('#customerSearch').val() == '' || $('#customerSearch').val() == 'Search Customers'){
+	if ($('#customerSearch').val() == ''){
 		alertCode('enterCustomerPhone', 'resetScanBox()');
 	}
 	postData = {api_token: globalCompanyToken, q: $('#customerSearch').val()};
@@ -783,7 +804,7 @@ function findCustomer(){
 	.error(function() { 
 		alertCode('connectionError', 'resetScanBox()');
 	}).complete(function(){
-		document.getElementById('customerSearch').value = 'Search Customers';
+		$('#customerSearch').val('');
 	});
 }
 
@@ -1810,8 +1831,8 @@ function punchTimeCard(){
 			postData = {api_token: globalCompanyToken, register_id: globalRegisterId};
 			$.post("/api3/logOffEmployee.json", postData, function(data) {}, 'json').error(function() {}).complete(function(){
 				globalEmployeeId = null;globalEmployeeName = null;localStorage.setItem('employee_id', '');localStorage.setItem('employee_name', '');
-				checkLogin();
-			});
+				
+			}).complete(function(){checkLogin();});
 		}
 		
 		// Logg Of Register
@@ -1846,6 +1867,7 @@ function punchTimeCard(){
 			itemButtons=null;
 			currentPage=null;
 			globalCompanyToken=null; localStorage.setItem('company_token', '');
+			globalCompanyID=null; localStorage.setItem('company_id', '');
 			globalCompanyName=null; localStorage.setItem('company_name', '');
 			globalEmployeeId=null; localStorage.setItem('employee_id', '');
 			globalEmployeeName=null; localStorage.setItem('employee_name', '');
@@ -1859,6 +1881,9 @@ function punchTimeCard(){
 			globalStores=null; localStorage.setItem('all_stores', '');
 			globalRegisters=null; localStorage.setItem('all_registers', '');
 			globalCurrencyCode = null; localStorage.setItem('currency_code', '');
+			localStorage.setItem('currentPage', '');
+			localStorage.setItem('register_status', '');
+			localStorage.setItem('till', '');
 			displayLogin();
 		}
 

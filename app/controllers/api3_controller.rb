@@ -7,7 +7,7 @@ class Api3Controller < ApplicationController
     user = Employee.authenticate(params[:company_id], params[:username], params[:password])
     if user
       company = Company.find(params[:company_id])
-      response = '{"status" : "ok", "globalCompanyToken" : "' + company.api_token + '", "globalCompanyName" : "' + company.company_name + '", "globalEmployeeId" : "' + user.id + '", "globalEmployeeName" : "' + user.full_name + '", "globalStores" : ' + Store.all(:company_id => company.id).to_json + ', "globalRegisters" : ' + Register.all(:company_id => company.id).to_json + '}'
+      response = '{"status" : "ok", "globalCompanyToken" : "' + company.api_token + '", "globalCompanyID" : "' + company.id + '", "globalCompanyName" : "' + company.company_name + '", "globalEmployeeId" : "' + user.id + '", "globalEmployeeName" : "' + user.full_name + '", "globalStores" : ' + Store.all(:company_id => company.id).to_json + ', "globalRegisters" : ' + Register.all(:company_id => company.id).to_json + '}'
     else
       response = '{"status" : "fail"}'
     end

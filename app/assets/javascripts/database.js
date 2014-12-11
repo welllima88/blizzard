@@ -27,6 +27,7 @@ var baseUrl = 'http://192.168.1.9:3000'
 
 // Register Globals
 var globalCompanyToken = localStorage.getItem('company_token');
+var globalCompanyID = localStorage.getItem('company_id');
 var globalCompanyName = localStorage.getItem('company_name');
 var globalEmployeeId = localStorage.getItem('employee_id');
 var globalEmployeeName = localStorage.getItem('employee_name');

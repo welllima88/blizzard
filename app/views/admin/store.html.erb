@@ -134,6 +134,7 @@ $(function () {
                 y: 100,
                 borderWidth: 0
             },
+			<% puts "SUBTOTAL: " + number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-6.days}") && o.created_at <= Time.parse("#{Date.today-5.days}")}.first.to_json) %>
             series: [{
                 name: 'Gross Profit',
                 data: [<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-6.days}") && o.created_at <= Time.parse("#{Date.today-5.days}")}.to_a.sum(&:subtotal), :precision => 2) %>,

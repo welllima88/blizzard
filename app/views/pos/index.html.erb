@@ -71,63 +71,68 @@
 	
 	</head>
 	<body>
+		
 		<!-- Login Page -->
 		<%= render "login" %>
 		
-		<div id="wrapper">
-			<!-- Login Page -->
+		<div class="content-all">
+			<div id="wrapper">
+				<!-- Login Page -->
 		
-			<!-- Alert Box -->
-			<div id="alertBoxBg" class="hideOnReceipt"></div>
-			<div id="alertBox" class="hideOnReceipt">
-				<div id="alertContent"></div>
-				<div id="closeAlert" class="buttons icon remove danger">Close</div>
-			</div>
+				<!-- Alert Box -->
+				<div id="alertBoxBg" class="hideOnReceipt"></div>
+				<div id="alertBox" class="hideOnReceipt">
+					<div id="alertContent"></div>
+					<div id="closeAlert" class="buttons icon remove danger">Close</div>
+				</div>
 				
-			<!-- Processing Alert -->
-			<div id="processingAlert" class="hideOnReceipt">
-				<div style="float:left;"><img src="/assets/processing.gif"></div>
-				<div style="float: left;padding: 64px 0 0 0;font-size: 26px;text-align:center;">Processing...</div>
-			</div>
+				<!-- Processing Alert -->
+				<div id="processingAlert" class="hideOnReceipt">
+					<div style="float:left;"><img src="/assets/processing.gif"></div>
+					<div style="float: left;padding: 64px 0 0 0;font-size: 26px;text-align:center;">Processing...</div>
+				</div>
 			
-			<!-- Cash Register -->
+				<!-- Cash Register -->
 		
-			<div class="container-fluid">
-				<div class="header row hideOnReceipt">
-					<div class="col-lg-7">
-						<a onclick="showPage('#cashRegisterPage');" id="cashRegisterPageButton" class="topBarButton"><i class="fa fa-shopping-cart"></i> Register</a>
-						<a onclick="showPage('#returnsPage');" id="returnsPageButton" class="topBarButton"><i class="fa fa-reply"></i> Returns</a>
-						<a onclick="showPage('#timesheetPage');" id="timesheetPageButton" class="topBarButton"><i class="fa fa-clock-o"></i> Timesheet</a>
-						<a onclick="showPage('#optionsPage');" id="optionsPageButton" class="topBarButton"><i class="fa fa-gear"></i> Options</a>
+				<div class="container-fluid">
+					<div class="header row hideOnReceipt">
+						<div class="col-lg-7 col-md-7 col-sm-8 ">
+							<a onclick="showPage('#cashRegisterPage');" id="cashRegisterPageButton" class="topBarButton"><i class="fa fa-shopping-cart"></i> Register</a>
+							<a onclick="showPage('#returnsPage');" id="returnsPageButton" class="topBarButton"><i class="fa fa-reply"></i> Returns</a>
+							<a onclick="showPage('#timesheetPage');" id="timesheetPageButton" class="topBarButton"><i class="fa fa-clock-o"></i> Timesheet</a>
+							<a onclick="showPage('#optionsPage');" id="optionsPageButton" class="topBarButton"><i class="fa fa-gear"></i> Options</a>
+						</div>
+						<div class="col-lg-5 col-md-5 col-sm-4 text-right">
+							<a href="/admin"><i class="fa fa-tachometer"></i> Admin Panel</a>
+						</div>
+						<div class="sidebar-nav navbar-collapse pull-right">
+							<div class="page" id="cashRegisterPage-right"><%= render "cash_register_right" %></div>
+							<div class="page" id="paymentScreenPage-right"><%= render "paymentScreen_right" %></div>
+							<div class="page" id="receiptScreenPage-right"><%= render "receiptScreen_right" %></div>
+							<div class="page" id="suspendedScreen-right"><%= render "suspended_sales_right" %></div>
+							<div class="page" id="returnsPage-right"><%= render "returns_right" %></div>
+							<div class="page" id="returnsPaymentPage-right"><%= render "returnsPayment_right" %></div>
+							<div class="page" id="returnReceiptScreenPage-right"><%= render "returnReceipt_right" %></div>
+							<div class="page" id="timesheetPage-right"><%= render "timeSheet_right" %></div>
+							<div class="page" id="optionsPage-right"><%= render "options_right" %></div>
+						</div>
 					</div>
-					<div class="col-lg-5 text-right">
-						<a href="/admin"><i class="fa fa-tachometer"></i> Admin Panel</a>
-					</div>
-					<div class="sidebar-nav navbar-collapse pull-right">
-						<div class="page" id="cashRegisterPage-right"><%= render "cash_register_right" %></div>
-						<div class="page" id="paymentScreenPage-right"><%= render "paymentScreen_right" %></div>
-						<div class="page" id="receiptScreenPage-right"><%= render "receiptScreen_right" %></div>
-						<div class="page" id="suspendedScreen-right"><%= render "suspended_sales_right" %></div>
-						<div class="page" id="returnsPage-right"><%= render "returns_right" %></div>
-						<div class="page" id="returnsPaymentPage-right"><%= render "returnsPayment_right" %></div>
-						<div class="page" id="returnReceiptScreenPage-right"><%= render "returnReceipt_right" %></div>
-						<div class="page" id="timesheetPage-right"><%= render "timeSheet_right" %></div>
-						<div class="page" id="optionsPage-right"><%= render "options_right" %></div>
+					<div id="page-wrapper">
+						<div class="page" id="cashRegisterPage"><%= render "cash_register" %></div>
+						<div class="page" id="paymentScreenPage"><%= render "paymentScreen" %></div>
+						<div class="page" id="receiptScreenPage"><%= render "receiptScreen" %></div>
+						<div class="page" id="suspendedScreen"><%= render "suspended_sales" %></div>
+						<div class="page" id="returnsPage"><%= render "returns" %></div>
+						<div class="page" id="returnsPaymentPage"><%= render "returnsPayment" %></div>
+						<div class="page" id="returnReceiptScreenPage"><%= render "returnReceipt" %></div>
+						<div class="page" id="timesheetPage"><%= render "timeSheet" %></div>
+						<div class="page" id="optionsPage"><%= render "options" %></div>
 					</div>
 				</div>
-				<div id="page-wrapper">
-					<div class="page" id="cashRegisterPage"><%= render "cash_register" %></div>
-					<div class="page" id="paymentScreenPage"><%= render "paymentScreen" %></div>
-					<div class="page" id="receiptScreenPage"><%= render "receiptScreen" %></div>
-					<div class="page" id="suspendedScreen"><%= render "suspended_sales" %></div>
-					<div class="page" id="returnsPage"><%= render "returns" %></div>
-					<div class="page" id="returnsPaymentPage"><%= render "returnsPayment" %></div>
-					<div class="page" id="returnReceiptScreenPage"><%= render "returnReceipt" %></div>
-					<div class="page" id="timesheetPage"><%= render "timeSheet" %></div>
-					<div class="page" id="optionsPage"><%= render "options" %></div>
-				</div>
+		
 			</div>
-		
 		</div>
+		
+		
 	</body>
 </html>
