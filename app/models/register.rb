@@ -25,6 +25,7 @@ class Register
   key :store_id, ObjectId
   key :register_template_id, ObjectId
   belongs_to :store
+  belongs_to :company
   
   def open_register(till, user_session)
     self.till = till

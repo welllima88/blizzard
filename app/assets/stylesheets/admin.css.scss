@@ -33,11 +33,11 @@ $light-blue:#3f94cc;
 	h4.productTitle {padding: 0;margin: 4px 0 0 0;}
 	
 	.btn{
-		border:1px solid #ccc;background-color:#eee;color:#000;
+		border:1px solid #fff;background-color:#eee;color:#000;
 		&:hover{
 			background-color:$light-blue;
 			color:#fff;
-			border-color:$blue;
+			border-color: #fff;
 		}
 		&.btn-primary{
 			background-color:$blue;
@@ -45,7 +45,6 @@ $light-blue:#3f94cc;
 			&:hover{
 				background-color:$light-blue;
 				color:#fff;
-				border-color:$blue;
 			}
 		}
 		span{
@@ -57,11 +56,9 @@ $light-blue:#3f94cc;
 		&.btn-success {
 			color: #fff;
 			background-color: #5cb85c;
-			border-color: #4cae4c;
 			&:hover{
 				color: #fff;
 				background-color: #449d44;
-				border-color: #398439;
 			}
 		}
 	}

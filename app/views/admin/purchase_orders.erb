@@ -1,12 +1,12 @@
 <div class="row">
-	<div class="col-xs-12 col-sm-8"><h2 class="productTitle">Purchase Orders</h2></div>
-	<div class="col-xs-12 col-sm-4 text-right">
-		<div class="buttons-group">
-			<a href="/admin/create_po/" class="buttons icon add">Create Purchase Order</a>
+	<div class="col-xs-12 col-sm-5"><h2 class="productTitle">Purchase Orders</h2></div>
+	<div class="col-xs-12 col-sm-7 text-right">
+		<div class="btn-group">
+			<a href="/admin/create_po/" class="btn btn-primary">Create Purchase Order</a>
 			<% if params[:completed] == 'yes' %>
-				<a href="/admin/purchase_orders" class="buttons icon search">View Non Completed Orders</a>
+				<a href="/admin/purchase_orders" class="btn btn-primary">View Non Completed Orders</a>
 			<% else %>
-				<a href="/admin/purchase_orders?completed=yes" class="buttons icon search">View Completed Orders</a>
+				<a href="/admin/purchase_orders?completed=yes" class="btn btn-primary">View Completed Orders</a>
 			<% end %>
 		</div>
 	</div>

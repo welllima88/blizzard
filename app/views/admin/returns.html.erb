@@ -25,30 +25,3 @@
 	<% end %>
 
 
-
-<table class="table" cellspacing="1" cellpadding="0">
-	<tr>
-		<th>Store</th>
-		<th class="text-center">Employee</th>
-		<th class="text-center">Time</th>
-		<th class="text-center">Total</th>
-		<th class="text-center">Status</th>
-		<th></td>
-	</tr>
-	<% for s in @returns %>
-	<tr class="<%= cycle('oddrow', 'evenrow') %>">
-		<td ><%= s.store_name %></td>
-		<td width="120" class="text-center"><a href="/admin/employee/<%= s.employee_id %>"><%= s.employee_name.titleize %></a></td>
-		<td width="120" class="text-center"><%= s.created_at.strftime("%b %d, %Y") %><br><%= s.created_at.strftime("%I:%M %p") %></td>
-		<td class="text-center"><%= number_to_currency s.total_refunded %></td>
-		<td class="text-center"><%= s.status %></td>
-		<td class=" text-right"><a href="/admin/return/<%= s.id %>" class="buttons">Details</a></td>
-	</tr>
-	<% end %>
-	<tr>
-		<td colspan="6" class="paginate text-right"><%= will_paginate @returns %></td>
-	</tr>
-</table>
-
-
-

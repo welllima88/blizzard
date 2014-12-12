@@ -74,6 +74,7 @@ class Company
   
   # Associations
   many :stores
+  many :registers
   many :customers
   many :employees
   many :departments
@@ -85,6 +86,12 @@ class Company
   
   def generateAPIToken
     self.api_token = "#{SecureRandom.base64(20).to_s.gsub(/[^0-9A-Za-z]/, '')}#{self.id}"
+  end
+  
+  # Reload Stores / Registers
+  
+  def store_data
+    return {"stores" => self.stores, "registers" => self.registers}
   end
   
 end

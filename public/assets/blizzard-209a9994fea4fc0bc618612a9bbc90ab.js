@@ -1,8 +1,6 @@
 $(document).ready(function(){
 	// Set all forms to return false
-	$("form").submit(function () {
-    	return false;
-    });
+	$("form").submit(function () { return false; });
 	
 	// Correct the window size
 	
@@ -11,8 +9,9 @@ $(document).ready(function(){
 	
 	// Load the Register
 	setTimeout(function(){
-		checkLogin();
 		stayFresh();
+		checkLogin();
+		reloadStores();
 		globalCurrencyCode = localStorage.getItem('currency_code');
 		if(globalCurrencyCode){
 			globalCurrencyCode = '$';
@@ -30,10 +29,6 @@ function loadOrder(){
 		currentSale = cached_sale;
 		totalOrder();
 	}
-}
-
-function configureSize(){
-	$('#page-wrapper').height( $(window).height()-40 + 'px' );
 }
 
 function checkLogin(){
@@ -126,16 +121,7 @@ function displayLogin(){
 		return $('#employee_company_id').focus();
 	}
 	if(!globalStoreId){
-		storeData = '';
-	    for (i=0;i<globalStores.length;i++){
-			
-			storeData += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 store-box"><h4>' + globalStores[i].name + '</h4><p>' + globalStores[i].address + '<br>' + globalStores[i].city + ', ' + globalStores[i].state + ' ' + globalStores[i].zip + '</p><input type="button" value="Select Store" class="btn btn-primary btn-lg" onclick="selectStore(\''+globalStores[i].id+'\')" /></div>';
-			
-			
-	        //storeData += '<div id="store_box"><b>' + globalStores[i].name + '</b><br>' + globalStores[i].address + '<br>' + globalStores[i].city + ', ' + globalStores[i].state + ' ' + globalStores[i].zip + '<br><br>' + globalStores[i].phone + '<br><br><input type="button" value="Select Store" class="button" onclick="selectStore(\''+globalStores[i].id+'\')" /></div>'
-	    }
-		
-		$('#store-data').html(storeData);
+		displayStoreData();
 		return $('#select-store-wrapper').show();
 	}
 	if(!globalRegisterId){
@@ -144,8 +130,31 @@ function displayLogin(){
 	}
 }
 
+
+function reloadStores(){
+	$.post("/api3/loadStores.json", {api_token: globalCompanyToken}, function(data) {
+        globalStores = data.stores;
+        localStorage.setItem('all_stores', JSON.stringify(data.stores));
+        globalRegisters = data.registers;
+        localStorage.setItem('all_registers', JSON.stringify(data.registers));
+	}, 'json')
+	.complete(function(){
+        displayStoreData();
+	});
+}
+
+function displayStoreData(){
+	storeData = '';
+    for (i=0;i<globalStores.length;i++){
+		storeData += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 store-box"><h4>' + globalStores[i].name + '</h4><p>' + globalStores[i].address + '<br>' + globalStores[i].city + ', ' + globalStores[i].state + ' ' + globalStores[i].zip + '</p><input type="button" value="Select Store" class="btn btn-primary btn-lg" onclick="selectStore(\''+globalStores[i].id+'\')" /></div>';
+    }
+	if(globalStores.length == 0){
+		storeData = '<div class="row"><div class="col-sm-12 text-center" style="background-color:#eee;padding:10px;"><h3 style="margin:0;padding:0;">You must add a store profile in the <a href="/admin">admin section</a> before you can use Evendra.</h3></div></div>';
+	}
+	$('#store-data').html(storeData);
+}
+
 function tryToLogin(){
-	console.log('tryToLogin');
 	postData = { company_id: $('#employee_company_id').val(), username: $('#employee_username').val(), password: $('#employee_password').val() };
 	$.post("/api3/tryToLogin.json", postData, function(data) {
            if (data.status == 'ok'){
@@ -222,6 +231,13 @@ function loadSelectRegisters(){
 				registerOpenData+='<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 store-box opened"><h4>' + globalRegisters[i].name + '</h4><p><b>Status:</b> Open</p>' + current_user + '<br><br><input type="button" value="Select Register" class="btn btn-primary btn-lg" onclick="selectRegister(\'' + globalRegisters[i].id + '\')" /></div>';
 			}
 			current_user = null;
+		}
+		if(globalRegisters.length == 0){
+		    $('.has-registers').hide();
+			$('#no-registers').show();
+		}else{
+		    $('.has-registers').show();
+			$('#no-registers').hide();
 		}
 	    $('#registerClosedData').html(registerClosedData);
 		$('#registerOpenData').html(registerOpenData);
@@ -511,6 +527,7 @@ function showPage(id){
 		displayOrder();
 		$('.topBarButton').removeClass("on");
 		$(id+'Button').addClass("on");
+		console.log('scan')
 		resetScanBox();
 	}
 	if(id == '#receiptScreenPage'){
@@ -723,7 +740,7 @@ function displayOrder(){
 		items += "<tr><td><b>"+ currentSale.order_line_items[n].name +"</b></td><td class='hidden-sm'><b>"+ currentSale.order_line_items[n].sku +"</b></td><td width='110' id='" + currentSale.order_line_items[n].product_id + "_price' ondblclick=\"lineItemEditable('price', '" + currentSale.order_line_items[n].product_id + "_price', '"+ currentSale.order_line_items[n].price +"')\"><b>"+ displayMoney(currentSale.order_line_items[n].price) +"</b></td><td style='width:125px;' ondblclick=\"lineItemEditable('qty', '" + currentSale.order_line_items[n].product_id + "_qty', '"+ currentSale.order_line_items[n].qty +"')\" id='" + currentSale.order_line_items[n].product_id + "_qty'><b>"+ currentSale.order_line_items[n].qty +"</b></td><td class='row'><b>"+ displayMoney(currentSale.order_line_items[n].total) +"</b></td><td class='row' width='95'><a class='btn btn-danger btn-line-item' onclick='addItemToSale(\""+ currentSale.order_line_items[n].product_id +"\", -1)' >Remove</a></td></tr>";
 	}
 	$('.register_line_items').html(items);
-	resetScanBox();
+	setTimeout(function(){ resetScanBox(); }, 50);
 }
 
 function lineItemEditable(type, id, value){

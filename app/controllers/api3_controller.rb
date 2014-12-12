@@ -16,6 +16,14 @@ class Api3Controller < ApplicationController
     end
   end
   
+  # Reload Stores and registers
+  
+  def loadStores
+    respond_to do |format|
+      format.json { render :json => Company.find_by_api_token(params[:api_token]).store_data}
+    end
+  end
+  
   # Load Products
   
   def loadProducts    

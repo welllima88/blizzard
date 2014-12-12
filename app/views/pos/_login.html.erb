@@ -43,11 +43,12 @@
 <div class="container hideOnReceipt login-options" id="select_register_wrapper" style="padding-bottom:40px;">
 	<div class="row">
 		<h1>Select A Register</h1>
-		<div style="display:table;width:100%;">
+		<div id="no-registers" class="col-sm-12 text-center" style="background-color:#eee;padding:10px;"><h3 style="margin:0;padding:0;">You must add a store profile in the <a href="/admin">admin section</a> before you can use Evendra.</h3></div>
+		<div style="display:table;width:100%;" class='has-registers'>
 			<h2>Closed Registers</h2>
 			<div id="registerClosedData"></div>
 		</div>
-		<div style="display:table;width:100%;">
+		<div style="display:table;width:100%;" class='has-registers'>
 			<h2>Open Registers</h2>
 			<div id="registerOpenData"></div>
 		</div>

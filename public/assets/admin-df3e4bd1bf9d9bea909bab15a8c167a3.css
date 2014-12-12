@@ -115,7 +115,7 @@ h4.productTitle {
 
 /* line 35, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .btn {
-  border: 1px solid #ccc;
+  border: 1px solid #fff;
   background-color: #eee;
   color: #000;
 }
@@ -123,7 +123,7 @@ h4.productTitle {
 .btn:hover {
   background-color: #3f94cc;
   color: #fff;
-  border-color: #2d4250;
+  border-color: #fff;
 }
 /* line 42, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .btn.btn-primary {
@@ -134,29 +134,26 @@ h4.productTitle {
 .btn.btn-primary:hover {
   background-color: #3f94cc;
   color: #fff;
-  border-color: #2d4250;
 }
-/* line 51, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 50, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .btn span {
   margin-right: 5px;
   padding-top: 2px;
   float: left;
   display: block;
 }
-/* line 57, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 56, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .btn.btn-success {
   color: #fff;
   background-color: #5cb85c;
-  border-color: #4cae4c;
 }
-/* line 61, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 59, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .btn.btn-success:hover {
   color: #fff;
   background-color: #449d44;
-  border-color: #398439;
 }
 
-/* line 69, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 66, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .flash-error {
   background-color: #e58e8e;
   padding: 10px;
@@ -166,99 +163,99 @@ h4.productTitle {
   margin-bottom: 15px;
 }
 
-/* line 78, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 75, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 body {
   font-size: 15px;
   font-family: lato;
 }
 
-/* line 80, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 77, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .green {
   color: #197707;
 }
 
-/* line 81, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 78, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .lightBg {
   background-color: #eeeeee !important;
 }
 
-/* line 82, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 79, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .blueHeading, .blueBg {
   background-color: #2d4250 !important;
   color: #ffffff;
 }
-/* line 82, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 79, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .blueHeading input, .blueHeading textarea, .blueBg input, .blueBg textarea {
   color: #000;
 }
 
-/* line 83, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 80, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .redBg {
   background-color: #730707 !important;
   color: #fff;
 }
 
-/* line 84, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 81, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .greenHeading, .greenBg {
   background-color: #197707 !important;
   color: #ffffff;
 }
 
-/* line 86, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 83, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper {
   width: 100%;
   height: 100%;
   border-collapse: collapse;
 }
-/* line 90, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 87, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper td {
   vertical-align: top;
 }
-/* line 93, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 90, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .logo {
   font-size: 34px;
   font-weight: bold;
   padding: 10px;
   height: 60px;
 }
-/* line 99, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 96, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .navSection {
   padding: 10px 20px;
   text-align: right;
   height: 60px;
 }
-/* line 103, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 100, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .navSection .textWrapper {
   float: right;
 }
-/* line 105, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 102, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .navSection .textWrapper div {
   float: left;
   padding-left: 20px;
 }
-/* line 109, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 106, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .navSection .textWrapper .welcomeText {
   padding-top: 5px;
 }
-/* line 112, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 109, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .subNavSection {
   background-color: #2d4250;
   color: #ffffff;
   padding: 10px;
   height: 42px;
 }
-/* line 118, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 115, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper #subNav {
   width: 100%;
   display: inline-block;
   background-color: #2d4250;
   padding: 5px 0;
 }
-/* line 123, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 120, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper #subNav div {
   display: none;
 }
-/* line 126, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 123, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper #subNav a {
   color: #ffffff;
   text-decoration: none;
@@ -269,25 +266,25 @@ body {
   margin: 0 15px;
   border-bottom: 1px solid #2d4250;
 }
-/* line 135, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 132, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper #subNav a:hover {
   border-bottom: 1px solid #ffffff;
 }
-/* line 139, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 136, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper #subNav .on {
   border-bottom: 1px solid #ffffff;
 }
-/* line 143, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 140, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .rightWrapper {
   padding: 10px 0;
 }
-/* line 146, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 143, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper {
   width: 210px;
   background-color: #eeeeee;
   border-right: 1px solid #c1c1c1;
 }
-/* line 150, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 147, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper a {
   display: inline-block;
   width: 210px;
@@ -300,74 +297,74 @@ body {
   border-bottom: 1px solid #c1c1c1;
   background: #eeeeee;
 }
-/* line 161, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 158, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper a img {
   visibility: hidden;
   float: left;
   background-color: #333333;
   margin-right: 10px;
 }
-/* line 167, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 164, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper a p {
   float: left;
   padding-top: 10px;
 }
-/* line 171, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 168, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper a:hover {
   border-left: 2px solid #2d4250;
   color: #000000;
   background-color: #ffffff;
   background: #ffffff;
 }
-/* line 178, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 175, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper .on {
   border-left: 2px solid #197707;
   color: #000000;
   background-color: #ffffff;
   background: #ffffff;
 }
-/* line 183, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 180, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper .on img {
   visibility: visible;
   background-color: #197707;
 }
-/* line 187, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 184, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper .on:hover {
   border-left: 2px solid #197707;
   color: #000000;
   background-color: #ffffff;
 }
-/* line 191, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 188, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .mainWrapper .leftWrapper .on:hover img {
   visibility: visible;
   background-color: #197707;
 }
 
-/* line 201, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 198, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate {
   text-align: right;
   padding: 20px 0 0 0;
   /* Pagination */
 }
-/* line 206, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 203, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination {
   cursor: default;
   font-size: 12px;
   float: right;
 }
-/* line 211, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 208, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination a, .paginate .pagination span, .paginate .pagination em {
   padding: 0.2em 0.5em;
   display: block;
   float: left;
   margin-right: 1px;
 }
-/* line 218, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 215, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination .disabled {
   color: #999999;
   border: 1px solid #dddddd;
 }
-/* line 224, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 221, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination .current {
   font-style: normal;
   font-weight: bold;
@@ -375,19 +372,19 @@ body {
   color: white;
   border: 1px solid #2d4250;
 }
-/* line 232, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 229, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination a {
   text-decoration: none;
   color: #2d4250;
   border: 1px solid #2d4250;
 }
-/* line 236, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 233, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination a:hover, .paginate .pagination a:focus {
   color: #ffffff;
   border-color: #d7edff;
   background-color: #2d4250;
 }
-/* line 243, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 240, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination .page_info {
   background: #2d4250;
   color: white;
@@ -396,125 +393,125 @@ body {
   margin-bottom: 0.3em;
   text-align: center;
 }
-/* line 251, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 248, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .paginate .pagination .page_info b {
   color: #2d4250;
   background: #697e8c;
   padding: 0.1em 0.25em;
 }
 
-/* line 263, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 260, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 h2 {
   margin-top: 10px;
   padding: 0;
 }
 
-/* line 264, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 261, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 h3 {
   font-size: 18px;
 }
 
-/* line 265, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 262, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .row {
   font-size: 14px;
 }
 
-/* line 267, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 264, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .productTitle {
   font-size: 22px;
 }
 
-/* line 269, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 266, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 a {
   color: #2d4250;
 }
 
-/* line 275, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 272, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .register-log-trans-wrapper {
   background-color: #ffffff;
 }
-/* line 277, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 274, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .register-log-trans-wrapper.active {
   color: #ffffff;
 }
-/* line 279, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 276, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .register-log-trans-wrapper.active td {
   background-color: #3f94cc !important;
 }
-/* line 280, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 277, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .register-log-trans-wrapper.active a {
   color: #ffffff;
 }
-/* line 280, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 277, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .register-log-trans-wrapper.active a:hover {
   color: #ffffff;
 }
 
-/* line 284, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 281, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .till-expand {
   display: none;
   background-color: #3f94cc !important;
 }
-/* line 287, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 284, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .till-expand td {
   background-color: #3f94cc !important;
   color: #ffffff;
 }
-/* line 288, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 285, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .till-expand th {
   background-color: #2d4250;
   color: #fff;
   border: 0 !important;
 }
-/* line 289, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 286, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .till-expand.active {
   display: table-row;
 }
 
-/* line 293, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 290, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .input-group {
   width: 100%;
 }
 
-/* line 294, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 291, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .addon-fixed-a {
   width: 120px;
 }
 
-/* line 295, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 292, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .addon-fixed-b {
   width: 217px;
 }
 
-/* line 301, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 298, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .shadded-bg {
   background-color: #eee;
 }
 
-/* line 302, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 299, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .cell {
   padding-top: 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid #ccc;
 }
 
-/* line 303, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 300, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
   background-color: #fff;
 }
 
 @media screen and (max-width: 767px) {
-  /* line 309, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+  /* line 306, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
   .text-center-xs {
     text-align: center;
   }
 
-  /* line 310, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+  /* line 307, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
   .btn-xs-full {
     width: 100%;
   }
 }
-/* line 317, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
+/* line 314, /Users/steffan/Dropbox/Sites/Blizzard/app/assets/stylesheets/admin.css.scss */
 #create_stock_transfer_main .text-right, #create_stock_transfer_main .text-only {
   padding-top: 15px;
   font-size: 15px;

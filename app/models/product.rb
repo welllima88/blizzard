@@ -3,7 +3,6 @@ class Product
   safe
   
   # Automatic
-  before_create :add_product_inventorys
   before_save :calculate_stock
   
   # General
@@ -131,19 +130,6 @@ class Product
     product.calculate_stock
   end
   
-  #add_product_inventorys
-  
-  def add_product_inventorys
-    stores = Store.all(:company_id => self.company_id)
-    for s in stores
-      product_inventory = self.product_inventorys.select{|p| p.store_id.to_s == s.id.to_s}.first
-      if product_inventory == nil
-        product_inventory = ProductInventory.new(:store_id => s.id, :qty => 0)
-        self.product_inventorys << product_inventory
-        self.save
-      end
-    end
-  end
 
   # Methods/Actions
 

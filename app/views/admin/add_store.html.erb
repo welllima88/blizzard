@@ -1,4 +1,5 @@
 <%= form_tag(:action => 'add_store') do %>
+<%= hidden_field(:store, :company_id, :value => session[:user]['company_id'])%>
 <div class="row header">
 	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Add Store</h4></div>
 	<div class="col-xs-12 col-sm-4 text-right">

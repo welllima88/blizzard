@@ -70,31 +70,37 @@ class AdminController < ApplicationController
     checkAdminAccess('inventory')
     showSection('Inventory', '')
     @company = Company.find(session[:user]['company_id'])
-   
     if params[:product] != nil
+      # Create New Products 
       product = Product.new(params[:product])
       product.status = 1
       product.company_id = session[:user]['company_id']
-      exist = Product.verify_unique(session[:user]['company_id'], params[:product][:upc], params[:product][:ean], params[:product][:sku], params[:product][:m_sku], '')
-      if exist == true
-        product.save
-        product.set_return_price(product.price)
-        for s in @company.stores
-          i = ProductInventory.new(params["#{s.id}".to_sym])
-          if i.qty == nil
-            i.qty = 0
+      product.return_price = product.price
+      
+      # Make sure product has unique identifier codes
+      unique_ids = Product.verify_unique(session[:user]['company_id'], params[:product][:upc], params[:product][:ean], params[:product][:sku], params[:product][:m_sku], '')
+      if unique_ids == true
+        
+        # Add inventory Stock
+        for s in Store.all(:company_id => session[:user]['company_id'])
+          product_inventory = product.product_inventorys.select{|i| i.store_id.to_s == s.id.to_s}.first
+          if product_inventory != nil
+            product_inventory.qty = params[s.id.to_sym][:qty].to_i
+          else
+            product.product_inventorys << ProductInventory.new(:store_id => s.id, :qty => params[s.id.to_sym][:qty].to_i)
           end
-          product.product_inventorys << i
         end
+        
         product.save
-        product.calculate_stock
+        
+        
         if product.department_id != nil && product.department_id != ''
           product.set(:department_name => Department.find(@product.department_id).name)
         end
         return redirect_to(:action => 'inventory')
         
       else
-        flash[:error] = exist
+        flash[:error] = unique_ids
         return redirect_to(:action => 'add_product')
       end
     end

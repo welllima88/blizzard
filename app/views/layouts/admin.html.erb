@@ -39,7 +39,7 @@
 				function showSectionNew(section, sub){  
 					$('.section-'+section).addClass('active');
 					$('.section-'+section).children('ul').addClass('in');
-					$('.sub-'+sub).children('a').addClass('active'); }
+					$('.sub-'+section+'-'+sub).children('a').addClass('active'); }
 			</script>
 
 	</head>
@@ -267,7 +267,7 @@
 	            <div class="navbar-default sidebar" role="navigation">
 	                <div class="sidebar-nav navbar-collapse">
 	                    <ul class="nav" id="side-menu">
-	                        <li class="sidebar-search">
+	                        <li class="sidebar-search" style="display:none;">
 	                            <div class="input-group custom-search-form">
 	                                <input type="text" class="form-control" placeholder="Search...">
 	                                <span class="input-group-btn">
@@ -281,18 +281,18 @@
 	                        <li>
 	                            <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 	                        </li>
-	                        <li>
+	                        <li class='section-Sales'>
 	                            <a href="/admin/sales"><i class="fa fa-money fa-fw"></i> Sales & Returns<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
-	                                <li><a href="/admin/sales">Sales/Orders</a></li>
-	                                <li><a href="/admin/returns">Returns</a></li>
+	                                <li class="sub-Sales-Sales"><a href="/admin/sales">Sales/Orders</a></li>
+	                                <li class="sub-Sales-Returns"><a href="/admin/returns">Returns</a></li>
 	                            </ul>
 	                            <!-- /.nav-second-level -->
 	                        </li>
 	                        <li class='section-Inventory'>
 	                            <a href="tables.html" ><i class="fa fa-cubes fa-fw"></i> Inventory<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
-									<li class"sub-Inventory active"><a href="/admin/inventory" id="subInventoryInventory">All Inventory</a></li>
+									<li class="sub-Inventory-Inventory"><a href="/admin/inventory" id="subInventoryInventory">All Inventory</a></li>
 									<li><a href="/admin/low_inventory" id="subInventoryLowInventory">Low Inventory</a></li>
 									<li><a href="/admin/purchase_orders" id="subInventoryPurchaseOrders">Purchase Orders</a></li>
 									<li><a href="/admin/stock_transfers" id="subInventoryStockTransfers">Stock Transfers</a></li>

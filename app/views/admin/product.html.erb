@@ -1,13 +1,13 @@
 <div class="row header">
 	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Product: <%= @p.name %></h4></div>
 	<div class="col-xs-12 col-sm-4 text-right">
-		<div class="buttons-group">
-			<a href="/admin/inventory/" class="buttons icon arrowleft">All Inventory</a>
-			<a href="/admin/edit_product/<%= params[:id] %>" class="buttons icon edit">Edit</a>
+		<div class="btn-group">
+			<a href="/admin/inventory/" class="btn btn-primary">All Inventory</a>
+			<a href="/admin/edit_product/<%= params[:id] %>" class="btn btn-primary">Edit</a>
 			<% if @p.status == 0 %>
-				<a href="/admin/activate_inventory/<%= params[:id] %>" class="buttons">Activate</a>
+				<a href="/admin/activate_inventory/<%= params[:id] %>" class="btn btn-success">Activate</a>
 			<% else %>
-				<a href="/admin/de_activate_inventory/<%= params[:id] %>" class="buttons danger icon remove">De Activate</a>
+				<a href="/admin/de_activate_inventory/<%= params[:id] %>" class="btn btn-danger">De Activate</a>
 			<% end %>
 		</div>
 	</div>
