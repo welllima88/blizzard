@@ -22,3 +22,41 @@
 	Evendra provides integrated credit card processing through our partnership with Electronic Payments Inc. EPI is a world class trusted credit card processor based in New York. With EPI you can accept swiped credit card transactions with the use of an inexpensive USB credit card reader which can be purchased on Amazon or other internet websites. You also have the ability to manually process cards and easily refund cards without the hassle of an additional credit card machine. For more information or to sign up for EPI visit the <a href="/admin/merchant_services" target="_blank">Credit Card Processing page</a>.
 	
 </div>
+
+<script type="text/javascript">
+	
+	$(function(){
+		
+		localStorage.setItem('dbProducts', '[]');
+		localStorage.setItem('dbOrderReturns', '[]');
+		localStorage.setItem('dbTimesheets', '[]');
+		localStorage.setItem('dbCoupons', '[]');
+		localStorage.setItem('dbTills', '[]');
+		currentSale=null;
+		currentReturn=null;
+		pages=null;
+		itemButtons=null;
+		currentPage=null;
+		globalCompanyToken=null; localStorage.setItem('company_token', '');
+		globalCompanyID=null; localStorage.setItem('company_id', '');
+		globalCompanyName=null; localStorage.setItem('company_name', '');
+		globalEmployeeId=null; localStorage.setItem('employee_id', '');
+		globalEmployeeName=null; localStorage.setItem('employee_name', '');
+		globalRegisterId=null; localStorage.setItem('register_id', '');
+		globalRegisterName=null; localStorage.setItem('register_name', '');
+		globalStoreAddress=null; localStorage.setItem('store_address', '');
+		globalStoreId=null; localStorage.setItem('store_id', '');
+		globalStoreName=null; localStorage.setItem('store_name', '');
+		globalGateway=null; localStorage.setItem('store_gateway', '');
+		globalTaxRate=null; localStorage.setItem('tax_rate', '');
+		globalStores=null; localStorage.setItem('all_stores', '');
+		globalRegisters=null; localStorage.setItem('all_registers', '');
+		globalCurrencyCode = null; localStorage.setItem('currency_code', '');
+		localStorage.setItem('currentPage', '');
+		localStorage.setItem('register_status', '');
+		localStorage.setItem('till', '');
+		
+	});
+	
+	
+</script>
