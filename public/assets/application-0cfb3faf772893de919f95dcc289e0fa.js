@@ -11452,11 +11452,10 @@ function checkLogin(){
 }
 
 function loadRegister(){
-	$('.page').hide();
-	console.log('loadRegister');
-	$('#storeName').html(globalStoreName);
-	$('#registerName').html(globalRegisterName);
-	$('#employeeName').html(globalEmployeeName);
+	document.getElementById('companyName').innerHTML = globalCompanyName;
+	document.getElementById('storeName').innerHTML = globalStoreName;
+	document.getElementById('registerName').innerHTML = globalRegisterName;
+	document.getElementById('employeeName').innerHTML = globalEmployeeName;
 	setCurrencyCode();
 	showPage(currentPage);
 	getProductsFromServer();
@@ -11918,15 +11917,31 @@ function showPage(id){
 		return showPage(currentPage);
 	}
 	if(id != currentPage){
-		$(currentPage).hide();
-		$(currentPage+'-right').hide();
-		$(id).show();
-		$(id+'-right').show();
+		new_currentPage = currentPage.replace('#', '');
+		new_id = id.replace('#', '');
+		document.getElementById(new_currentPage).classList.remove('active');
+		document.getElementById(new_currentPage+'-right').classList.remove('active');
+		
+		document.getElementById(new_id).classList.add('active');
+		document.getElementById(new_id+'-right').classList.add('active');
+		
+		//$(currentPage).hide();
+		//$(currentPage+'-right').hide();
+		//$(id).show();
+		//$(id+'-right').show();
 	}else{
-		$(currentPage).hide();
-		$(currentPage+'-right').hide();
-		$(id).show();
-		$(id+'-right').show();
+		new_currentPage = currentPage.replace('#', '');
+		new_id = id.replace('#', '');
+		document.getElementById(new_currentPage).classList.remove('active');
+		document.getElementById(new_currentPage+'-right').classList.remove('active');
+		
+		document.getElementById(new_id).classList.add('active');
+		document.getElementById(new_id+'-right').classList.add('active');
+		
+		//$(currentPage).hide();
+		//$(currentPage+'-right').hide();
+		//$(id).show();
+		//$(id+'-right').show();
 	}
 	// Page Specific
 	if(id == '#cashRegisterPage'){
@@ -12048,7 +12063,7 @@ function addItemToSale(id, qty){
 // Item Search 
 
 function itemSearch(q){
-	products = dbProducts.find({where: {field: "tags", compare: "contains", value: q.toString()}});
+	products = dbProducts.find({where: {field: "tags", compare: "contains", value: q.toLowerCase() }});
 	if (products.length >= 1){
 		items = '';
 		$('#posArea').hide();

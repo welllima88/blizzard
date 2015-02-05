@@ -21,13 +21,13 @@
 				<div class="input-group"><span class="input-group-addon">Product Name</span><input type="text" class="form-control" value="<%= @p.name %>" disabled></div>
 			</div>
 			<div class="col-xs-12 col-md-12 col-lg-6 form-group">
-				<div class="input-group"><span class="input-group-addon">Department</span><input type="text" class="form-control" value="<%= @p.department.name unless @p.department_id.blank? %>" disabled></div>
+				<div class="input-group"><span class="input-group-addon">Department</span><input type="text" class="form-control" value="<% if @p.department %><%= @p.department.name %><% end %>" disabled></div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 form-group">
 				<div class="input-group"><span class="input-group-addon">Vendor</span><input type="text" class="form-control" value="<%= @p.vendor.name unless @p.vendor_id.blank? %>" disabled></div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 form-group">
-				<div class="input-group"><span class="input-group-addon">Manufacturer</span><input type="text" class="form-control" value="<%= @p.manufacture.name unless @p.manufacturer_id.blank? %>" disabled></div>
+				<div class="input-group"><span class="input-group-addon">Manufacturer</span><input type="text" class="form-control" value="<%= @p.manufacturer.name unless @p.manufacturer_id.blank? %>" disabled></div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 form-group">
 				<div class="input-group"><span class="input-group-addon">Taxable</span><input type="text" class="form-control" value="<%= ['Taxed', 'Not Taxed'][@p.nontax] %>" disabled></div>

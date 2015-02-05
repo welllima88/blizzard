@@ -137,7 +137,7 @@ class AdminController < ApplicationController
       end
       @product.update_attributes(params[:product])
       @product.set_return_price(@product.price)
-      redirect_to(:action => 'inventory', :id => params[:id])
+      redirect_to(:action => 'product', :id => params[:id])
     end
   end
   

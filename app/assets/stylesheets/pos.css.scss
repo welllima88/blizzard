@@ -118,18 +118,46 @@ form{margin:0;}
 
 .content-all{display:table;width:100%;height:100%;}
 
-#wrapper, .navbar-static-top { background-color: #dfdfdf; display:none;height: 100%;}
+#wrapper, .navbar-static-top { background-color: #eee; display:none;height: 100%;}
 
-#page-wrapper{background-color:#fff;margin-right:250px;padding:55px 15px 15px 15px;height:100%;padding-bottom:-40px;margin-left:-15px;}
+#page-wrapper{background-color:#fff;margin-right:250px;padding:55px 0 15px 0;height:100%;padding-bottom:-40px;margin-left:-15px;}
 
 .container-fluid{height:100%;}
 
-.page{width:100%;display:none;margin:0;padding:0;width:100%;}
+.page{
+	width:100%;
+	margin:0;
+	padding:0;
+	width:100%;
+	opacity: 0; 
+	z-index: 1;
+	position:absolute;
+	padding-right: 295px;
+	padding-left:15px;
+	-webkit-animation: fadeout 0.6s;
+		animation: fadeout 0.6s;
+}
+
+.sidebar-nav .page{
+	width: 235px;
+	display: inline-block;
+	padding-right: 0;
+	padding-left:0;
+}
+
+.page.active{
+	opacity: 1;
+	z-index: 5;
+	-webkit-animation: fadein 0.6s;
+        	animation: fadein 0.6s;
+}
+
+.sidebar-nav .page.active{ z-index: 7; }
 
 .sidebar-nav{
 	width: 265px;
 	padding:15px;
-	background-color:#ddd;
+	background-color:#eee;
 	h3 { font-size: 16px; margin: 0 0 8px 0; }
 	.right-mini-btn{background-color: $blue; padding: 3px 10px;height: auto;font-size: 13px;}
 	.btn-right-buffer{margin-top:5px;}
@@ -248,7 +276,7 @@ table.scan_box {
 	width: 100%;
 	background-color: $blue;
 	color: #fff;
-	border: 10px solid #dfdfdf;
+	border: 10px solid #eee;
 	padding:15px;
 	td{
 		padding:15px 5px;
@@ -583,10 +611,16 @@ td.origionalLineItemsWrapper td {
 		}
 	}
 
+	.info-bar {
+	  width: 100%;
+	  display: inline-block;
+	  background-color: #eee;
+	  margin: -15px 0 15px 0;
+	  padding: 5px 0;
+	}
 
-
-
-
+	.info-bar b{float:left;margin-right:0;width:12.5%;text-align:right;padding-right:4px;}
+	.info-bar p{float:left;margin-right:0;margin-bottom:0;width:12.5%;padding-left:4px;}
 
 
 	// Responsive Height
@@ -613,3 +647,20 @@ td.origionalLineItemsWrapper td {
 		.btn{padding-left:9px;padding-right:9px;}
 		
 	}
+	
+	
+	
+	/* CSS Animations */
+
+
+	@keyframes fadein { from { opacity: 0; }to { opacity: 1; } }
+	@-moz-keyframes fadein { from { opacity: 0; }to { opacity: 1; } }
+	@-webkit-keyframes fadein { from { opacity: 0; }to { opacity: 1; } }
+	@-ms-keyframes fadein { from { opacity: 0; }to { opacity: 1; } }
+	@-o-keyframes fadein { from { opacity: 0; }to { opacity: 1; } }
+
+	@keyframes fadeout { from { opacity: 1; }to { opacity: 0; } }
+	@-moz-keyframes fadeout { from { opacity: 1; }to { opacity: 0; } }
+	@-webkit-keyframes fadeout { from { opacity: 1; }to { opacity: 0; } }
+	@-ms-keyframes fadeout { from { opacity: 1; }to { opacity: 0; } }
+	@-o-keyframes fadeout { from { opacity: 1; }to { opacity: 0; } }

@@ -33,6 +33,10 @@
 	            #itemSearch{display:none;}
 	            #timesheetSection{display:none;}
 	            #register_info{display:none;}
+				
+				.page, .info-bar{display:none !important;}
+				.page.active{display:block !important;}
+				
 	            #barcode{display: block;}
 	            /* CSS Barcode Generator */
 	            #receiptWrapper{
@@ -118,6 +122,12 @@
 						</div>
 					</div>
 					<div id="page-wrapper">
+						<div class="info-bar">
+							<b>Company</b><p id="companyName"></p>
+							<b>Store</b><p id="storeName"></p>
+							<b>Register</b><p id="registerName"></p>
+							<b>Employee</b><p id="employeeName"></p>
+						</div>
 						<div class="page" id="cashRegisterPage"><%= render "cash_register" %></div>
 						<div class="page" id="paymentScreenPage"><%= render "paymentScreen" %></div>
 						<div class="page" id="receiptScreenPage"><%= render "receiptScreen" %></div>

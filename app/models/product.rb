@@ -47,6 +47,7 @@ class Product
   # Associations
   key :company_id, ObjectId
   key :department_id, ObjectId
+  belongs_to :department
   
   key :manufacturer_id, ObjectId
   belongs_to :manufacturer
