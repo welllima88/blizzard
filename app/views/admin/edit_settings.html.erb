@@ -45,13 +45,17 @@
 				<div class="input-group"><span class="input-group-addon">City</span><%= text_field(:company, :company_city, :class => 'form-control')%></div>
 			</div>
 			<div class="col-sm-4 form-group">
-				<div class="input-group"><span class="input-group-addon">State</span><%= text_field(:company, :company_state, :class => 'form-control')%></div>
+				<div class="input-group"><span class="input-group-addon">State</span>
+					<%= select_state('company', 'company_state', @company.company_state)%>
+				</div>
 			</div>
 			<div class="col-sm-4 form-group">
 				<div class="input-group"><span class="input-group-addon">Postal Code</span><%= text_field(:company, :company_zip, :class => 'form-control')%></div>
 			</div>
 			<div class="col-sm-6 form-group">
-				<div class="input-group"><span class="input-group-addon">Country</span><%= text_field(:company, :company_country, :class => 'form-control')%></div>
+				<div class="input-group"><span class="input-group-addon">Country</span>
+					<%= select_country('company', 'company_country', @company.company_country)%>
+				</div>
 			</div>
 			<div class="col-sm-6 form-group">
 				<div class="input-group"><span class="input-group-addon">Timezone</span><%= text_field(:company, :company_timezone, :class => 'form-control')%></div>
@@ -62,7 +66,11 @@
 		<!-- First Line -->
 		<div class="row">
 			<div class="col-sm-6 form-group">
-				<div class="input-group"><span class="input-group-addon">Enable Points System</span><%= text_field(:company, :company_phone, :class => 'form-control', :value => ['Off', 'On'][@company.enable_points])%></div>
+				<div class="input-group"><span class="input-group-addon">Enable Points System</span>
+					
+					<%= select_tag "company[enable_points]", options_for_select({ 'Off' => 0, 'On' => 1 }, @company.enable_points), :class => 'form-control' %>
+	
+				</div>
 			</div>
 
 			<div class="col-sm-6 form-group">
@@ -83,7 +91,10 @@
 		<!-- First Line -->
 		<div class="row">
 			<div class="col-sm-6 form-group">
-				<div class="input-group"><span class="input-group-addon">Enable Commission</span><%= text_field(:company, :company_phone, :class => 'form-control', :value => ['Off', 'On'][@company.enable_commission])%></div>
+				<div class="input-group">
+					<span class="input-group-addon">Enable Commission</span>
+					<%= select_tag "company[enable_commission]", options_for_select({ 'Off' => 0, 'On' => 1 }, @company.enable_commission), :class => 'form-control' %>
+				</div>
 			</div>
 
 			<div class="col-sm-6 form-group">
