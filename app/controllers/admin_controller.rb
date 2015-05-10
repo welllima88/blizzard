@@ -3,7 +3,8 @@ class AdminController < ApplicationController
   before_filter :check_status
   
   def index
-    redirect_to(:action => 'sales')
+    showSection('Dashboard', '')
+    @chart_sales = Order.where(:company_id => session[:user]['company_id'], :created_at.gte => Time.now-6.days).fields(:created_at, :net_profit, :total, :subtotal)
   end
   
 #
@@ -770,20 +771,30 @@ class AdminController < ApplicationController
   end
   
   def edit_employee_timesheet
+    
+    # Access
     checkAdminAccess('employees')
     showSection('Employees', '')
+    
+    # Find the timesheet
     @employee_timesheet = EmployeeTimesheet.find(params[:id])
+    
+    # Set Timezone
     @timezone = Store.find(@employee_timesheet.store_id).time_zone
     Time.zone="#{@timezone}"
+    
+    # If we have submitted the form, update the timesheet
     if params[:update] == 'true'
       for hit in @employee_timesheet.employee_timesheet_hits
         hit.clock_in = Time.zone.parse("#{params[hit.id.to_s.to_sym]['clock_in_date(1i)']}-#{params[hit.id.to_s.to_sym]['clock_in_date(2i)']}-#{params[hit.id.to_s.to_sym]['clock_in_date(3i)']} #{hourTo24(params[hit.id.to_s.to_sym][:clock_in_hour], params[hit.id.to_s.to_sym][:in_ampm])}:#{params[hit.id.to_s.to_sym][:clock_in_minute]}")
         hit.clock_out = Time.zone.parse("#{params[hit.id.to_s.to_sym]['clock_out_date(1i)']}-#{params[hit.id.to_s.to_sym]['clock_out_date(2i)']}-#{params[hit.id.to_s.to_sym]['clock_out_date(3i)']} #{hourTo24(params[hit.id.to_s.to_sym][:clock_out_hour], params[hit.id.to_s.to_sym][:out_ampm])}:#{params[hit.id.to_s.to_sym][:clock_out_minute]}")
+        hit.total_hours
       end
       @employee_timesheet.save
       flash[:notice] = "Timesheet Updated Successfully"
       redirect_to(:action => 'employee_timesheet', :id => params[:id])
     end
+
   end
 
 
@@ -1050,47 +1061,51 @@ class AdminController < ApplicationController
 # Gift Cards
 #
 
-def create_gift_card
-  checkAdminAccess('marketing')
-  if params[:gift_card] != nil
-    GiftCard.newCard(params[:gift_card], params[:load])
-    redirect_to(:action => 'giftcards')
+  def giftcards
+    checkAdminAccess('marketing')
+    showSection('marketing', 'giftcards')
+     if params[:status] == 'inactive'
+       @cards = GiftCard.paginate(:company_id => session[:user]['company_id'], :status => 0, :per_page => 20, :order => 'created_at asc')
+     else
+       @cards = GiftCard.paginate(:company_id => session[:user]['company_id'], :status => 1, :page => params[:page], :per_page => 20, :order => 'created_at asc')
+     end
   end
-end
 
-def gift_card
-  checkAdminAccess('marketing')
-   @card = GiftCard.first(:card_number => params[:id], :company_id => session[:user]['company_id'])
- end
 
- def giftcards
-   checkAdminAccess('marketing')
-    if params[:status] == 'inactive'
-      @cards = GiftCard.paginate(:company_id => session[:user]['company_id'], :status => 0, :per_page => 20, :order => 'created_at asc')
-    else
-      @cards = GiftCard.paginate(:company_id => session[:user]['company_id'], :status => 1, :page => params[:page], :per_page => 20, :order => 'created_at asc')
+  def create_gift_card
+    checkAdminAccess('marketing')
+    if params[:gift_card] != nil
+      GiftCard.newCard(params[:gift_card], params[:load])
+      redirect_to(:action => 'giftcards')
     end
- end
+  end
 
- def find_gift_card
-   checkAdminAccess('marketing')
-   if params[:giftcard] != nil
-     name = /#{params[:giftcard][:customer_name]}/i
+  def gift_card
+    checkAdminAccess('marketing')
+     @card = GiftCard.first(:card_number => params[:id], :company_id => session[:user]['company_id'])
+   end
+
+ 
+
+   def find_gift_card
+     checkAdminAccess('marketing')
+     if params[:giftcard] != nil
+       name = /#{params[:giftcard][:customer_name]}/i
+       @giftcards = GiftCard.all(:$or => [{:card_number => params[:giftcard][:card_number], :company_id => session[:user]['company_id']}, {:customer_name => name, :company_id => session[:user]['company_id']}] )
+     end
+   end
+
+   def gift_card_search
+     checkAdminAccess('marketing')
+     name = "/^#{params[:giftcard][:customer_name]}/"
      @giftcards = GiftCard.all(:$or => [{:card_number => params[:giftcard][:card_number], :company_id => session[:user]['company_id']}, {:customer_name => name, :company_id => session[:user]['company_id']}] )
+     if @giftcards.count >= 2 || @giftcards.count == 0
+       return redirect_to(:action => 'find_gift_card', :giftcard => params[:giftcard])
+     end
+     if @giftcards.count == 1
+       redirect_to(:action => 'gift_card', :id => @giftcards.first.card_number)
+     end
    end
- end
-
- def gift_card_search
-   checkAdminAccess('marketing')
-   name = "/^#{params[:giftcard][:customer_name]}/"
-   @giftcards = GiftCard.all(:$or => [{:card_number => params[:giftcard][:card_number], :company_id => session[:user]['company_id']}, {:customer_name => name, :company_id => session[:user]['company_id']}] )
-   if @giftcards.count >= 2 || @giftcards.count == 0
-     return redirect_to(:action => 'find_gift_card', :giftcard => params[:giftcard])
-   end
-   if @giftcards.count == 1
-     redirect_to(:action => 'gift_card', :id => @giftcards.first.card_number)
-   end
- end
 
 
 
@@ -1251,7 +1266,6 @@ def gift_card
   end
   
   def checkAdminAccess(section)
-    puts section
     if !@@self.admin_access.include?(section) && !@@self.admin_access.include?('all')
       return redirect_to('/admin')
     end

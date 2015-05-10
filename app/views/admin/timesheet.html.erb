@@ -11,7 +11,7 @@
 		<% if flash[:notice] != nil %><tr><td colspan="3"><div class="greenNotice"><%= flash[:notice] %></div></td></tr><% end %>
 		<tr>
 			<td colspan="4">
-				Date: <%= @timesheet.date.to_date.strftime("%B %e, %Y") %><br>
+				Date: <%= Time.parse(@timesheet.date.to_s).strftime("%B %e, %Y") %><br>
 				Employees: <%= @timesheet.employee_timesheets.count %>
 			</td>
 		</tr>

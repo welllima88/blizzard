@@ -80,6 +80,7 @@ class Company
   many :departments
   many :vendors
   many :manufacturers
+  many :coupons
   
   # API Token
   key :api_token, String

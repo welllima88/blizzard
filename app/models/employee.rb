@@ -67,6 +67,7 @@ class Employee
   
   def self.authenticate(company_id, username, password)
     if user = Employee.where(:company_id => company_id, :username => username.downcase).first
+      puts user.to_json
       if user.hashed_password == Digest::SHA2.hexdigest(user.salt + password)
         return user
       end

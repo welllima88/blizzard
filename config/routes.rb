@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   
   # Register
-    match '/', to: 'pos#index', via: [:get, :post]
+   # match '/', to: 'pos#index', via: [:get, :post]
+   
+   match '/', to: 'aurora#index', via: [:get, :post]
   
   # Admin Section
     match '/admin/login', to: 'login#admin_login', via: [:get, :post]

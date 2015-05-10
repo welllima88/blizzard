@@ -105,17 +105,17 @@
 			<table style="width:100%;margin:10px auto 10px auto;">
 				<tr>
 					<td style="text-align:center;color:#ffffff;">
-						<form>
-						<strong>Add Cash To Register</strong><br>
-						<span style="font-size:14px;padding:5px 0;color:#ffffff;">Amount $</span><%= text_field(:addition, :amount, :style => 'font-size:14px;margin:5px 2px;width:100px;padding:3px;')%>
-						<%= submit_tag('Submit Addition', :class => 'btn btn-sm btn-go', :style => 'margin:0px 0 0px 0;', :onclick => 'addCashToRegister()')%>
+						<form id="add-cash-form">
+							<strong>Add Cash To Register</strong><br>
+							<span style="font-size:14px;padding:5px 0;color:#ffffff;">Amount $</span><%= text_field(:addition, :amount, :style => 'font-size:14px;margin:5px 2px;width:100px;padding:3px;')%>
+							<%= submit_tag('Submit Addition', :class => 'btn btn-sm btn-go', :style => 'margin:0px 0 0px 0;', :onclick => 'addCashToRegister()')%>
 						</form>
 					</td>
 					<td style="text-align:center;color:#ffffff;">
-						<form>
-						<strong>Remove Cash From Register</strong><br>
-						<span style="font-size:14px;padding:5px 0;color:#ffffff;">Amount $</span><%= text_field(:withdraw, :amount, :style => 'font-size:14px;margin:5px 2px;width:100px;padding:3px;')%>
-						<%= submit_tag('Submit Withdraw', :class => 'btn btn-sm btn-go', :style => 'margin:0px 0 0px 0;', :onclick => 'removeCashFromRegister()')%>
+						<form id="remove-cash-form">
+							<strong>Remove Cash From Register</strong><br>
+							<span style="font-size:14px;padding:5px 0;color:#ffffff;">Amount $</span><%= text_field(:withdraw, :amount, :style => 'font-size:14px;margin:5px 2px;width:100px;padding:3px;')%>
+							<%= submit_tag('Submit Withdraw', :class => 'btn btn-sm btn-go', :style => 'margin:0px 0 0px 0;', :onclick => 'removeCashFromRegister()')%>
 						</form>
 					</td>
 				</tr>

@@ -1,0 +1,122 @@
+<!-- Login Page -->
+<div class="container hideOnReceipt login-options" id="login-wrapper">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><font style="color:#41bb5b;">EVENDRA</font> LOGIN</h3>
+                </div>
+                <div class="panel-body">
+                    <form onsubmit="event.preventDefault();return try_to_login();">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="employee[company_id]" id="employee_company_id" placeholder="Company ID" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Username" name="employee[username]" id="employee_username" type="text" value="">
+                            </div>
+                            <div class="form-group">
+						
+                                <input class="form-control" placeholder="Password" type="password" name="employee[password]" id="employee_password" type="password" value="">
+                            </div>
+                            
+                            <!-- Change this to a button or input when using this as a form -->
+							<input type="submit" value="Login" class="btn btn-lg btn-success btn-block">
+							<div class="form-group top-buffer">
+        						<a href="/forgot_password" class="btn btn-lg btn-primary btn-block">Forgot Password</a>
+							</div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Select Store -->
+<div class="container hideOnReceipt login-options" id="select-store-wrapper">
+    <div class="row">
+        <h1>Select A Store</h1>
+        <div class="row" id="store-data"></div>
+	</div>
+</div>
+<!-- Select Register -->
+<div class="container hideOnReceipt login-options" id="select_register_wrapper" style="padding-bottom:40px;">
+	<div class="row">
+		<h1>Select A Register</h1>
+		<div style="display:table;width:100%;" class='has-registers'>
+			<h2>Closed Registers</h2>
+			<div id="registerClosedData"></div>
+		</div>
+		<div style="display:table;width:100%;" class='has-registers'>
+			<h2>Open Registers</h2>
+			<div id="registerOpenData"></div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<div id="login-wrapper-old" style="display:none;" class='hideOnReceipt' >
+    
+	
+	
+	
+	
+	
+	
+	
+	<!-- Login Wrapper -->
+    <div id="login_wrapper_old" class="loginPage">
+		<h1><font style="color:#41bb5b;">EVENDRA</font> LOGIN</h1>
+        <div class="notifi"></div>
+		<form onsubmit="event.preventDefault();return tryToLogin();">
+            <table class="login_table" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>Company ID</td>
+                    <td><input type="text" name="employee[company_id]" id="employee_company_id" class="logininput"></td>
+                </tr>
+                
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="employee[username]" id="employee_username" class="logininput"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="employee[password]" id="employee_password" class="logininput"></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;">
+                        <a href="/forgot_password" class="button">Forgot Password</a>
+                    </td>
+                    <td colspan="1" style="text-align:right;">
+                        <input type="submit" value="Login" class="button">
+                     </td>
+                </tr>
+            </table>
+		</form>
+	</div>
+    <!-- Select Store -->
+    <div id="select_store_wrapper" class="loginPage">
+		<div id="login_wrapper_wide">
+            <h1>Select A Store</h1>
+            <div id="storeData"></div>
+        </div>
+	</div>
+    
+    <!-- Open Register -->
+    <div id="open_register_wrapper" class="loginPage">
+		<div id="login_wrapper_wide">
+			<h1>Select A Register</h1>
+			<div style="display:table;width:100%;">
+				<h2>Closed Registers</h2>
+				<div id="registerClosedData"></div>
+			</div>
+			<div style="display:table;width:100%;">
+				<h2>Open Registers</h2>
+				<div id="registerOpenData"></div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -30,7 +30,7 @@
 		<% if [0,1].include?(trans[0].transaction_type) %>
 			<tr id="transaction-<%= parent_id %>" onclick="showentries('<%= parent_id %>')" class="register-log-trans-wrapper">
 				<td><%= trans[0].transaction_type_human %></td>
-				<td><%= number_to_currency trans.select{|t| t.payment_type == 'cash'}.to_a.sum(&:amount) %></td>
+				<td><%= number_to_currency trans.select{|t| t.payment_type == 'cash' || t.payment_type == 'change'}.to_a.sum(&:amount) %></td>
 				<td><%= number_to_currency trans.select{|t| t.payment_type != 'cash' && t.payment_type != 'change'}.to_a.sum(&:amount) %></td>
 				<td><%= trans[0].employee_name %></td>
 				<td><a href="/admin/<%= ['sale','return'][trans[0].transaction_type] %>/<%= parent_id %>"><%= parent_id %></td>

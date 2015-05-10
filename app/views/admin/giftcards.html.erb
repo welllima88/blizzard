@@ -1,0 +1,36 @@
+<div class="row header">
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Active Gift Cards</h4></div>
+	<div class="col-xs-12 col-sm-4 text-right">
+		<div class="btn-group">
+			<a href="/admin/create_gift_card/" class="btn btn-primary icon">New Gift Card</a>
+			<% if params[:status] != 'inactive' %>
+				<a href="/admin/all_giftcards?status=inactive" class="btn btn-primary ">View Depleted Cards</a>
+			<% else %>
+				<a href="/admin/all_giftcards" class="btn btn-primary">View Active Cards</a>
+			<% end %>
+		</div>
+	</div>
+</div>
+<table class="table">
+	<tr>
+		<th >Card Number</th>
+		<th >Card Value</th>
+		<th >Date Purchased</th>
+		<th >Sales (sale id's)</th>
+		<th >Customer Name</th>
+		<th ></th>
+	</tr>
+	<% for c in @cards %>
+	<tr class="<%= cycle('oddrow', 'evenrow') %>">
+		<td ><a href="/admin/view_gift_card/<%= c.card_number %>"><%= c.card_number %></a></td>
+		<td width="120" class="row"><%= number_to_currency c.card_value %></td>
+		<td width="120" class="row"><%= c.issue_date.strftime("%b / %d / %Y") %></td>
+		<td ><%= c.orders.count %></td>
+		<td ><a href="/admin/customer/<%= c.customer_id %>"><%= c.customer_name %></a></td>
+		<td class="text-right"><a href="/admin/view_gift_card/<%= c.card_number %>" class="btn btn-primary btn-sm">View</a></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td colspan="7" class="paginate"><% %></td>
+	</tr>
+</table>

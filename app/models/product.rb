@@ -37,6 +37,10 @@ class Product
   key :sku, Lowercase, :default => ''
   key :ean, Lowercase, :default => ''
   key :m_sku, Lowercase, :default => ''
+  key :pid, String
+  
+  # tags
+  key :tags, Lowercase
   
   # Pricing
   key :cost, Money
@@ -108,11 +112,18 @@ class Product
   
   def calculate_stock    
     self.stock = self.product_inventorys.to_a.sum(&:qty)
-    if (self.stock.to_i + self.on_order.to_i + self.in_transfer.to_i).to_i >= self.reorder_level.to_i
+    if (self.stock.to_i + self.on_order.to_i + self.in_transfer.to_i).to_i > self.reorder_level.to_i
       self.low_stock = 0
     else
       self.low_stock = 1
     end
+    
+    if self.name_changed? || self.ean_changed? || self.upc_changed? || self.sku_changed? || self.m_sku_changed?
+      self.tags = "#{self.name} #{self.id} #{self.upc} #{self.sku} #{self.m_sku} #{self.ean}"
+    end
+    
+    self.tags = "#{self.name} #{self.id} #{self.upc} #{self.sku} #{self.m_sku} #{self.ean}"
+    
   end
   
   def self.remove_inventory(product_id, qty, store_id)
@@ -141,8 +152,5 @@ class Product
     end
   end
   
-  def tags
-    return "#{self.name} #{self.id} #{self.upc} #{self.sku} #{self.m_sku} #{self.ean}"
-  end
   
 end

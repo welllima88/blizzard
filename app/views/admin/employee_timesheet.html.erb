@@ -12,7 +12,7 @@
 <div class="row">
 		<div class="col-sm-6 form-group">
 			<div class="input-group">
-				<span class="input-group-addon">Date</span><%= text_field('timesheet', 'date', :class => 'form-control', :value => @employee_timesheet.date.to_date.to_time.strftime("%B %e, %Y"), :disabled => true)%>
+				<span class="input-group-addon">Date</span><%= text_field('timesheet', 'date', :class => 'form-control', :value => Time.parse(@employee_timesheet.date.to_s).strftime("%B %e, %Y"), :disabled => true)%>
 			</div>
 		</div>
 		<div class="col-sm-6 form-group">

@@ -1,7 +1,7 @@
 class Timesheet
   include MongoMapper::Document
   
-  key :date, String
+  key :date, Integer #YYYYMMDD
   key :store_id, ObjectId
   key :company_id, ObjectId
   
@@ -11,56 +11,76 @@ class Timesheet
   
   # ACTIONS
   
-  Time.zone = 'UTC'
+  Time.zone = 'UTC'  
   
-  def self.find_or_create_time_sheet(store_id, date)
-    timesheet = Timesheet.first(:store_id => store_id, :date => date.to_s)
-    if timesheet == nil
-      timesheet = Timesheet.create!(:company_id => Store.find(store_id).company_id, :store_id => store_id, :date => date.to_s)
+  def self.punch_clock(store_id, utc_time, employee_id)
+    
+    # Find the store
+    store = Store.find(store_id)
+    
+    # Convert Javascript time to Ruby UTC
+    time = Time.at( utc_time ).in_time_zone( store.time_zone )
+    
+    # Find or create a new timesheet
+    timesheet = Timesheet.find_or_create_time_sheet( store, utc_time )
+    
+    # Get employees timesheet
+    employee_timesheet = Timesheet.get_employee_session( time, employee_id, store, timesheet.id )
+    
+    # If there is an open session, close it. If not, open one
+    open_session = employee_timesheet.employee_timesheet_hits.select{|s| s.clock_out == nil}.first
+    if open_session
+      open_session.clock_out = time
+      result = 'Out'
+    else
+      employee_timesheet.employee_timesheet_hits << EmployeeTimesheetHit.new( :clock_in => time )
+      result = 'In'
     end
+    
+    employee_timesheet.save
+    
+    # Return human readable result
+    return result
+    
+  end
+  
+  
+  def self.find_or_create_time_sheet(store, utc_date)
+    
+    # Convert date to YYYYMMDD format in the locations time zone
+    converted_time = Time.at( utc_date ).in_time_zone( store.time_zone ).strftime( '%Y%m%d' ).to_i
+    
+    # Find the open timesheet
+    timesheet = Timesheet.first( :store_id => store.id, :date => converted_time )
+    
+    # If timesheet doesnt exist, create one
+    if !timesheet
+      timesheet = Timesheet.create!( :company_id => store.company_id, :store_id => store.id, :date => converted_time )
+    end
+    puts timesheet.to_json
+    # Return the timesheet
     return timesheet
+    
   end
   
-  def self.punchClock(store_id, date_time, employee_id)
-    Time.zone = Store.find(store_id).time_zone
-    time = Time.zone.parse("#{date_time}")
-    timehseet = Timesheet.find_or_create_time_sheet(store_id, Timesheet.formatDate(date_time))
-    employee_timesheet = Timesheet.get_session(time, employee_id, store_id, timehseet.id)
-    session = employee_timesheet.employee_timesheet_hits.select{|s| s.clock_out == nil}.first
-    if session != nil
-      session.clock_out = time
-      clock = 'Out'
-    else
-      session = EmployeeTimesheetHit.new(:clock_in => time)
-      employee_timesheet.employee_timesheet_hits << session
-      clock = 'In'
-    end
-    if employee_timesheet.save
-      return clock
-    else
-      return false
-    end
-  end
   
-  # HELPERS
-  
-  def self.formatDate(date_time)
-    return "#{date_time[0]}#{date_time[1]}#{date_time[2]}#{date_time[3]}#{date_time[04]}#{date_time[5]}#{date_time[6]}#{date_time[7]}"
-  end
-  
-  def self.get_session(time, employee_id, store_id, timesheet_id)
-    yesterday = (time-1.day).strftime("%Y%m%d")
-    #yesterdays_session = EmployeeTimesheet.first(:date => yesterday, :employee => employee_id)
-     yesterdays_session = EmployeeTimesheet.find_or_new(timesheet_id, employee_id, yesterday, store_id, false)
-    if yesterdays_session != nil
-      session = yesterdays_session.employee_timesheet_hits.select{|s| s.clock_out == nil}.first
-      if session != nil
+  def self.get_employee_session(time, employee_id, store, timesheet_id)
+    
+    # Is there an open sheet from yesterday?
+    yesterday_date = (time-1.day).strftime("%Y%m%d").to_i
+    yesterdays_session = EmployeeTimesheet.find_or_new( timesheet_id, employee_id, yesterday_date, store, false )
+    
+    # If there is a timesheet from yesterday, is there an unclosed session?
+    if yesterdays_session
+      if yesterdays_session.employee_timesheet_hits.select{ |s| s.clock_out == nil }.first
         return yesterdays_session
       end
     end
-    today = EmployeeTimesheet.find_or_new(timesheet_id, employee_id, time.strftime("%Y%m%d").to_s, store_id, true)
-    return today
-  end
     
+    # if there is no closed sessions from yesterday, Return todays
+    return EmployeeTimesheet.find_or_new( timesheet_id, employee_id, time.strftime("%Y%m%d").to_i, store, true )
+    
+  end
   
+    
 end

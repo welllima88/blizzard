@@ -14,8 +14,6 @@ if(localStorage.getItem('dbCoupons') == null){localStorage.setItem('dbCoupons', 
 if(localStorage.getItem('dbTills') == null){localStorage.setItem('dbTills', '[]');}
 dbProducts.load({ data: JSON.parse(localStorage.getItem('dbProducts')) });
 
-
-
 // General Globals
 var currentSale=null;
 var currentReturn=null;
@@ -42,3 +40,7 @@ var globalTaxRate = parseFloat(localStorage.getItem('tax_rate'));
 // Login Globals
 var globalStores = JSON.parse(localStorage.getItem('all_stores'));
 var globalRegisters = JSON.parse(localStorage.getItem('all_registers'));
+
+// Offline Backup
+var offline_backup = JSON.parse(localStorage.getItem('offline_backup'));
+if( offline_backup == null ){ localStorage.setItem('offline_backup',[]); }

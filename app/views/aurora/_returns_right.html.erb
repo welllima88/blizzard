@@ -1,0 +1,56 @@
+<!-- Return Screen -->
+<div id="returnAreaRight" class="">
+	<!-- No Return -->
+	<div id="no_return" class="hideField">
+		<div class="right_box">
+			<center><h2 class="greenHeading">Create a New Return</h2></center>
+			<div class="right_box_padding">
+				<em><strong>If you have a receipt:</strong></em><br>
+				Scan or enter the barcodes receipt into the "return item" bar to the left<br /><br />
+				<em><strong>If you DO NOT have a receipt</strong></em><br>
+				Scan the items you would like to return in the "return item" bar to the left
+			</div>
+		</div>
+	</div>
+	<!-- Active Return -->
+	<div id="current_return" class="hideField">
+		<div style="margin-left:10px;"><a onClick="cancelReturn()" id="cancelReturnButton" class="btn btn-danger" />Cancel Return</a></div>
+			
+			<div class="right_box">
+				<div class="right_box_padding">
+					<table class="table order-total-table">
+						<tr>
+							<td>ITEMS</td>
+							<td class="text-right return-item-count" id="return_item_count"></td>
+						</tr>
+						<tr>
+							<td>SUB TOTAL</td>
+							<td class="text-right return-subtotal"id="returnSubtotal"></td>
+						</tr>
+						<tr class="no-bottom-border">
+							<td>TAX</td>
+							<td class="text-right return-tax" id="returnTax"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="right-box-highlight">
+					<div class="col-sm-6">TOTAL</div>
+					<div class="col-sm-6 return-total text-right" id="returnTotal"></div>
+				</div>
+			</div>
+			<div class="right_box">
+				<div class="right-box-highlight">
+					<div class="col-sm-6">Due</div>
+					<div class="col-sm-6 return-due text-right" id="returnDue"></div>
+				</div>
+				<center>
+					<div id="RightReturnPaymentButton" class="">
+						<a onclick="returnPaymentScreen();" class="payment_button btn btn-wide">Add Refund Payment</a>
+					</div>
+					<div id="RightReturnCompleteButton" class="hideField">
+						<a onclick="completeReturn();" class="payment_button btn btn-wide">Complete Return</a>
+					</div>
+				</center>
+			</div>
+	</div>
+</div>

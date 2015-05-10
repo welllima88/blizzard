@@ -1,0 +1,356 @@
+<div id="optionsWrapper">
+	<div class="row">
+	
+		<div class="col-sm-4 option-box">
+			<a onclick="logOffStore()" class="btn btn-wide btn-primary">Logout Of Store</a>
+			<h4>This Action Will:</h4>
+			<ul>
+				<li>Logoff this device from the register</li>
+				<li>Logoff this device from the store</li>
+			</ul>
+			<h4>This Action Will Not:</h4>
+			<ul>
+				<li>Logoff The Employee Off</li>
+				<li>Close The Register</li>
+			</ul>
+		</div>
+	
+		<div class="col-sm-4 option-box">
+			<a onclick="auditTill()" class="btn btn-wide btn-primary">Audit Till</a>
+			<h4>This Action Will:</h4>
+			<ul>
+				<li>Verifies The Cash Amount In The Register</li>
+			</ul>
+			<h4>This Action Will Not:</h4>
+			<ul>
+				<li>Close Or Logoff The Register</li>
+			</ul>
+		</div>
+	
+		<div class="col-sm-4 option-box">
+			<a onclick="logOffRegister()" class="btn btn-wide btn-primary">Logout Of Register</a>
+			<h4>This Action Will Not:</h4>
+			<ul>
+				<li>Close The Register</li>
+			</ul>
+		</div>
+	
+		<div class="col-sm-4 option-box">
+			<a onclick="logOffEmployee()" class="btn btn-wide btn-primary">Employee Logout</a>
+			<h4>This Action Will:</h4>
+			<ul>
+				<li>- Logoff The Employee</li>
+			</ul>
+			<h4>This Action Will Not:</h4>
+			<ul>
+				<li>Logoff From The Store</li>
+				<li>Close Or Logoff The Register</li>
+			</ul>
+		</div>
+	
+		<div class="col-sm-4 option-box">
+			<a onclick="closeRegister()" class="btn btn-wide btn-primary">Close Register</a>
+			<h4>This Action Will:</h4>
+			<ul>
+				<li>Close The Register</li>
+				<li>Logoff The Register</li>
+			</ul>
+			<h4>This Action Will Not:</h4>
+			<ul>
+				<li>Logoff The User</li>
+				<li>Logoff The Store</li>
+			</ul>
+		</div>
+	
+		<div class="col-sm-4 option-box">
+			<a onclick="clearRegisterData()" class="btn btn-wide btn-primary">Clear Register Data</a>
+			<h4>This Action Will:</h4>
+			<p>This action will clear all register data with the exception of unsynchronized sales.</p>
+		</div>
+	
+	</div>
+
+
+	<div class="row color-row">
+		<div class="col-sm-4 col-sm-offset-2">
+			<form onsubmit="add_cash_to_register(); return false;">
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon1">$</span>
+					<input type="text" class="form-control" placeholder="10.00" id="addition_amount">
+					<span class="input-group-btn">
+						<input type="submit" class="btn btn-success" name="submit" value="Add Cash To Register" id="submit">
+					</span>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-4">
+			<form onsubmit="remove_cash_from_register(); return false;">
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon1">$</span>
+					<input type="text" class="form-control" placeholder="10.00" id="withdraw_amount">
+					<span class="input-group-btn">
+						<input type="submit" class="btn btn-danger" name="submit" value="Remove Cash From Register" id="submit">
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="optionsWrapper2" style="display:none;">
+	
+	
+	
+	
+	
+<table class="register_options_table" cellspacing="0" cellpadding="20">
+	<tr>
+		<td style="width:29%;padding:2%;vertical-align:top;">
+			<a onclick="logOffStore()" class="btn btn-wide btn-primary">Logout Of Store</a><br>
+			<strong>This Action Does:</strong><br>
+				- Logoff this device from the register<br>
+				- Logoff this device from the store<br><br>
+			<strong>This Action <u>Does NOT</u>:</strong><br>
+				- Logoff The Employee Off<br>
+				- Close The Register
+		</td>
+		<td style="width:29%;padding:2%;vertical-align:top;">
+			<a onclick="auditTill()" class="btn btn-wide btn-primary">Audit Till</a><br>
+			<strong>This Action Does:</strong><br>
+				- Verifies The Cash Amount In The Register<br><br>
+			<strong>This Action <u>Does NOT</u>:</strong><br>
+				- Close Or Logoff The Register<br>
+		</td>
+		<td style="width:29%;padding:2%;vertical-align:top;">
+			<a onclick="loggOffRegister()" class="btn btn-wide btn-primary">Logout Of Register</a><br>
+			This will <strong><u>NOT</u></strong> close the register.<br><br>
+		</td>
+	</tr>
+	<tr>
+		<td style="width:29%;padding:2%;vertical-align:top;">				
+			<a onclick="logOffEmployee()" class="btn btn-wide btn-primary">Employee Logout</a><br>
+			<strong>This Action Does:</strong><br>
+				- Logoff The Employee<br><br>
+			<strong>This Action <u>Does NOT</u>:</strong><br>
+				- Logoff From The Store<br>
+				- Close Or Logoff The Register<br>
+		</td>
+		<td style="width:29%;padding:2%;vertical-align:top;">			
+			<a onclick="closeRegister()" class="btn btn-wide btn-primary">Close Register</a><br>
+			<strong>This Action Does:</strong><br>
+				- Close The Register<br>
+				- Logoff The Register<br><br>
+			<strong>This Action <u>Does NOT</u>:</strong><br>
+				- Logoff The User<br>
+				- Logoff The Store<br>
+		</td>
+		<td style="width:29%;padding:2%;vertical-align:top;">
+			<a onclick="clearRegisterData()" class="btn btn-wide btn-primary">Clear Register Data</a><br>
+			This action will clear all register data with the exception of unsynchronized sales.
+			
+			
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" class="remove_cash_table">
+			<table style="width:100%;margin:10px auto 10px auto;">
+				<tr>
+					<td style="text-align:center;color:#ffffff;">
+						<form>
+						<strong>Add Cash To Register</strong><br>
+						<span style="font-size:14px;padding:5px 0;color:#ffffff;">Amount $</span><%= text_field(:addition, :amount, :style => 'font-size:14px;margin:5px 2px;width:100px;padding:3px;')%>
+						<%= submit_tag('Submit Addition', :class => 'btn btn-sm btn-go', :style => 'margin:0px 0 0px 0;', :onclick => 'addCashToRegister()')%>
+						</form>
+					</td>
+					<td style="text-align:center;color:#ffffff;">
+						<form>
+						<strong>Remove Cash From Register</strong><br>
+						<span style="font-size:14px;padding:5px 0;color:#ffffff;">Amount $</span><%= text_field(:withdraw, :amount, :style => 'font-size:14px;margin:5px 2px;width:100px;padding:3px;')%>
+						<%= submit_tag('Submit Withdraw', :class => 'btn btn-sm btn-go', :style => 'margin:0px 0 0px 0;', :onclick => 'removeCashFromRegister()')%>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="auditTillWrapper" style="display:none;">
+	<table class="table" cellspacing="0" cellpadding="10">
+		<tr>
+			<td colspan="3" class="till_heading"><h2>Register Till</h2></td>
+		</tr>
+		<tr>
+			<td width="33%" valign="top">
+				<table cellspacing="0" cellpadding="0" class="tillInputs">
+					<tr>
+						<td colspan="2">
+							<h3 style="color:#000000;">
+								Loose Change
+							</h3>
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Pennies</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_a" id="qty_item_a" value="0" />
+							<input type="hidden" name="price_item_a" value ="0.01">
+							<input type="hidden" name="total_item_a" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Nickels</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_b" id="qty_item_b" value="0" />
+							<input type="hidden" name="price_item_b" value ="0.05">
+							<input type="hidden" name="total_item_b" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Dimes</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_c" id="qty_item_c" value="0" />
+							<input type="hidden" name="price_item_c" value ="0.10">
+							<input type="hidden" name="total_item_c" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Quarters</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_d" id="qty_item_d" value="0" />
+							<input type="hidden" name="price_item_d" value ="0.25">
+							<input type="hidden" name="total_item_d" value="">
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td width="33%" style="background-color:#eeeeee;" valign="top">
+				<table cellspacing="0" cellpadding="0" class="tillInputs">
+					<tr>
+						<td colspan="2">
+							<h3 style="color:#000000;">
+								Change Rolls
+							</h3>
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Penny Rolls</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_ar" id="qty_item_ar" value="0" />
+							<input type="hidden" name="price_item_ar" value ="0.50">
+							<input type="hidden" name="total_item_ar" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Nickel Rolls</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_br" id="qty_item_br" value="0" />
+							<input type="hidden" name="price_item_br" value ="1.00">
+							<input type="hidden" name="total_item_br" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Dime Rolls</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_cr" id="qty_item_cr" value="0" />
+							<input type="hidden" name="price_item_cr" value ="5.00">
+							<input type="hidden" name="total_item_cr" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">Quarter Rolls</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_dr" id="qty_item_dr" value="0" />
+							<input type="hidden" name="price_item_dr" value ="10.00">
+							<input type="hidden" name="total_item_dr" value="">
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td width="33%" valign="top">
+				<table cellspacing="0" cellpadding="0" class="tillInputs">
+					<tr>
+						<td colspan="2">
+							<h3 style="color:#000000;">
+								Bills
+							</h3>
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">$1's</td>
+						<td>
+						&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_1" id="qty_item_1" value="0" />
+							<input type="hidden" name="price_item_1" value ="1">
+							<input type="hidden" name="total_item_1" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">$5's</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_2" id="qty_item_2" value="0" />
+							<input type="hidden" name="price_item_2" value="5">
+							<input type="hidden" name="total_item_2" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">$10's</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_3" id="qty_item_3" value="0" />
+							<input type="hidden" name="price_item_3" value ="10">
+							<input type="hidden" name="total_item_3" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">$20's</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_4" id="qty_item_4" value="0" />
+							<input type="hidden" name="price_item_4" value ="20">
+							<input type="hidden" name="total_item_4" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">$50's</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_5" id="qty_item_5" value="0" />
+							<input type="hidden" name="price_item_5" value ="50">
+							<input type="hidden" name="total_item_5" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="till-label">$100's</td>
+						<td>
+							&nbsp;&nbsp;<input type="text" class="open_denom form-control" name="qty_item_6" id="qty_item_6" value="0" />
+							<input type="hidden" name="price_item_6" value ="100">
+							<input type="hidden" name="total_item_6" value="">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="auditTillBottom" valign="top">
+				<div style="float:left;color:#000;margin:10px 15px 10px 0;">
+					<table cellspacing="5" cellpadding="0" style="color:#000;">
+						<tr>
+							<td>Accounted For:</td>
+							<td>
+								<div class="input-group">
+								      <label class="sr-only" for="exampleInputEmail2">Email address</label>
+								      <div class="input-group-addon">$</div>
+								      <input type="text" name="verify_till_amount" id="verify_till_amount" value="0.00" class="form-control" />
+								    </div>
+								  </div>
+								
+								
+								</td>
+						</tr>
+					</table>
+				</div>
+				<div style="float:right;width:text-align:right;margin:15px 15px 15px 0;">
+					<a onclick="submit_till_verification()" class='btn btn-success'>Submit Verification</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

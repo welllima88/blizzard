@@ -1,0 +1,25 @@
+<!-- Return Screen -->
+<div id="returnArea">
+	<form accept-charset="UTF-8" action="" method="" onsubmit="return false;">
+	<table class="scan_box" cellspacing="0" cellpadding="10" >
+		<tr>
+			<td class="text-right scan-td">RETURN ITEM:</td>
+			<td><input class="form-control" type="text" id="returnScanField" name="returnScanField" /></td>
+			<td class="qty-text-td">QTY:</td>
+			<td class="qty-field-td"><input type="text" id="returnQty" class="form-control qty_box" value="1" /></td>
+			<td class="submit-td"><input class="btn btn-primary" name="commit" type="submit" value="ENTER" onclick="addToReturn(null, null)" /></td>
+		</tr>
+	</table>
+	</form>
+	<!-- Line Items -->
+	<div class="row" id="return_items_wrapper">
+		<div class="col-sm-12">
+			<div class="return_line_items_wrapper">
+				<table class="return_line_items" id="return_line_items"></table>
+			</div>
+			<div class="origional_line_items_wrapper">
+				<table style="width:100%" class="origionalLineItems" id="origionalLineItems"></table>
+			</div>
+		</div>
+	</div>
+</div>

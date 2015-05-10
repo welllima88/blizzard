@@ -1,0 +1,45 @@
+<div id="returnReceiptWrapper">
+	<h1 class="text-center">Return Receipt</h1>
+	<h2 class="companyNameReturn text-center"></h2>
+	<p class="storeAddressReturn text-center"></p>
+	<table class="returnReceiptProductList receiptProductList">
+		<tr>
+			<td><strong>PRODUCT NAME</strong></td>
+			<td><strong>PRICE</strong></td>
+		</tr>
+		<tr><td colspan="2" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
+		<tbody id="innerReturnReceiptProductList">
+			<!-- Line Items Here -->
+		</tbody>
+		<tr>
+			<td colspan="1" style="text-align:right;"><strong>SUBTOTAL</strong></td>
+			<td class="returnReceiptSubTotal">$</td>
+		</tr>
+		<tr>
+			<td colspan="1" style="text-align:right;"><strong>TAX</strong></td>
+			<td class="returnReceiptTax"></td>
+		</tr>
+		<tr>
+			<td colspan="1" style="text-align:right;"><strong>TOTAL</strong></td>
+			<td class="returnReceiptTotal"></td>
+		</tr>
+		<tr><td colspan="2" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
+		<tr>
+			<td colspan="1" style="text-align:right;"><strong>CASH</strong></td>
+			<td class="returnReceiptCash"></td>
+		</tr>
+		<tr>
+			<td colspan="1" style="text-align:right;"><strong>CREDIT CARD</strong></td>
+			<td class="returnReceiptCreditCard"></td>
+		</tr>
+		<tr>
+			<td colspan="1" style="text-align:right;"><strong>GIFT CARD</strong></td>
+			<td class="returnReceiptGiftCard"></td>
+		</tr>
+		<tr><td colspan="2" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
+	</table>
+	<div id="barcodeArea" style="width:100%;text-align:center;padding:15px 0 15px 0;">
+		<div class="barcode128h" id="returnbarcode"></div><br>
+		<div id="returnReceiptBarCodeId"></div>
+	</div>
+</div>

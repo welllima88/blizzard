@@ -4,7 +4,7 @@ class EmployeeTimesheetHit
   
   key :clock_in, UtcTime
   key :clock_out, UtcTime
-  key :total, Money
+  key :total, Money, :default => 0.00
   
   # ACTIONS
   

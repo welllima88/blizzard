@@ -1,0 +1,2 @@
+module PaymentApiHelper
+end

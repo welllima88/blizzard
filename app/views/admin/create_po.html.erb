@@ -1,7 +1,14 @@
-<%= form_tag(:action => 'create_po') do %>
-<div style="display:block;border:10px solid #cccccc;padding:10px;width:1060px;text-align:center;background-color:#f1f1f1;padding:20px;">
-	Select A Vendor: <%= 
-	collection_select(:vendor, :id, @vendors, :id, :name, :prompt => true)
-	 %>
-	<%= submit_tag("Create PO", :class => 'submit_button', :style=>'margin-left:20px;')%><% end %>
+<div class="row shadded-bg" style="padding:10px;">
+	<% if @vendors.count > 0 %>
+		<%= form_tag(:action => 'create_po') do %>
+			<div class="col-sm-6 text-right" style="padding:6px 0 0 0;">
+				<label>Select A Vendor:</label> <%= collection_select(:vendor, :id, @vendors, :id, :name, :prompt => true, :class => 'form-control') %>
+			</div>
+			<div class="col-sm-6">
+				<%= submit_tag("Create PO", :class => 'btn btn-primary', :style=>'margin-left:20px;')%>
+			</div>
+		<% end %>
+	<% else %>
+		<div class="col-sm-12 text-center">No Vendors Found</div>
+	<% end %>
 </div>

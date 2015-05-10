@@ -25,7 +25,9 @@
 		    <script src="/assets/metisMenu.min.js"></script>
 		    <script src="/assets/sb-admin-2.js"></script>
 			
-			<script type="text/javascript" charset="utf-8">$(document).ready(function(){ <%= @section.html_safe unless !@section %> });</script>
+			<script type="text/javascript" charset="utf-8">
+				$(document).ready(function(){ <%= @section.html_safe unless !@section %> });
+			</script>
 
 		    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,10 +38,13 @@
 			
 			<!-- Show Section -->
 			<script type="text/javascript">
+			
 				function showSectionNew(section, sub){  
 					$('.section-'+section).addClass('active');
 					$('.section-'+section).children('ul').addClass('in');
-					$('.sub-'+section+'-'+sub).children('a').addClass('active'); }
+					$('.sub-'+section+'-'+sub).children('a').addClass('active'); 
+				}
+				
 			</script>
 
 	</head>
@@ -56,7 +61,7 @@
 	                    <span class="icon-bar"></span>
 	                    <span class="icon-bar"></span>
 	                </button>
-	                <a class="navbar-brand" href="index.html">EVENDRA</a>
+	                <a class="navbar-brand" href="/admin">EVENDRA</a>
 	            </div>
 	            <!-- /.navbar-header -->
 
@@ -278,7 +283,7 @@
 	                            </div>
 	                            <!-- /input-group -->
 	                        </li>
-	                        <li>
+	                        <li class='section-Dashboard'>
 	                            <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
 	                        </li>
 	                        <li class='section-Sales'>
@@ -301,41 +306,41 @@
 									<li><a href="/admin/vendors" id="subInventoryVendors">Vendors</a></li>	
 	                            </ul>
 	                        </li>
-	                        <li>
+	                        <li class="section-Customers">
 	                            <a href="/admin/customers"><i class="fa fa-users fa-fw"></i> Customers</a>
 	                        </li>
-	                        <li>
+	                        <li class="section-Employees">
 	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Employees<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
-	                                <li><a href="/admin/employees" id="subEmployeesEmployees">Employees</a></li>
+	                                <li class="section-Employees-Employees"><a href="/admin/employees" id="subEmployeesEmployees">Employees</a></li>
 									<li><a href="/admin/timesheets" id="subEmployeesTimesheets">Timesheet's</a></li>
 								</ul>
 	                        </li>
-	                        <li>
+	                        <li class="section-Stores">
 	                            <a href="#"><i class="fa fa-bank fa-fw"></i> Stores<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<li><a href="/admin/stores" id="subStoresStores">Stores</a></li>
 									<li><a href="/admin/add_store" id="subStoresAddStore">Add Store</a></li>
 								</ul>
 	                        </li>
-	                        <li>
+	                        <li class="section-Marketing">
 	                            <a href="#"><i class="fa fa-thumbs-o-up fa-fw"></i> Marketing<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<li><a href="/admin/coupons" id="subMarketingCoupons">Coupons</a></li>
 									<li><a href="/admin/add_coupon" id="subMarketingAddCoupon">Add Coupon</a></li>
 								</ul>
 	                        </li>
-	                        <li>
+	                        <li class="section-Reports">
 	                            <a href="/admin/sales_report"><i class="fa fa-bar-chart-o fa-fw"></i> Reports</a>
 	                        </li>
-	                        <li>
+	                        <li class="section-Settings">
 	                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<li><a href="/admin/settings" id="subMarketingCoupons">Account Settings</a></li>
 									<li><a href="/admin/email_settings" id="subSettingsEmailSettings">Email Settings</a></li>
 								</ul>
 	                        </li>
-							<li><a href="/admin/merchant_services"><i class="fa fa-credit-card fa-fw"></i> Credit Card Processing</a></li>
+							<li class="section-Stores"><a href="/admin/merchant_services"><i class="fa fa-credit-card fa-fw"></i> Credit Card Processing</a></li>
 	                    </ul>
 	                </div>
 	                <!-- /.sidebar-collapse -->

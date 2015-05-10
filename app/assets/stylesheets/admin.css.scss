@@ -14,7 +14,7 @@ $light-blue:#3f94cc;
 	.table{font-size:14px;}
 	.table th{background-color: #eeeeee;}
 	.table tr.noborder td{border-color:transparent;}
-	.table tr h3{padding: 5px 0;margin: 0;font-size: 20px;font-weight: 300;}
+	.table tr h3{padding:0;margin: 0;font-size: 20px;font-weight: 300;}
 	.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group{height:34px;}
 	
 	.top-buffer{margin-top:30px;}
@@ -313,3 +313,19 @@ a{color:#2d4250;}
 	#create_stock_transfer_main{
 		.text-right, .text-only{padding-top:15px;font-size:15px;}
 	}
+	
+	
+	
+	
+	
+// Responsive
+
+@media screen and (max-width: 1400px){
+	
+	.table{ font-size:13px; }
+	
+}	
+
+
+.returnReceiptProductList{width:100%;}
+

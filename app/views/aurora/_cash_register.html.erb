@@ -1,0 +1,40 @@
+<!-- POS Screen -->
+<div id="posArea">
+	<form accept-charset="UTF-8" action="" method="" onsubmit="return false;" class="noSubmitForm">
+	<table class="scan_box" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="text-right scan-td">SCAN ITEM:</td>
+			<td><input class="form-control" type="text" id="scanField" name="scanField"/></td>
+			<td class="qty-text-td">QTY:</td>
+			<td class="qty-field-td"><input type="text" id="qty" class="form-control" value="1" /></td>
+			<td class="submit-td">
+				<input class="btn btn-primary" name="commit" type="submit" value="ENTER" onclick="addItemToSale(null, null)" />
+			</td>
+		</tr>
+	</table>
+	</form>
+	<!-- Line Items -->
+	<table class="line_items">
+		 <tr style="background-color:#eee;">
+			<td class="line_heading"><strong>PRODUCT NAME:</strong></td>
+			<td class="line_heading hidden-sm hidden-xs"><strong>SKU:</strong></td>
+			<td class="line_heading" style="max-width:110px;"><strong>PRICE:</strong></td>
+			<td class="line_heading" style="max-width:130px;"><strong>QTY:</strong></td>
+			<td class="line_heading"><strong>TOTAL:</strong></td>
+			<td class="line_heading" width="95">&nbsp;</td>
+		</tr>
+		<tbody id="register_line_items"></tbody>
+	</table>
+</div>
+<!-- Item Search Screen -->
+<div id="itemSearch" class="hideField">
+	<input type="button" value="Back to Register" onclick="hideItemSearch();" class="btn btn-primary" style="margin:0 0 10px 0;">
+	<table class="table" id="itemSearchItems">
+		<tr>
+			<th>Name</th>
+			<th>Price</th>
+			<th></th>
+		</tr>
+		<tbody id="item-search-items"></tbody>
+	</table>
+</div>

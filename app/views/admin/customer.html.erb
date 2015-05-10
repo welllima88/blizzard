@@ -55,15 +55,15 @@
 		</table>
 	</div>
 	<div class="col-xs-12 col-sm-4">
-		<h4 class="lightBg row-buffer" style="margin:0;">Other Information</h4>
-		<table class="table" style="text-align:center;font-size:18px;color:#000000;background-color:#ffffff;margin:0;padding:0;">
+		<table class="table">
+			<tr><th colspan="2"><h3 class="lightBg row-buffer" style="margin:0;">Other Information</h3></th></tr>
 			<tr>
 				<td width="50%">Points</td>
 				<td width="50%">Point Value</td>
 			</tr>
 			<tr>
 				<td style="font-size:22px"><%= @customer.points %></td>
-				<td style="font-size:22px"><%= number_to_currency @customer.points*@customer.company.point_value %></td>
+				<td style="font-size:22px"><%= number_to_currency @customer.points*@customer.company.point_value.to_i %></td>
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp;</td>

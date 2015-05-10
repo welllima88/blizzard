@@ -1,0 +1,290 @@
+<div class="col-lg-4 col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-comments fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div class="huge">26</div>
+                    <div>New Comments!</div>
+                </div>
+            </div>
+        </div>
+        <a href="#">
+            <div class="panel-footer">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="col-lg-4 col-md-6">
+    <div class="panel panel-green">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-money fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div class="huge">$5,423</div>
+                    <div>Todays Revenue</div>
+                </div>
+            </div>
+        </div>
+        <a href="#">
+            <div class="panel-footer">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="col-lg-4 col-md-6">
+    <div class="panel panel-red">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-shopping-cart fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div class="huge">124</div>
+                    <div>Todays Sales</div>
+                </div>
+            </div>
+        </div>
+        <a href="/admin/sales">
+            <div class="panel-footer">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+	<div class="col-sm-12">
+		<div id="chartcontainer"></div>
+	</div>
+</div>
+<!-- /.col-lg-4 -->
+
+
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/assets/raphael-min.js"></script>
+    <script src="/assets/morris.min.js"></script>
+    <script src="/assets/highcharts.js"></script>
+	
+	
+	
+	<script type="text/javascript">	
+
+	$(function () {
+	        $('#chartcontainer').highcharts({
+	            chart: {
+	                type: 'spline',
+	                marginRight: 130,
+	                marginBottom: 25
+	            },
+	            title: {
+	                text: 'Weekly Income Chart',
+	                x: -20 //center
+	            },
+            
+	            xAxis: {
+	                categories: ['<%= (Date.today-6.days).strftime("%a %h %d") %>', '<%= (Date.today-5.days).strftime("%a %h %d") %>', '<%= (Date.today-4.days).strftime("%a %h %d") %>', '<%= (Date.today-3.days).strftime("%a %h %d") %>', '<%= (Date.today-2.days).strftime("%a %h %d") %>', '<%= (Date.today-1.days).strftime("%a %h %d") %>', '<%= Date.today.strftime("%a %h %d") %>']
+	            },
+	            yAxis: {
+	                title: {
+	                    text: 'Dollars ($)'
+	                },
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
+	            },
+	            tooltip: {
+	                valuePrefix: '$'
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'top',
+	                x: -10,
+	                y: 100,
+	                borderWidth: 0
+	            },
+				<% puts "SUBTOTAL: " + number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-6.days}") && o.created_at <= Time.parse("#{Date.today-5.days}")}.first.to_json) %>
+	            series: [{
+	                name: 'Revenue',
+	                data: [<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-6.days}") && o.created_at <= Time.parse("#{Date.today-5.days}")}.to_a.sum(&:subtotal), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-5.days}") && o.created_at <= Time.parse("#{Date.today-4.days}")}.to_a.sum(&:total), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-4.days}") && o.created_at <= Time.parse("#{Date.today-3.days}")}.to_a.sum(&:total), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-3.days}") && o.created_at <= Time.parse("#{Date.today-2.days}")}.to_a.sum(&:total), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-2.days}") && o.created_at <= Time.parse("#{Date.today-1.days}")}.to_a.sum(&:total), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-1.days}") && o.created_at <= Time.parse("#{Date.today}")}.to_a.sum(&:total), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today}") && o.created_at <= Time.parse("#{Date.today+1.days}")}.to_a.sum(&:total), :precision => 2) %>]
+	            }, {
+	                name: 'Net Profit',
+	                data: [<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-6.days}") && o.created_at <= Time.parse("#{Date.today-5.days}")}.to_a.sum(&:subtotal), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-5.days}") && o.created_at <= Time.parse("#{Date.today-4.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-4.days}") && o.created_at <= Time.parse("#{Date.today-3.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-3.days}") && o.created_at <= Time.parse("#{Date.today-2.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-2.days}") && o.created_at <= Time.parse("#{Date.today-1.days}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today-1.days}") && o.created_at <= Time.parse("#{Date.today}")}.to_a.sum(&:net_profit), :precision => 2) %>,
+					<%= number_with_precision(@chart_sales.select{|o| o.created_at >= Time.parse("#{Date.today}") && o.created_at <= Time.parse("#{Date.today+1.days}")}.to_a.sum(&:net_profit), :precision => 2) %>]
+	            }]
+	        });
+	    });
+	
+	
+		Highcharts.theme = {
+		   colors: ["#0097cf", "#32bf00"],
+		   chart: {
+		      backgroundColor: '#f1f1f1',
+		      borderWidth: 0,
+		      borderRadius: 15,
+		      plotBackgroundColor: null,
+		      plotShadow: false,
+		      plotBorderWidth: 0
+		   },
+		   title: {
+		      style: { 
+		         color: '#000',
+		         font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+		      }
+		   },
+		   subtitle: {
+		      style: { 
+		         color: '#DDD',
+		         font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+		      }
+		   },
+		   xAxis: {
+		      gridLineWidth: 0,
+		      lineColor: '#dddddd',
+		      tickColor: '#dddddd',
+		      labels: {
+		         style: {
+		            color: '#333',
+		            fontWeight: 'normal'
+		         }
+		      },
+		      title: {
+		         style: {
+		            color: '#333',
+		            font: 'normal 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+		         }            
+		      }
+		   },
+		   yAxis: {
+		      alternateGridColor: null,
+		      minorTickInterval: null,
+		      gridLineColor: '#ccc',
+		      lineWidth: 0,
+		      tickWidth: 0,
+		      labels: {
+		         style: {
+		            color: '#333',
+		            fontWeight: 'normal'
+		         }
+		      },
+		      title: {
+		         style: {
+		            color: '#333',
+		            font: 'normal 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+		         }            
+		      }
+		   },
+		   legend: {
+		      itemStyle: {
+		         color: '#333'
+		      },
+		      itemHoverStyle: {
+		         color: '#333'
+		      },
+		      itemHiddenStyle: {
+		         color: '#333'
+		      }
+		   },
+		   labels: {
+		      style: {
+		         color: '#CCC'
+		      }
+		   },
+		   tooltip: {
+		      backgroundColor: '#f1f1f1',
+		      borderWidth: 0,
+		      style: {
+		         color: '#000'
+		      }
+		   },
+
+
+		   plotOptions: {
+		      line: {
+		         dataLabels: {
+		            color: '#CCC'
+		         },
+		         marker: {
+		            lineColor: '#fff'
+		         }
+		      },
+		      spline: {
+		         marker: {
+		            lineColor: '#fff'
+		         }
+		      },
+		      scatter: {
+		         marker: {
+		            lineColor: '#fff'
+		         }
+		      },
+		      candlestick: {
+		         lineColor: 'white'
+		      }
+		   },
+
+		   toolbar: {
+		      itemStyle: {
+		         color: '#CCC'
+		      }
+		   },
+
+		   navigation: {
+		      buttonOptions: {
+		         backgroundColor: {
+		            linearGradient: [0, 0, 0, 20],
+		            stops: [
+		               [0.4, '#606060'],
+		               [0.6, '#333333']
+		            ]
+		         },
+		         borderColor: '#000000',
+		         symbolStroke: '#C0C0C0',
+		         hoverSymbolStroke: '#FFFFFF'
+		      }
+		   },
+
+		   exporting: {
+		      buttons: {
+		         exportButton: {
+		            symbolFill: '#55BE3B'
+		         },
+		         printButton: {
+		            symbolFill: '#7797BE'
+		         }
+		      }
+		   }
+		};
+
+		// Apply the theme
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+    
+    
+	</script>

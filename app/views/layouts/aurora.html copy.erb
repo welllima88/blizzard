@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<!-- Meta -->
+			<title>Evendra Point of Sale</title>
+			<meta type="description" content="Cloud Point of Sale">
+			<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=yes, minimum-scale=1.0, maximum-scale=1.0">
+			
+			
+		<!-- CSS -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+			<%= stylesheet_link_tag 'aurora' %>
+			<link rel="stylesheet" href="/font-awesome-4.1.0/css/font-awesome.min.css">
+			
+		<!-- Javascripts -->
+			<%= javascript_include_tag 'jquery2' %>
+			<script type="text/javascript"> var aurora_worker = new Worker('/assets/aurora_worker.js'); </script>
+			<%= javascript_include_tag 'jsormdb', 'database', 'aurora', 'aurora_display', 'aurora_barcode', 'aurora_orders', 'aurora_order_returns', 'alert' %>
+		
+		<!-- CSRF Tag -->
+			<%= csrf_meta_tag %>
+			
+			
+		<!-- Local Storage Assets -->
+			<!-- <script type="text/javascript" charset="utf-8" src="/pos/localStorage.js"></script> -->
+		
+		<!-- Printing CSS -->
+			<style type="text/css" media="print">
+			
+				@media print{      
+					.page{display:none !important;}
+					.page.active{display:block !important;}
+					#overlay, #alertBoxBg, #alertBox, #processingAlert, #content-modul, .header, .info-bar, .hideOnReceipt{display:none !important;}
+				
+					#receiptWrapper h1, #receiptWrapper p{text-align:center;}
+
+					.receiptProductList{
+					    width:100%;
+					    font-size:1.5rem;
+					}
+
+					.receiptProductList td {
+					  padding-right: 0.8rem;
+					  vertical-align:top;
+					}
+
+					.receiptProductList td strong{
+					  padding:0 0 1rem 0;
+					  display:block;
+					}
+
+					#innerReceiptProductList td{
+					  padding:1rem 0;
+					}
+
+					.receiptProductList .divider{
+					  border-top:0.1rem solid #000;
+					  padding:1rem 0 0 0;
+					}
+				
+					.barcode128h  {
+					    clear: both;
+					    padding: 0 3rem /*quiet zone*/;
+					    overflow: auto;
+					    height: 10rem   /*size*/;
+					}
+					.barcode128h div {
+					    /*float: left;*/
+					    height: 10rem  /*size*/;
+					    display: inline-block;
+					}
+					.barcode128h .bar1 { border-left: 0.1rem solid black }
+					.barcode128h .bar2 { border-left: 0.2rem solid black }
+					.barcode128h .bar3 { border-left: 0.3rem solid black }
+					.barcode128h .bar4 { border-left: 0.4rem solid black }
+					.barcode128h .space0 { margin-right: 0.0rem }
+					.barcode128h .space1 { margin-right: 0.1rem }
+					.barcode128h .space2 { margin-right: 0.2rem }
+					.barcode128h .space3 { margin-right: 0.3rem }
+					.barcode128h .space4 { margin-right: 0.4rem }
+				
+				
+				}
+			
+			</style>
+	
+	</head>
+	<body>
+		
+		<!-- Login Page -->
+		<div id="overlay"><h1>EVENDRA</h1></div>
+		<div id="content-all">
+			<div id="wrapper">
+				<!-- Login Page -->
+		
+				<!-- Alert Box -->
+				<div id="alertBoxBg"></div>
+				<div id="alertBox">
+					<div id="alertContent"></div>
+					<div id="closeAlert" class="btn btn-danger">Close</div>
+				</div>
+				
+				<!-- Processing Alert -->
+				<div id="processingAlert" class="hideOnReceipt">
+					<div style="float:left;"><img src="/assets/processing.gif"></div>
+					<div style="float: left;padding: 64px 0 0 0;font-size: 26px;text-align:center;">Processing...</div>
+				</div>
+				
+				<!-- Content Modul -->
+				<div id="content-modul">
+					<!-- New Customer -->
+						<form id="new-customer">
+							<div class="row">
+								<div class="col-sm-12"><h2>New Customer</h2></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6"><b>First Name</b><input type="text" id="customer_first_name" class="form-control"></div>
+								<div class="col-sm-6"><b>Last Name</b><input type="text" id="customer_last_name" class="form-control"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6"><b>Email Address</b><input type="text" id="customer_email" class="form-control"></div>
+								<div class="col-sm-6"><b>Phone Number</b><input type="text" id="customer_phone" class="form-control"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12"><b>Address</b><input type="text" id="customer_address" class="form-control"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6"><b>City</b><input type="text" id="customer_city" class="form-control"></div>
+								<div class="col-sm-6"><b>State</b><input type="text" id="customer_state" class="form-control"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6"><b>Zipcode</b><input type="text" id="customer_zip" class="form-control"></div>
+							</div>
+							<div class="row controls">
+								<div class="col-sm-6"><a onclick="cancel_new_customer();" class="btn btn-danger"><i class="fa fa-times"></i> Cancel</a></div>
+								<div class="col-sm-6 text-right"><a onclick="add_new_customer();" class="btn btn-success"><i class="fa fa-user-plus"></i> Add</a></div>
+							</div>
+						</form>
+					
+				</div>
+			
+				<!-- Cash Register -->
+		
+				<div class="container-fluid" id="pos-wrapper">
+					<div class="header row">
+						<div class="col-lg-7 col-md-7 col-sm-8 ">
+							<a onclick="showPage('cashRegisterPage');" id="cashRegisterPageButton" class="topBarButton"><i class="fa fa-shopping-cart"></i> Register</a>
+							<a onclick="showPage('returnsPage');" id="returnsPageButton" class="topBarButton"><i class="fa fa-reply"></i> Returns</a>
+							<a onclick="showPage('timesheetPage');" id="timesheetPageButton" class="topBarButton"><i class="fa fa-clock-o"></i> Timesheet</a>
+							<a onclick="showPage('optionsPage');" id="optionsPageButton" class="topBarButton"><i class="fa fa-gear"></i> Options</a>
+						</div>
+						<div class="col-lg-5 col-md-5 col-sm-4 text-right">
+							<a href="/admin"><i class="fa fa-tachometer"></i> Admin Panel</a>
+						</div>
+						<div class="sidebar-nav navbar-collapse pull-right">
+							<div class="blocking-page"></div>
+							<div class="page" id="cashRegisterPage-right"><%= render "cash_register_right" %></div>
+							<div class="page" id="paymentScreenPage-right"><%= render "paymentScreen_right" %></div>
+							<div class="page" id="receiptScreenPage-right"><%= render "receiptScreen_right" %></div>
+							<div class="page" id="suspendedScreen-right"><%= render "suspended_sales_right" %></div>
+							<div class="page" id="returnsPage-right"><%= render "returns_right" %></div>
+							<div class="page" id="returnsPaymentPage-right"><%= render "returnsPayment_right" %></div>
+							<div class="page" id="returnReceiptScreenPage-right"><%= render "returnReceipt_right" %></div>
+							<div class="page" id="timesheetPage-right"><%= render "timeSheet_right" %></div>
+							<div class="page" id="optionsPage-right"><%= render "options_right" %></div>
+						</div>
+					</div>
+					<div id="page-wrapper">
+						<div class="info-bar">
+							<div class="col-sm-3">
+								<b>Company</b><p id="companyName"></p>
+							</div>
+							<div class="col-sm-3">
+								<b>Store</b><p id="storeName"></p>
+							</div>
+							<div class="col-sm-3">
+								<b>Register</b><p id="registerName"></p>
+							</div>
+							<div class="col-sm-3">
+								<b>Employee</b><p id="employeeName"></p>
+							</div>
+						</div>
+						<div class="blocking-page"></div>
+						<div class="page" id="cashRegisterPage"><%= render "cash_register" %></div>
+						<div class="page" id="paymentScreenPage"><%= render "paymentScreen" %></div>
+						<div class="page" id="receiptScreenPage"><%= render "receiptScreen" %></div>
+						<div class="page" id="suspendedScreen"><%= render "suspended_sales" %></div>
+						<div class="page" id="returnsPage"><%= render "returns" %></div>
+						<div class="page" id="returnsPaymentPage"><%= render "returnsPayment" %></div>
+						<div class="page" id="returnReceiptScreenPage"><%= render "returnReceipt" %></div>
+						<div class="page" id="timesheetPage"><%= render "timeSheet" %></div>
+						<div class="page" id="optionsPage"><%= render "options" %></div>
+					</div>
+				</div>
+		
+			</div>
+		</div>
+		
+		<%= render "login" %>
+	</body>
+</html>

@@ -50,22 +50,24 @@ class Register
     self.save
   end
   
-  def addToTill(employee_id, employee_name, amount, current_till, timestamp)
+  def addToTill(employee_id, employee_name, amount, current_till, timestamp, id)
     # Called from: sync controller
-    RegisterLog.register_transaction(nil, self.id, amount, nil, employee_id, employee_name, "add#{Time.now.to_i}reg#{self.id}", current_till, 2, timestamp)
+    RegisterLog.register_transaction(nil, self.id, amount, nil, employee_id, employee_name, id, current_till, 2, timestamp)
     self.till = current_till
     self.save
+    return { "status" => 1, "new_till" => current_till }
   end
   
-  def removeFromTill(employee_id, employee_name, amount, current_till)
+  def removeFromTill(employee_id, employee_name, amount, current_till, timestamp, id)
     # Called from: sync controller
-    RegisterLog.register_transaction(nil, self.id, amount, nil, employee_id, employee_name, "sub#{Time.now.to_i}reg#{self.id}", current_till, 3, timestamp)
+    RegisterLog.register_transaction(nil, self.id, amount, nil, employee_id, employee_name, id, current_till, 3, timestamp)
     self.till = current_till
     self.save
+    return { "status" => 1, "new_till" => current_till }
   end
   
-  def verifyTill(employee_id, employee_name, amount, current_till, timestamp)
-    RegisterLog.register_transaction(nil, self.id, amount, nil, employee_id, employee_name, "ver#{Time.now.to_i}reg#{self.id}", current_till, 4, timestamp)
+  def verifyTill(employee_id, employee_name, amount, current_till, timestamp, id)
+    RegisterLog.register_transaction(nil, self.id, amount, nil, employee_id, employee_name, id, current_till, 4, timestamp)
     self.till = current_till
     self.save
   end

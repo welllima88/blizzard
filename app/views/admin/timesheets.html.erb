@@ -1,5 +1,7 @@
 <div class="row header">
-	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">Timesheet's</h4></div>
+	<div class="col-xs-12 col-sm-8"><h4 class="productTitle">
+  Timesheet's
+  </h4></div>
 	<div class="col-xs-12 col-sm-4 text-right">
 		<div class="btn-group">
 			
@@ -15,7 +17,7 @@
 		</tr>
 		<% for t in @timesheets %>
 			<tr>
-				<td><%= t.date.to_date.strftime("%B %e, %Y") %></td>
+				<td><%= Time.parse(t.date.to_s).strftime('%b %d, %Y') %></td>
 				<td><%= t.store.name %></td>
 				<td class="text-right"><a href="/admin/timesheet/<%= t.id %>" class="btn btn-sm">View or Edit</a></td>
 			</tr>
