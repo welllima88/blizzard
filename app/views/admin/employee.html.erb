@@ -113,7 +113,7 @@
 	</tr>
 	<% for t in @employee_timesheets %>
 		<tr>
-			<td><%= t.date.to_date.strftime("%B %d, %Y") %></td>
+			<td><%= Time.parse(t.date.to_s).strftime("%B %e, %Y") %></td>
 			<td><%= t.store_name %></td>
 			<td><%= t.hours_worked %></td>
 			<td><%= number_to_currency t.earned %></td>

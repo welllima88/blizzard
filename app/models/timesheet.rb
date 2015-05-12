@@ -18,7 +18,7 @@ class Timesheet
     # Find the store
     store = Store.find(store_id)
     
-    # Convert Javascript time to Ruby UTC
+    # Convert Javascript time to Ruby
     time = Time.at( utc_time ).in_time_zone( store.time_zone )
     
     # Find or create a new timesheet

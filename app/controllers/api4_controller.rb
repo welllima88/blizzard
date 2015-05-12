@@ -92,19 +92,28 @@ class Api4Controller < ApplicationController
   #
   
   def sync_order
-    data = JSON.parse(params[:orderData])
-    data['created_at'] = Time.at(data['created_at'].to_i/1000)
-    order = Order.new(data)
-    order.company_id = @company_id
-    order.status = 1
-    if order.save
-      saved = 1
+    
+    # Convert order data to JSON
+    order_data = JSON.parse( params[:orderData] )
+    
+    # Convert Javascript time to Rails
+    order_data['created_at'] = Time.at( order_data['created_at'].to_i/1000.0 ).in_time_zone( Store.find( order_data['store_id'] ).time_zone )
+    
+    # Set the order status to 1, this needs to be removed in future updates and completed on app
+    order_data['status'] = 1
+    
+    # Try to save order
+    if Order.create!( order_data )
+      response = 1
     else
-      saved = 0
+      response = 0
     end
+    
+    # Respond to App
     respond_to do |format|
-      format.json { render :json => { "status" => saved } }
+      format.json { render :json => { "status" => response } }
     end
+
   end
   
   

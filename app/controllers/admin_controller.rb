@@ -683,7 +683,7 @@ class AdminController < ApplicationController
     checkAdminAccess('employees')
     showSection('Employees', '')
     @employee = Employee.find(params[:id])
-    @employee_timesheets = EmployeeTimesheet.paginate(:employee_id => @employee.id, :page => params[:timesheetPage], :per_page => 6)
+    @employee_timesheets = EmployeeTimesheet.paginate(:employee_id => @employee.id, :page => params[:timesheetPage], :per_page => 6, :order => 'date DESC')
   end
   
   def add_employee
