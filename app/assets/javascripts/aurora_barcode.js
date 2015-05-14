@@ -25,6 +25,7 @@ var fromType128 = {
 };
 
 function code128(code, barcodeType) {
+	code = code.toString();
     if (arguments.length<2)
         barcodeType = code128Detect(code);
     if (barcodeType=='C' && code.length%2==1)

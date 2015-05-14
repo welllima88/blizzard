@@ -260,19 +260,18 @@ class Api4Controller < ApplicationController
   
   def dev
     
-    for timesheet in Timesheet.all()
-      timesheet.date = timesheet.date.to_i
-      timesheet.save
-    end
-    
-    for employee_timesheet in EmployeeTimesheet.all()
-      employee_timesheet.date = employee_timesheet.date.to_i
-      if employee_timesheet.compensation_type == 'hourly'
-        employee_timesheet.compensation_type = 0
-      else
-        employee_timesheet.compensation_type = 1
+    for product in Product.all()
+      on_order = 0
+      purchase_orders = Purchaseorder.all( :status.lte => 2, 'po_items.product_id' => product.id )
+      
+      for purchase_order in purchase_orders
+        purchase_order_item = purchase_order.po_items.select{|i| i.product_id.to_s == product.id.to_s }.first
+        on_order = on_order + ( purchase_order_item.qty.to_i - purchase_order_item.received.to_i ).to_i
       end
-      employee_timesheet.save
+      
+      product.on_order = on_order
+      
+      product.save
     end
     
   end

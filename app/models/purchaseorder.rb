@@ -3,11 +3,10 @@ class Purchaseorder
   include ActionView::Helpers::NumberHelper
   
   before_save :total_up
-  #after_save :all_up
   before_create :change_id
   
   def change_id
-    self._id = "#{Time.now.in_time_zone('UTC').strftime("%y%j%H%M%S")}#{self.vendor_id}"
+    self._id = "#{self.company_id}-#{self.vendor_id}-#{Time.now.to_i}"
   end
   
   key :vendor_id, ObjectId
@@ -159,11 +158,6 @@ class Purchaseorder
     purchase_order.signed_date = Time.now
     purchase_order.status = 1
     purchase_order.save
-    for i in purchase_order.po_items
-      product = Product.find(i.product_id)
-      product.on_order += i.qty.to_i
-      product.save
-    end
     "#{purchase_order.emailed}"
   end
   

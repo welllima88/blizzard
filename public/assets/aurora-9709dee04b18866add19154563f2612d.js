@@ -22,7 +22,23 @@ function check_status(){
 	
 	if( current_user && current_company  && current_store  && current_register ){
 		
-		document.getElementById('companyName').innerHTML = current_company.company_name;
+		// Set Company Name
+		company_names = document.getElementsByClassName('company-name');
+		for( var i = 0; i < company_names.length; i++ ){
+			company_names[i].innerHTML = current_company.company_name;
+		}
+		
+		store_address = document.getElementsByClassName('store-address');
+		for( var a = 0; a < store_address.length; a++ ){
+			store_address[a].innerHTML = current_store.address + '<br>' + current_store.city + ', ' + current_store.state + ' ' + current_store.zip;
+		}
+		
+		store_phones = document.getElementsByClassName('store-phone');
+		for( var p = 0; p < store_phones.length; p++ ){
+			store_phones[p].innerHTML = current_store.phone.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, '$1-$2-$3');
+		}
+		
+		
 		document.getElementById('storeName').innerHTML = current_store.name;
 		document.getElementById('registerName').innerHTML = current_register.name;
 		document.getElementById('employeeName').innerHTML = current_user.first_name + ' ' + current_user.last_name;
@@ -335,51 +351,73 @@ function save_meta_data(){
 	
 	function display_order(){
 		
-		if( current_sale ){
-			document.getElementById('no_order').style.display = 'none';
-			document.getElementById('current_order').style.display = 'block';
-		}else{
+		// If there is not a current sale, reset register
+		if( !current_sale ){
 			document.getElementById('no_order').style.display = 'block';
 			document.getElementById('current_order').style.display = 'none';
 			return reset_register();
 		}
 		
-		item_count_elements = document.getElementsByClassName('order-item_count');
-		order_subtotal_elements = document.getElementsByClassName('order-subtotal');
-		order_tax_elements = document.getElementsByClassName('order-tax');
-		order_total_elements = document.getElementsByClassName('order-total');
-		payment_remaining_elements = document.getElementsByClassName('payment-remaining-field');
+		// Display current sale views
+		document.getElementById('no_order').style.display = 'none';
+		document.getElementById('current_order').style.display = 'block';
 		
-		for( i=0; i<item_count_elements.length; i++){
+		// Display sale data
+		var item_count_elements = document.getElementsByClassName('order-item_count');
+		var order_subtotal_elements = document.getElementsByClassName('order-subtotal');
+		var order_tax_elements = document.getElementsByClassName('order-tax');
+		var order_total_elements = document.getElementsByClassName('order-total');
+		var payment_remaining_elements = document.getElementsByClassName('payment-remaining-field');
+		
+		for( var i = 0; i < item_count_elements.length; i++ ){
 			item_count_elements[i].innerHTML = current_sale.item_count;
 		}
-		for( i=0; i<order_subtotal_elements.length; i++){
-			order_subtotal_elements[i].innerHTML = displayMoney(current_sale.subtotal);
+		for( var n = 0; n < order_subtotal_elements.length; n++ ){
+			order_subtotal_elements[n].innerHTML = displayMoney(current_sale.subtotal);
 		}
-		for( i=0; i<order_tax_elements.length; i++){
-			order_tax_elements[i].innerHTML = displayMoney(current_sale.tax);
+		for( var x = 0; x < order_tax_elements.length; x++ ){
+			order_tax_elements[x].innerHTML = displayMoney(current_sale.tax);
 		}
-		for( i=0; i<order_total_elements.length; i++){
-			order_total_elements[i].innerHTML = displayMoney(current_sale.total);
+		for( var t = 0; t < order_total_elements.length; t++ ){
+			order_total_elements[t].innerHTML = displayMoney(current_sale.total);
 		}
-		for( i=0; i<payment_remaining_elements.length; i++){
-			payment_remaining_elements[i].value = current_sale.amount_due;
+		for( var p = 0; p < payment_remaining_elements.length; p++ ){
+			payment_remaining_elements[p].value = current_sale.amount_due;
 		}
 		
-		if( current_sale.amount_due <= 0.00 ){
+		// If the customer owes an ammount
+		if( money(current_sale.amount_due) <= 0.00 ){
+			
+			// Display the complete sale button
 			document.getElementById('RightPaymentButton').style.display = 'none';
 			document.getElementById('RightCompleteButton').style.display = 'block';
-			$('.due-title').html('CHANGE');
-			$('.amount-due').html(displayMoney(current_sale.amount_due*-1).replace('-',''));
+			
+			// Change amount due to change
+			document.getElementById('due-title').innerHTML = 'CHANGE';
+			
+			
 		}else{
+			
+			// Display the payment button
 			document.getElementById('RightPaymentButton').style.display = 'block';
 			document.getElementById('RightCompleteButton').style.display = 'none';
-			$('.due-title').html('DUE');
-			$('.amount-due').html(displayMoney(current_sale.amount_due));
+			
+			// Change amount change to due
+			document.getElementById('due-title').innerHTML = 'DUE';
+
 		}
 		
-		// Customer
-		if( !current_sale.customer_name ){
+		// Update the amount due
+		document.getElementById('amount-due').innerHTML = displayMoney(current_sale.amount_due);
+		
+		// Update amount due input fields
+		var amount_due_fields = document.getElementsByClassName('payment-remaining-field');
+		for( var f = 0; f < amount_due_fields.length; f++ ){
+			amount_due_fields[f].value = displayMoney(current_sale.amount_due);
+		}
+		
+		// If a customer is attached to this sale show it 
+		if( !current_sale.customer_id ){
 			document.getElementById('customerNameBox').style.display = 'none';
 			document.getElementById('customerSearchBox').style.display = 'block';
 			document.getElementById('add-new-customer-btn').style.display = 'block';
@@ -390,13 +428,42 @@ function save_meta_data(){
 			document.getElementById('customerSearchBox').style.display = 'none';
 		}
 		
-		items = '';
-		for ( n=0; n<current_sale.order_line_items.length; n++ ){
-			if( current_sale.order_line_items[n].sku ){ sku = current_sale.order_line_items[n].sku; }else{ sku = ''; }
-			items += "<tr><td><b>"+ current_sale.order_line_items[n].name +"</b></td><td class='hidden-sm'><b>"+ sku +"</b></td><td width='110' id='" + current_sale.order_line_items[n].product_id + "_price' ondblclick=\"lineItemEditable('price', '" + current_sale.order_line_items[n].product_id + "_price', '"+ current_sale.order_line_items[n].price +"')\"><b>"+ displayMoney(current_sale.order_line_items[n].price) +"</b></td><td style='width:125px;' ondblclick=\"lineItemEditable('qty', '" + current_sale.order_line_items[n].product_id + "_qty', '"+ current_sale.order_line_items[n].qty +"')\" id='" + current_sale.order_line_items[n].product_id + "_qty'><b>"+ current_sale.order_line_items[n].qty +"</b></td><td class='row'><b>"+ displayMoney(current_sale.order_line_items[n].total) +"</b></td><td class='row' width='95'><a class='btn btn-danger btn-line-item' onclick='addItemToSale(\""+ current_sale.order_line_items[n].product_id +"\", -1)' >Remove</a></td></tr>";
+		// Display the line items
+		var line_items_html = ''
+		
+		for ( var k = 0; k < current_sale.order_line_items.length; k++ ){
+			
+			// Set the sku <------------------------------------------------------------------------------------------- Fix this later ---------------------------------------------
+			if( typeof current_sale.order_line_items[k].sku === 'undefined' ){
+				var sku = '';
+			}else{
+				var sku = current_sale.order_line_items[k].sku;
+			}
+			
+			line_items_html += '<tr>';
+			line_items_html +=	'<td>';
+			line_items_html += 		'<b>' + current_sale.order_line_items[k].name + '</b>';
+			line_items_html += 	'</td>';
+			line_items_html += 	'<td class="hidden-sm">';
+			line_items_html += 		'<b>' + sku + '</b>';
+			line_items_html += 	'</td>';
+			line_items_html += 	'<td width="110" id="' + current_sale.order_line_items[k].product_id + '_price" ondblclick="lineItemEditable(\'price\', \'' + current_sale.order_line_items[k].product_id + '_price\', \'' + current_sale.order_line_items[k].price + '\')">';
+			line_items_html += 		'<b>' + displayMoney(current_sale.order_line_items[k].price) + '</b>';
+			line_items_html += 	'</td>';
+			line_items_html += 	'<td style="width:125px;" ondblclick="lineItemEditable(\'qty\', \'' + current_sale.order_line_items[k].product_id + '_qty\', \'' + current_sale.order_line_items[k].qty + '\')" id="' + current_sale.order_line_items[k].product_id + '_qty">';
+			line_items_html += 		'<b>' + current_sale.order_line_items[k].qty + '</b></td><td class="row"><b>' + displayMoney(current_sale.order_line_items[k].total) + '</b>';
+			line_items_html += 	'</td>';
+			line_items_html += 	'<td class="row" width="95">';
+			line_items_html += 		'<a class="btn btn-danger btn-line-item" onclick="addItemToSale(\''+ current_sale.order_line_items[k].product_id +'\', -1)" >Remove</a>';
+			line_items_html += 	'</td>';
+			line_items_html += '</tr>';
 		}
-		document.getElementById('register_line_items').innerHTML = items;
+		
+		document.getElementById('register_line_items').innerHTML = line_items_html;
+		
+		// Reset scan box
 		setTimeout(function(){ resetScanBox(); }, 50);
+		
 	}
 	
 	function resetScanBox(){
@@ -708,12 +775,24 @@ function save_meta_data(){
 	}
 	
 
-	function setPaymentType(type){ // <-- Updated
+	function setPaymentType(type){
 		
 		if( type != currentPaymentType ){ 
 			document.getElementById(currentPaymentType).style.display = 'none';
 			document.getElementById(type).style.display = 'block';
 		}
+		
+		// De active the right buttons
+		document.getElementById('btn-cashPaymentBox').classList.remove('active');
+		document.getElementById('btn-creditCardPaymentBox').classList.remove('active');
+		document.getElementById('btn-giftCardPaymentBox').classList.remove('active');
+		document.getElementById('btn-checkPaymentBox').classList.remove('active');
+		document.getElementById('btn-cashPaymentBox').classList.remove('active');
+		document.getElementById('btn-creditCardPaymentBox').classList.remove('active');
+		
+		// Activate the new button
+		document.getElementById( 'btn-' + type ).classList.add('active');
+		
 		// Type Specific Commands
 		if(type == "creditCardPaymentBox"){ 
 			scanCreditCard();
@@ -873,56 +952,87 @@ function save_meta_data(){
 	}
 	
 	function completeSale(){
-		line_items = '', subtotal = 0, credit_card = 0, gift_card = 0, check = 0, cash = 0.00;change=0;
-		for (i=0;i<current_sale.order_line_items.length;i++){
-			line_items += '<tr><td>( ' + current_sale.order_line_items[i].qty + ' ) ' + current_sale.order_line_items[i].name + '</td><td>' + current_store.currency_code + parseFloat(current_sale.order_line_items[i].price).toFixed(2) + '</td><td>' + current_store.currency_code + parseFloat(current_sale.order_line_items[i].total).toFixed(2) + '</td></tr>';
+		
+		// Reset Variables
+		var line_items = '', subtotal = 0, credit_card = 0, gift_card = 0, check = 0, cash = 0.00;change=0;
+		
+		// Display the line items
+		for ( var i=0; i < current_sale.order_line_items.length; i++ ){
+			
+			line_items += '<div class="col-sm-12 receipt-line-item">';
+			line_items += 	'<div class="row">';
+			line_items += 		'<div class="col-xs-7 item-title">';
+			line_items += 			'( ' + current_sale.order_line_items[i].qty + ' ) ' + current_sale.order_line_items[i].name;
+			line_items += 			'<p>SKU: 34545FDC234234</p>';
+			line_items += 		'</div>';
+			line_items += 		'<div class="col-xs-5 prices text-right">';
+			line_items += 			'<p>' + displayMoney(current_sale.order_line_items[i].price) + ' ea</p>';
+			line_items += 			'<h4>' + displayMoney(current_sale.order_line_items[i].total) + '</h4>';
+			line_items += 		'</div>';
+			line_items += 	'</div>';
+			line_items += '</div>';
+			
 		}
-		for (i=0;i<current_sale.order_payments.length;i++){
-			if (current_sale.order_payments[i].payment_type == 'cash'){
-				cash += parseFloat(current_sale.order_payments[i].amount);
+		
+		document.getElementById('receipt-line-items').innerHTML = line_items;
+		
+		// Display payment type totals
+		for (var n = 0; n < current_sale.order_payments.length; n++ ){
+			if( current_sale.order_payments[n].payment_type == 'cash' ){
+				cash += parseFloat(current_sale.order_payments[n].amount);
 			}
-			if (current_sale.order_payments[i].payment_type == 'credit_card'){
-				credit_card += parseFloat(current_sale.order_payments[i].amount);
+			if( current_sale.order_payments[n].payment_type == 'credit_card' ){
+				credit_card += parseFloat(current_sale.order_payments[n].amount);
 			}
-			if (current_sale.order_payments[i].payment_type == 'gift_card'){
-				gift_card += parseFloat(current_sale.order_payments[i].amount);
+			if( current_sale.order_payments[n].payment_type == 'gift_card' ){
+				gift_card += parseFloat(current_sale.order_payments[n].amount);
 			}
-			if (current_sale.order_payments[i].payment_type == 'check'){
-				check += parseFloat(current_sale.order_payments[i].amount);
+			if( current_sale.order_payments[n].payment_type == 'check' ){
+				check += parseFloat(current_sale.order_payments[n].amount);
 			}
 		}
-		if(money(current_sale.amount_due)<= -0.01){
-			payment_id = (current_sale.id + "P" + current_sale.order_payments.length).toString();
-			current_sale.order_payments.push({id: payment_id, amount: money(current_sale.amount_due).toFixed(2), payment_type: "change", transaction_id: payment_id, authorization_id: ""})
-			adjustTill(current_sale.amount_due);
+		
+		//document.getElementById('receipt-cash').innerHTML = displayMoney(cash);
+		//document.getElementById('receipt-credit-card').innerHTML = displayMoney(credit_card);
+		//document.getElementById('receipt-gift-card').innerHTML = displayMoney(gift_card);
+		//document.getElementById('receipt-check').innerHTML = displayMoney(check);
+		//document.getElementById('receipt-change').innerHTML = displayMoney(current_sale.amount_due);
+		
+		// If we owe the customer change, lets add a payment item
+		if( money(current_sale.amount_due) <= -0.01 ){
+			payment_id = current_sale.id + "P" + current_sale.order_payments.length;
+			current_sale.order_payments.push( { id: payment_id, amount: displayMoney(current_sale.amount_due), payment_type: "change", transaction_id: payment_id, authorization_id: "" } );
+			adjustTill( current_sale.amount_due );
 		}
+		
+		// Save the order to the localstorage in case of a failed upload
 		orderModel.saveCurrentOrder();
-		$('#innerReceiptProductList').html(line_items);
-		$('.receiptSubTotal').html(current_store.currency_code + money(subtotal).toFixed(2));
-		$('.receiptTax').html(current_sale.tax.toFixed(2));
-		$('.receiptTotal').html(current_sale.total.toFixed(2));
-	
-		$('.receiptCash').html(current_store.currency_code + money(cash).toFixed(2));
-		$('.receiptCreditCard').html(current_store.currency_code + money(credit_card).toFixed(2));
-		$('.receiptGiftCard').html(current_store.currency_code + money(gift_card).toFixed(2));
-		$('.receiptCheck').html(current_store.currency_code + money(check).toFixed(2));
-		$('.receiptChange').html(current_store.currency_code + money(current_sale.amount_due).toFixed(2).replace('-', ''));
-	
-		$('.companyName').html(current_company.company_name);
-		$('.storeAddress').html(current_store.address );
-		$('#barcode').html( code128( current_sale.id.toString() ) );
-		$('#receiptBarCodeId').html(current_sale.id.toString());
-
+		
+		// Display barcode on receipt
+		document.getElementById('barcode').innerHTML = code128( current_sale.id );
+		document.getElementById('receiptBarCodeId').innerHTML = current_sale.id;
+		
+		// Show receipt and print
 		showPage('receiptScreenPage');
 		setTimeout(function(){window.print();}, 200);
+		
+		// Try to sync the order
 		syncOrder(current_sale.id);
+		
+		// Reset The Register
 		current_sale=null;
 		display_order();
+		
 	}
 	
+	// This maybe can be moved to a working in the future
 	function syncOrder(order_id){
+		
+		// Get the order from the database
 		order = JSON.stringify(dbOrders.find({where: {field: '_id', compare: 'equals', value: order_id}})[0]);
-		$.post("/api4/sync_order.json", {api_token: current_company.api_token, orderData: order}, function(data) {
+		
+		// Send the order to the server
+		$.post("/api4/sync_order.json", { api_token: current_company.api_token, orderData: order }, function(data){
 			if (data.status == 1){
 				dbOrders.remove({where: {field: "_id", compare: "equals", value: order_id}});
 			}else{
@@ -933,23 +1043,12 @@ function save_meta_data(){
 			dbOrders.update({data: {status: 'completedoffline'}, where: {field: '_id', compare: 'equals', value: order_id}});
 		})
 		.complete(function(){localStorage.setItem('dbOrders', JSON.stringify(dbOrders.find()));});
+		
 	}
 
 
 
 // Models
-	
-	function getProductsFromServer(){
-		postData = { api_token: current_company.api_token, status: "load"};
-		$.post("/api3/loadProducts.json", postData, function(data) {
-			insertProducts(data.items);
-		}, 'json')
-		.error(function() { 
-			insertProducts(JSON.parse(localStorage.getItem('dbProducts')));
-		}).complete(function(){
-
-		});
-	}
 	
 	// Product Models
 	productModel = {

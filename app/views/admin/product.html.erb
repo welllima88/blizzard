@@ -118,16 +118,19 @@
 				<th>Purchase Order Date</th>
 				<th>QTY Ordered</th>
 				<th>Received</th>
-				<th>&nbsp;</th>
+				<th>Purchase Order Status</th>
 			</tr>
 			<% for po in @po %>
 				<tr>
 					<td class="row"><%= po.vendor_name %></td>
-					<td class="row"><%= po.id %></td>
+					<td class="row"><a href="/admin/purchase_order/<%= po.id %>"><%= po.id %></a></td>
 					<td class="row"><%= po.created_at %></td>
-					<td class="row"><%= po.po_items.select{|i| i.product_id.to_s == @p.id.to_s}.first.qty %></td>
+					
+					<% product_inventory = po.po_items.select{|i| i.product_id.to_s == @p.id.to_s}.first %>
+					
+					<td class="row"><%= product_inventory.qty %></td>
+					<td class="row"><%= product_inventory.received %></td>
 					<td class="row"><%= po.status_human %></td>
-					<td class="row"></td>
 				</tr>
 			<% end %>
 		</table>
@@ -155,6 +158,9 @@
 			<% for s in Store.where(:company_id => session[:user]['company_id']) %>
 				<tr>
 					<td><strong><%= s.name %>: </strong></td>
+					
+					
+					
 					<td class="text-right"><%= @p.product_inventorys.select{|item| item.store_id == s.id }.first.qty.to_i unless !@p.product_inventorys.select{|item| item.store_id == s.id }.first %></td>
 				</tr>
 			<% end %>

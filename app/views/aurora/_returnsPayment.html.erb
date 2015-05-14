@@ -41,30 +41,113 @@
 								<input type="button" class="centButton" value="25&cent;" onclick="addReturnCashAmmount(0.25);">
 							</div>
 						</div>
+						
 					</td>
 				</tr>
 			</table>
 		</div>
 		
 		
-		
-		
 		<!-- Credit Card Refund -->
-		<div id="creditReturnPayment" class="hideField">
-			<table class="payment_table" cellspacing="0" cellpadding="10" >
-				<tr>
-					<td style="text-align:center;"><h1>Credit Card Refund</h1></td>
-				</tr>
-				<tr style="background-color:#dddddd;">
-					<td style="text-align:center;">Select Card To Refund</td>
-				</tr>
-				<tr>
-					<td class="returnCreditPaymentLeft"></td>
-				</tr>
-			</table>
+		<div id="return-payment-credit-card" class="row" class="hideField">
 			
-			
+			<div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+				<div class="row">
+					<div class="col-sm-12"><h3>Credit Card Refund</h3></div>
+					<!-- Existing cards -->
+					<div class="col-sm-12 col-md-5 credit-card-refund">
+						<h4>Choose Existing Card</h4>
+						<div id="refund-existing-credit-cards"></div>
+					</div>
+					<!-- Force credit on card -->
+					<div class="col-sm-12 col-md-7 credit-card-refund-new" id="refund-force-credit-card">
+						<h4>Refund New Card</h4>
+						
+						<!-- Swipe Card -->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon" id="sizing-addon1">Swipe Card</span>
+								    <input type="text" class="form-control" placeholder="">
+								    <span class="input-group-btn">
+								    	<button class="btn btn-default" type="button">Refund</button>
+								    </span>
+								</div><!-- /input-group -->
+							</div>
+						</div>
+						
+						<!-- Break -->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="text-break"><span>OR</span><i></i></div>
+							</div>
+						</div>
+						
+						<!-- Manually Enter Card -->
+						<form onsubmit="manual_refund_card();return false;">
+							<div class="row">
+								<div class="col-sm-12">
+									<h5>Manualy Enter Card</h5>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-sm-12">
+									<label class="card-input-label">Name on Card</label>
+								    <input type="text" class="form-control" placeholder="" id="return-payment-card-name">
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-sm-12">
+									<label class="card-input-label">Card Number</label>
+								    <input type="text" class="form-control" placeholder="" id="return-payment-card-number">
+								</div>
+							</div>
+						
+							<div class="row">
+							
+									<div class="col-sm-4">
+										<label class="card-input-label">Expiration Month</label>
+										<select id="return-payment-card-exp-month" class="form-control">
+											<option value=01>(01) January</option>
+											<option value=02>(02) Febuary</option>
+											<option value=03>(03) March</option>
+											<option value=04>(04) April</option>
+											<option value=05>(05) May</option>
+											<option value=06>(06) June</option>
+											<option value=07>(07) July</option>
+											<option value=08>(08) August</option>
+											<option value=09>(09) September</option>
+											<option value=10>(10) October</option>
+											<option value=11>(11) November</option>
+											<option value=12>(12) December</option>
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<label class="card-input-label">Expiration Year</label>
+										<select id="return-payment-card-exp-year" class="form-control">
+											<% 12.times do |x| %>
+												<option value='<%= (Time.now+x.years).strftime('%Y') %>'><%= (Time.now+x.years).strftime('%Y') %></option>
+											<% end %>
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<label class="card-input-label">CVV Code</label>
+										<input type="text" class="form-control" id="return-payment-card-cvv" placeholder="">
+									</div>
+									<div class="col-sm-12 text-right top-buffer">
+										<input type="submit" class="btn btn-success" value="Submit Refund">
+									</div>
+						
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 			
 		</div>
+		
+		
 	</form>
 </div>

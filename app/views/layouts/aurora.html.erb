@@ -160,7 +160,7 @@
 					<!-- Second Header -->
 					<div class="info-bar">
 						<div class="col-sm-3">
-							<b>Company</b><p id="companyName"></p>
+							<b>Company</b><p class="company-name"></p>
 						</div>
 						<div class="col-sm-3">
 							<b>Store</b><p id="storeName"></p>
@@ -205,6 +205,15 @@
 		
 		
 		<!-- Javascript -->
-		<%= javascript_include_tag 'jsormdb', 'database', 'aurora', 'aurora_display', 'aurora_barcode', 'aurora_orders', 'aurora_order_returns', 'alert', 'aurora_offline_backup' %>
+		<%= javascript_include_tag 'jsormdb' %>
+		<%= javascript_include_tag 'database'%>
+		<%= javascript_include_tag 'aurora' %>
+		<%= javascript_include_tag 'aurora_display' %>
+		<%= javascript_include_tag 'aurora_barcode'%>
+		<%= javascript_include_tag 'aurora_orders'%>
+		<%= javascript_include_tag 'aurora_order_returns' %>
+		<%= javascript_include_tag 'alert' %>
+		<%= javascript_include_tag 'aurora_offline_backup' %>
+
 	</body>
 </html>

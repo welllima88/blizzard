@@ -178,18 +178,26 @@ body{
 		background-color:#eee;
 	}
 	.btn {
-		background-color: #2d4250;
-		font-size: 1.4rem;
-		padding: 0.4rem 1rem;
-		height: auto;
-		color: #fff;
-		height: 3rem;
-		
+  	  background-color: #fff;
+  	  font-size: 1.4rem;
+  	  padding: 0.4rem 1rem;
+  	  height: auto;
+  	  color: #3f94cc;
+  	  height: 3rem;
+  	  border-color:#3f94cc;
 	}
+	
+	.btn.active{
+	  background-color: #3f94cc;
+	  color: #fff;
+	}
+	
 	.btn-go{ height:3.4rem; }
 	.btn-success{ background-color: #449d44; }
 	.btn-danger {
+		border-color: #d9534f;
 		background-color: #d9534f;
+		color: #fff;
 		&:hover{
 			color:#fff;
 			background-color:#c9302c;
@@ -233,12 +241,17 @@ body{
 		margin: 0.8rem 3%;
 		border-radius: 0;
 		background-color: #5cb85c;
+		color:#fff;
 		border-color: #4cae4c;
 		padding:1rem 0;
 		height:auto;
 		&:hover{
 			color:#fff;background-color:#449d44;border-color:#398439
 		}
+	}
+	
+	.input-group-btn .btn{
+		border-color: #ccc;
 	}
 	
 	#addCustomerBox{
@@ -654,7 +667,7 @@ body{
 
 
 
-#receiptWrapper h1, #receiptWrapper p{text-align:center;}
+#receiptWrapper h1{text-align:center;  font-size: 26px;}
 
 .receiptProductList{
     width:100%;
@@ -768,6 +781,142 @@ td.till-label {
 			#timesheet-result{ display: block; }
 		}
 	}
+	
+	
+	
+	
+// Return Payment
+
+	#return-payment-credit-card h3{
+	    border-bottom: 1px solid #eee;
+	    padding:0 0 10px 0;
+	    font-size:24px
+	}
+
+	#return-payment-credit-card h4{ 
+	    font-size:20px;
+	}
+
+	.credit-card-refund{
+	    padding-right:10px;
+	    border-right:1px solid #eee;
+	}
+
+	#return-payment-credit-card .credit-card-refund h3{
+	    font-size: 18px;
+	    margin:0;
+	    padding:0;
+	    border:0;
+	}
+
+	.credit-card-refund p{
+	    font-size: 15px;
+	    margin: 10px 0;
+	}
+
+	#return-payment-credit-card .return-credit-card{
+	    background-color:#eee;
+	    padding:15px 0;
+	}
+	
+	.text-break{
+	    width: 100%;
+	    margin: 20px 0;
+	    text-align: center;
+	    padding: 0;
+	    display: inline-block;
+	}
+
+	.text-break i{
+		border-top: 1px solid #eee;
+		width: 94%;
+		display: inline-block;
+		position: absolute;
+		left: 0;
+		margin: 10px 0 0 3%;
+	}
+
+	.text-break span{
+		position: absolute;
+		margin: 0 auto;
+		font-size: 16px;
+		z-index: 8;
+		background-color: #fff;
+		padding: 0 10px;
+	}
+	
+	#refund-force-credit-card {
+	    border-left:1px solid #eee;
+	    margin-left:-1px;
+	}
+	
+	.card-input-label{
+	    margin-top: 10px;
+	    font-size: 14px;
+	    font-weight: 500
+	}
+	
+	
+	
+	
+	
+	
+	
+// New Receipt
+
+#receiptWrapper{width:350px;margin:0 auto;}
+
+	.price-value p{
+		text-align:right;
+	}
+
+	.receipt-line-item{
+	    border-bottom: 1px solid #ddd;
+	    padding: 10px 5px;
+	}
+
+	.receipt-line-item .item-title{
+	    font-size:13px;
+	    font-weight:300;
+	}
+	
+	.receipt-line-item .item-title p{ 
+		margin: 10px 0 0 0;
+		font-style: italic; 
+	}
+
+	.receipt-line-item .prices p{
+	    font-size:13px;
+	    font-weight:300;
+	}
+
+	.receipt-line-item .prices h4{
+	    font-size:18px;
+	    font-weight:500;
+	}
+	
+	.receipt-price{
+	    font-size:22px;
+	}
+
+	.price-value .order-total{
+	    font-size:28px;
+	    font-weight:500;
+	}
+	
+	.row.no-margin{
+		margin-left: 0;
+		margin-right: 0;
+	}
+	
+	#receiptWrapper .store-address, #receiptWrapper .store-phone{
+		font-size:15px;
+		text-align:center;
+	}
+	
+	#receiptBarCodeId{
+		font-size: 1.9rem;
+	}
 
 // Barcode
 
@@ -776,7 +925,7 @@ td.till-label {
     clear: both;
     padding: 0 3rem /*quiet zone*/;
     overflow: auto;
-    height: 10rem   /*size*/;
+    height: 11rem   /*size*/;
 }
 .barcode128h div {
     /*float: left;*/

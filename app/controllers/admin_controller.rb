@@ -35,6 +35,10 @@ class AdminController < ApplicationController
     @return = OrderReturn.find(params[:id])
   end
   
+  
+  
+  
+  
 #
 # Inventory Section
 #
@@ -111,7 +115,7 @@ class AdminController < ApplicationController
     checkAdminAccess('inventory')
     showSection('Inventory', '')
     @p = Product.find(params[:id])
-    @po = Purchaseorder.paginate(:status.in => [0, 1, 2, 3], 'po_items.product_id' => @p.id, :page => params[:popage], :per_page => 5, :order => :created_at.desc)
+    @po = Purchaseorder.paginate(:status.lte => 2, 'po_items.product_id' => @p.id, :page => params[:popage], :per_page => 5, :order => :created_at.desc)
     @orders = Order.paginate(:status => 1, 'order_line_items.product_id' => @p.id, :page => params[:page], :per_page => 5, :order => :created_at.desc)
     @st = StockTransfer.all('stock_transfer_products.product_id' => @p.id, :status => 'sent')
   end

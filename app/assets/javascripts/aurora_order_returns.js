@@ -438,7 +438,7 @@
 		
 			document.getElementById('innerReturnReceiptProductList').innerHTML = line_items;
 			$('.companyNameReturn').html(current_company.company_name);
-			$('.storeAddressReturn').html( store_address() );
+			
 		
 			document.getElementById("returnbarcode").innerHTML = code128(current_return._id);
 			document.getElementById("returnReceiptBarCodeId").innerHTML = current_return._id;
@@ -488,20 +488,33 @@
 	}
 	
 	function showReturnPaymentMethod(method){
-		if (method == 'cash'){
-			$('#cashReturnPayment').show();
-			$('#creditReturnPayment').hide();
+		
+		// If this is cash
+		if( method == 'cash' ){
+			document.getElementById('cashReturnPayment').style.display="block";
+			document.getElementById('return-payment-credit-card').style.display="none";
 		}
+		
+		// If we are refunding a credit card
 		if (method == 'credit_card'){
-			$('#cashReturnPayment').hide();
-			$('#creditReturnPayment').show();
-			var cardsHtml = '';
-			for( var i=0;i<current_return.order_payments.length;i++){
-				if (current_return.order_payments[i].payment_type == 'credit_card'){
-					cardsHtml+='<div class="returnCreditPaymentCard" id="card' + current_return.order_payments[i].id + '"><h3>Original Amount: ' + displayMoney(current_return.order_payments[i].amount) + '</h3>Card Number: **** **** **** ' + current_return.order_payments[i].card_last_four + '<br><input type="button" value="Refund Card " onclick="selectReturnCreditCard(\'' + current_return.order_payments[i].id + '\')" class="buttons"></div>';
+			
+			// Show the card portion
+			document.getElementById('cashReturnPayment').style.display="none";
+			document.getElementById('return-payment-credit-card').style.display="block";
+			
+			// Display existing cards to choose from for refunding
+			var existing_card_html = '';
+			for( var i=0; i<current_return.order_payments.length; i++ ){
+				if( current_return.order_payments[i].payment_type == 'credit_card' ){
+					existing_card_html += '<div class="return-credit-card text-center" id="card' + current_return.order_payments[i].id + '">';
+					existing_card_html += 	'<h3>Original Amount: ' + displayMoney(current_return.order_payments[i].amount) + '</h3>';
+					existing_card_html += 	'<p>Card Number: **** **** **** ' + current_return.order_payments[i].card_last_four + '</p>';
+					existing_card_html += 	'<input type="button" value="Refund Card " onclick="selectReturnCreditCard(\'' + current_return.order_payments[i].id + '\')" class="btn btn-success btn-sm">';
+					existing_card_html += '</div>';
 				}
 			}
-			document.querySelector('.returnCreditPaymentLeft').innerHTML = cardsHtml;
+			document.getElementById('refund-existing-credit-cards').innerHTML = existing_card_html;
+			
 		}
 	}
 	
@@ -534,6 +547,33 @@
 		if (paymentType == 'credit_card'){
 			// Replaced In One Click Refund # => selectReturnCreditCard
 		}
+	}
+	
+	
+	function manual_refund_card(){
+		
+		// Assign the values
+		var card_name = document.getElementById('return-payment-card-name').value;
+		var number = document.getElementById('return-payment-card-number').value;
+		var month = document.getElementById('return-payment-card-exp-month').value;
+		var year = document.getElementById('return-payment-card-exp-year').value;
+		var cvv = document.getElementById('return-payment-card-cvv').value;
+		
+		// If the number or cvv is missing alert
+		if( number == '' || cvv == '' ){ return alert('The card number and CVV fields can not be blank.'); }
+		
+		// Try to proccess payment
+		ProcessingAlert('processingReturnPayment');
+		$.post("/payment_api_base/credit_credit_card.json", { api_token: current_company.api_token, card_name: card_name, card_number: number, card_exp_month: month, card_exp_year: year, card_cvv: cvv, refund_amount: current_return.amount_owed }, function(data) {
+			if (data.status == 1){	
+				addPaymentToReturn(data.amount, 'credit_card', 'complete', data.card_last_four, data.transaction_id, data.authcode);
+			}else{
+				alert("I'm sorry, I could not refund this card.")
+			}
+		}, 'json').complete(function(){
+			 clearAlert(null); 
+		 });
+		
 	}
 	
 

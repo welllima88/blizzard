@@ -128,6 +128,7 @@ class PaymentApiBaseController < ApplicationController
       
   end
   
+  
   def void_credit_card(transaction_id)
     build_profile
     
@@ -147,6 +148,7 @@ class PaymentApiBaseController < ApplicationController
     end
     return response
   end
+  
   
   def refund_credit_card(transaction_id, amount)
     build_profile
@@ -169,28 +171,44 @@ class PaymentApiBaseController < ApplicationController
   end
   
   # Used for partial refunds on capture but not settled transactions, last reseort
-  def credit_credit_card(transaction_id, amount)
+  def credit_credit_card
+    
     build_profile
+    
+    puts "Card Number : " + params[:card_number].to_s
 
     o_bct = BankCardTransaction.new
     o_bct.type = BankCardTransaction.xs_bct_type_credit
-    o_bct.id = transaction_id
-    o_bct.amount = amount
+    o_bct.amount = params[:refund_amount]
+    
+    # If swiped
+    if !params[:card_mag_data].blank?
+      # This needs to be completed
+    else
+      o_bct.card_name = params[:card_name]
+      o_bct.card_number = params[:card_number].to_s
+      o_bct.card_expiration_month = params[:card_exp_month]
+      o_bct.card_expiration_year = params[:card_exp_year]
+      o_bct.card_cvv2 = params[:card_cvv]
+    end
+    
     
     o_bct = @@base_client.process_bank_card_transaction(o_bct)
 
     if o_bct.status == BankCardTransaction.xs_bct_status_failed
-      puts o_bct.messages
-      response.status = 0
+      response = {"status" => 0, "msg" => o_bct.messages[0]}
     elsif o_bct.status == BankCardTransaction.xs_bct_status_declined
-      puts o_bct.response_code
-      puts o_bct.response_message
-      response.status = 0
+     response = {"status" => 0, "msg" => o_bct.response_message[0], "code" => o_bct.response_code}
     elsif
-      puts  'Sucessfully Refunded Transaction'
-      response.status = 1
-    end                              
-    return response             
+      response = {"status" => 1, "transaction_id" => o_bct.id, "amount" => o_bct.amount, "authcode" => o_bct.authorization_code }
+    end    
+    
+    puts "RESPONSE:" + response.to_s                          
+    
+    respond_to do |format|
+      format.json { render :json => response.to_json }
+    end
+          
   end
   
   

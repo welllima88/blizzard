@@ -1,51 +1,94 @@
 <div id="receiptWrapper">
-	<h1 class="companyName"></h1>
-	<p class="storeAddress"></p>
-	<table class="receiptProductList">
-		<tr>
-			<td><strong>(QTY) PRODUCT NAME</strong></td>
-			<td><strong>PRICE</strong></td>
-			<td><strong>TOTAL</strong></td>
-		</tr>
-		<tr><td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
-		<tbody id="innerReceiptProductList">
-			<!-- Line Items Here -->
-		</tbody>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>SUBTOTAL</strong></td>
-			<td class="receiptSubTotal">$</td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>TAX</strong></td>
-			<td class="receiptTax"></td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>TOTAL</strong></td>
-			<td class="receiptTotal"></td>
-		</tr>
-		<tr><td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>CASH</strong></td>
-			<td class="receiptCash"></td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>CREDIT CARD</strong></td>
-			<td class="receiptCreditCard"></td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>GIFT CARD</strong></td>
-			<td class="receiptGiftCard"></td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>CHECK</strong></td>
-			<td class="receiptCheck"></td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align:right;"><strong>Change</strong></td>
-			<td class="receiptChange"></td>
-		</tr>
-		<tr><td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
-	</table>
+	<div class="row">
+		<div class="col-sm-12"><h1 class="companyName"></h1></div>
+	</div>
+	
+	<div class="row top-buffer">
+		<div class="col-sm-12"><p class="storeAddress"></p></div>
+	</div>
+	
+	<div class="row top-buffer">
+		<table class="table receipt-table">
+			<tr>
+				<th><strong>(QTY) PRODUCT NAME</strong></th>
+				<th><strong>PRICE</strong></th>
+				<th><strong>TOTAL</strong></th>
+			</tr>
+			<tbody id="innerReceiptProductList">
+				<tr>
+					<td>( 2 ) iPod Classic</td>
+					<td>$249.00</td>
+					<td>$498.00</td>
+				</tr>
+				<tr>
+					<td>( 1 ) iPod Shuffle</td>
+					<td>$49.00</td>
+					<td>$49.00</td>
+				</tr>
+				<tr>
+					<td>( 1 ) iPod Touch</td>
+					<td>$229.00</td>
+					<td>$229.00</td>
+				</tr>
+				<tr>
+					<td>( 1 ) MacBook</td>
+					<td>$1299.00</td>
+					<td>$1299.00</td>
+				</tr>
+				<tr>
+					<td>( 1 ) MacBook Pro</td>
+					<td>$1999.00</td>
+					<td>$1999.00</td>
+				</tr>
+				<tr>
+					<td>( 1 ) MacBook Air</td>
+					<td>$1799.00</td>
+					<td>$1799.00</td>
+				</tr>
+				<tr>
+					<td>( 1 ) Elgato EyeTV DTT Deluxe</td>
+					<td>$199.95</td>
+					<td>$199.95</td>
+				</tr>
+			</tbody>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>SUBTOTAL</strong></td>
+				<td class="receiptSubTotal">$</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>TAX</strong></td>
+				<td class="receiptTax"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>TOTAL</strong></td>
+				<td class="receiptTotal"></td>
+			</tr>
+			<tr><td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td></tr>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>CASH</strong></td>
+				<td class="receiptCash"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>CREDIT CARD</strong></td>
+				<td class="receiptCreditCard"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>GIFT CARD</strong></td>
+				<td class="receiptGiftCard"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>CHECK</strong></td>
+				<td class="receiptCheck"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:right;"><strong>Change</strong></td>
+				<td class="receiptChange"></td>
+			</tr>
+			<tr>
+				<td colspan="3" style="border-bottom:1px dotted #000000;padding-top:10px;"></td>
+			</tr>
+		</table>
+	</div>
 	<div id="barcodeArea" style="width:100%;text-align:center;padding:15px 0 15px 0;">
 		<div class="barcode128h" id="barcode"></div><br>
 		<div id="receiptBarCodeId"></div>

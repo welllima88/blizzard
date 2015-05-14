@@ -14,13 +14,13 @@
 				<div class="input-group"><span class="input-group-addon">Product Name</span><%= text_field(:product, :name, :class => 'form-control')%></div>
 			</div>
 			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
-				<div class="input-group"><span class="input-group-addon">Department</span><%= select_tag("product[department_id]", options_from_collection_for_select(@company.departments, :id, :name, @product.department_id), :class =>"form-control") %></div>
+				<div class="input-group"><span class="input-group-addon">Department</span><%= select_tag("product[department_id]", options_from_collection_for_select(@company.departments, :id, :name, @product.department_id), :class =>"form-control", prompt: "Select Department") %></div>
 			</div>
 			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
-				<div class="input-group"><span class="input-group-addon">Vendor</span><%= select_tag("product[vendor_id]", options_from_collection_for_select(@company.vendors, :id, :name, @product.vendor_id), :class =>"form-control") %></div>
+				<div class="input-group"><span class="input-group-addon">Vendor</span><%= select_tag("product[vendor_id]", options_from_collection_for_select(@company.vendors, :id, :name, @product.vendor_id), :class =>"form-control", prompt: "Select Vendor") %></div>
 			</div>
 			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
-				<div class="input-group"><span class="input-group-addon">Manufacturer</span><%= select_tag("product[manufacturer_id]", options_from_collection_for_select(@company.manufacturers, :id, :name, @product.manufacturer_id), :class =>"form-control") %></div>
+				<div class="input-group"><span class="input-group-addon">Manufacturer</span><%= select_tag("product[manufacturer_id]", options_from_collection_for_select(@company.manufacturers, :id, :name, @product.manufacturer_id), :class =>"form-control", prompt: "Select Manufacturer") %></div>
 			</div>
 			<div class="col-xs-12 col-md-12 col-lg-4 form-group">
 				<div class="input-group"><span class="input-group-addon">Taxable</span><%= select_tag "product[nontax]", options_for_select({'Taxed' => 0,'Not Taxed' => 1}, @product.nontax), :class => 'form-control' %></div>
@@ -81,7 +81,22 @@
 			<% for store in @company.stores %>
 				<tr>
 					<td><%= store.name %></td>
-					<td class="text-right"><%= text_field(store.id, :qty, :value => 0)%></td>
+					
+					<%
+						
+						# Fallback for legacy, this needs to be addressed, make sure product have a product inventory for each location
+						
+						if !@product.product_inventorys.select{ |pi| pi.store_id.to_s == store.id.to_s }.first
+
+				          product_inventory = ProductInventory.new(:store_id => store.id, :qty => 0)
+				          @product.product_inventorys << product_inventory
+				          @product.save
+							
+						end
+						
+					%>
+					
+					<td class="text-right"><%= text_field(store.id, :qty, :value => @product.product_inventorys.select{ |pi| pi.store_id.to_s == store.id.to_s }.first.qty.to_i )%></td>
 				</tr>
 			<% end %>
 		</table>	
